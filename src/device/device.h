@@ -10,12 +10,16 @@
 
 #include "util.h"
 
-extern bool    device_init();
+extern bool     device_init();
 
-extern bool    device_trigger_rd(        );
-extern void    device_trigger_wr( bool x );
+extern bool     device_trigger_rd(        );
+extern void     device_trigger_wr( bool x );
 
-extern uint8_t device_uart_rd(           );
-extern void    device_uart_wr( uint8_t x );
+extern uint8_t  device_uart_rd(           );
+extern void     device_uart_wr( uint8_t x );
+
+extern uint64_t device_tsc();
+
+extern uint64_t device_tsc_diff( uint64_t x, uint64_t y );
 
 #endif

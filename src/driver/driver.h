@@ -21,7 +21,10 @@ typedef struct {
   char* hid; bool (*ptr)( char* ack, char* req[], int n );
 } driver_cmd_desc_t;
 
-extern bool driver_id        ( char* ack, char* req[], int n );
+extern uint64_t driver_tsc_init;
+extern uint64_t driver_tsc_fini;
+
+extern bool driver_tsc       ( char* ack, char* req[], int n );
 
 extern bool driver_reg_sizeof( char* ack, char* req[], int n );
 extern bool driver_reg_rd    ( char* ack, char* req[], int n );

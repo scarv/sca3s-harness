@@ -15,8 +15,11 @@
 #include  <string.h>
 #include   <ctype.h>
 
-#define __STR(x) #x
-#define   STR(x) __STR( x )
+#define __STR(x)      #x
+#define   STR(x) __STR(x)
+
+#define SIZEOF(x) ( sizeof(x)     )
+#define BITSOF(x) ( sizeof(x) * 8 )
 
 extern int  xtoi( char x );
 extern char itox( int  x );

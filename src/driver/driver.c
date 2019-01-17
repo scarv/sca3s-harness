@@ -10,8 +10,11 @@
 driver_reg_desc_t* driver_reg = NULL;
 driver_cmd_desc_t* driver_cmd = NULL;
 
-char driver_req[ 64 ];
-char driver_ack[ 64 ];
+char               driver_req[ 64 ];
+char               driver_ack[ 64 ];
+
+uint64_t           driver_tsc_init;
+uint64_t           driver_tsc_fini;
 
 driver_reg_desc_t* driver_reg_desc_find( char* hid ) {
   for( int i = 0; driver_reg[ i ].hid != NULL; i++ ) {    
@@ -31,6 +34,17 @@ driver_cmd_desc_t* driver_cmd_desc_find( char* hid ) {
   }
 
   return NULL;
+}
+
+bool driver_tsc       ( char* ack, char* req[], int n ) {
+  if( n == 0 ) {
+    uint64_t tsc = device_tsc_diff( driver_tsc_init, 
+                                    driver_tsc_fini );
+
+    return bytestostr( ack, ( uint8_t* )( &tsc ), SIZEOF( tsc ) ) == SIZEOF( tsc );    
+  }
+
+  return false;
 }
 
 bool driver_reg_sizeof( char* ack, char* req[], int n ) {

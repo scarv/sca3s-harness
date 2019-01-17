@@ -15,16 +15,21 @@ uint8_t reg_c[ KERNEL_SIZEOF_BLK ];
 #define WRAPPER(f,x)                        \
   bool f( char* ack, char* req[], int n ) { \
     if( n == 0 ) {                          \
-      x return true;                        \
-    }                                       \
+      driver_tsc_init = device_tsc();       \
+      x                                     \
+      driver_tsc_fini = device_tsc();       \
                                             \
-    return false;                           \
-  }
+      return  true;                         \
+    }                                       \
+    else {                                  \
+      return false;                         \
+    }                                       \
+  }                                         \
 
 #define TRIGGER(  x)          \
   device_trigger_wr(  true ); \
   x                           \
-  device_trigger_wr( false ); 
+  device_trigger_wr( false ); \
 
 WRAPPER( driver_id,       strcpy( ack, DRIVER_TYPE ":" DRIVER_VERSION ":" STR(KERNEL_SIZEOF_RND) "," STR(KERNEL_SIZEOF_KEY) "," STR(KERNEL_SIZEOF_BLK) ); )
 
@@ -44,6 +49,8 @@ int main( int argc, char* argv[] ) {
   };
           
   driver_cmd_desc_t cmd_desc[] = { 
+    { .hid = "?tsc",      .ptr = &driver_tsc                   },
+
     { .hid = "?reg",      .ptr = &driver_reg_sizeof            },
     { .hid = "<reg",      .ptr = &driver_reg_rd                },
     { .hid = ">reg",      .ptr = &driver_reg_wr                },

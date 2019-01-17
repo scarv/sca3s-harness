@@ -51,7 +51,7 @@ build-device : ${DEVICE_OBJECTS}
 
 build-target :        ${TARGETS}
 
-build        : deps-fetch deps-build build-kernel build-device build-target
+build        : build-kernel build-device build-target
 
 clean        :
 	@rm -f ${KERNEL_OBJECTS} 
