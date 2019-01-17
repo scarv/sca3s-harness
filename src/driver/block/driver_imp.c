@@ -38,6 +38,8 @@ WRAPPER( driver_dec_init,          kernel_dec_init(               reg_k, reg_r )
 WRAPPER( driver_enc,      TRIGGER( kernel_enc     ( reg_c, reg_m, reg_k, reg_r ); ) )
 WRAPPER( driver_dec,      TRIGGER( kernel_dec     ( reg_m, reg_c, reg_k, reg_r ); ) )
 
+WRAPPER( driver_nop,      TRIGGER(                                                ) )
+
 int main( int argc, char* argv[] ) {
   driver_reg_desc_t reg_desc[] = { 
     { .hid = "k",           .ptr = reg_k, .n = sizeof( reg_k ) },
@@ -61,9 +63,11 @@ int main( int argc, char* argv[] ) {
     { .hid = "!dec_init", .ptr = &driver_dec_init              },
     { .hid = "!enc",      .ptr = &driver_enc                   },
     { .hid = "!dec",      .ptr = &driver_dec                   },
+
+    { .hid = "!nop",      .ptr = &driver_nop                   },
   
     { .hid = NULL                                              }
-  } ;
+  };
 
   return driver( reg_desc, cmd_desc );
 }
