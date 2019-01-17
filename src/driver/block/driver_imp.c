@@ -15,30 +15,31 @@ uint8_t reg_c[ KERNEL_SIZEOF_BLK ];
 #define WRAPPER(f,x)                        \
   bool f( char* ack, char* req[], int n ) { \
     if( n == 0 ) {                          \
-      driver_tsc_init = device_tsc();       \
-      x                                     \
-      driver_tsc_fini = device_tsc();       \
-                                            \
-      return  true;                         \
+      x return  true;                       \
     }                                       \
     else {                                  \
-      return false;                         \
+        return false;                       \
     }                                       \
   }                                         \
 
-#define TRIGGER(  x)          \
-  device_trigger_wr(  true ); \
-  x                           \
-  device_trigger_wr( false ); \
+#define    TIME(  x)              \
+  driver_tsc_init = device_tsc(); \
+  x                               \
+  driver_tsc_fini = device_tsc(); \
+
+#define TRIGGER(  x)              \
+  device_trigger_wr(  true );     \
+  x                               \
+  device_trigger_wr( false );     \
 
 WRAPPER( driver_id,       strcpy( ack, DRIVER_TYPE ":" DRIVER_VERSION ":" STR(KERNEL_SIZEOF_RND) "," STR(KERNEL_SIZEOF_KEY) "," STR(KERNEL_SIZEOF_BLK) ); )
 
-WRAPPER( driver_enc_init,          kernel_enc_init(               reg_k, reg_r );   )
-WRAPPER( driver_dec_init,          kernel_dec_init(               reg_k, reg_r );   )
-WRAPPER( driver_enc,      TRIGGER( kernel_enc     ( reg_c, reg_m, reg_k, reg_r ); ) )
-WRAPPER( driver_dec,      TRIGGER( kernel_dec     ( reg_m, reg_c, reg_k, reg_r ); ) )
+WRAPPER( driver_enc_init,          TIME( kernel_enc_init(               reg_k, reg_r );   ) )
+WRAPPER( driver_dec_init,          TIME( kernel_dec_init(               reg_k, reg_r );   ) )
+WRAPPER( driver_enc,      TRIGGER( TIME( kernel_enc     ( reg_c, reg_m, reg_k, reg_r ); ) ) )
+WRAPPER( driver_dec,      TRIGGER( TIME( kernel_dec     ( reg_m, reg_c, reg_k, reg_r ); ) ) )
 
-WRAPPER( driver_nop,      TRIGGER(                                                ) )
+WRAPPER( driver_nop,               TIME(                                                )   )
 
 int main( int argc, char* argv[] ) {
   driver_reg_desc_t reg_desc[] = { 
