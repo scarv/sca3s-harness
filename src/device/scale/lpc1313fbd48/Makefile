@@ -41,4 +41,12 @@ report  : ${TARGETS}
 	@arm-none-eabi-readelf --wide --all $(filter %.elf, ${^})
 
 program : ${TARGETS}
-	@lpc21isp -wipe -hex $(filter %.hex, ${^}) ${USB} 9600 12000
+	@openocd -f interface/jlink.cfg                             \
+                 -c "transport select swd"                          \
+                 -f    target/lpc13xx.cfg                           \
+                 -c       "init"                                    \
+                 -c "reset init"                                    \
+                 -c "flash write_image erase $(filter %.hex, ${^})" \
+	         -c "reset  run"                                    \
+                 -c "shutdown"
+
