@@ -32,7 +32,7 @@ uint8_t reg_c[ KERNEL_SIZEOF_BLK ];
   x                               \
   device_trigger_wr( false );     \
 
-WRAPPER( driver_id,       strcpy( ack, DRIVER_TYPE ":" DRIVER_VERSION ":" STR(KERNEL_SIZEOF_RND) "," STR(KERNEL_SIZEOF_KEY) "," STR(KERNEL_SIZEOF_BLK) ); )
+WRAPPER( driver_id,                      strcpy( ack, DRIVER_TYPE ":" DRIVER_VERSION );     )
 
 WRAPPER( driver_enc_init,          TIME( kernel_enc_init(               reg_k, reg_r );   ) )
 WRAPPER( driver_dec_init,          TIME( kernel_dec_init(               reg_k, reg_r );   ) )
@@ -51,14 +51,14 @@ int main( int argc, char* argv[] ) {
     { .hid = NULL                                              } 
   };
           
-  driver_cmd_desc_t cmd_desc[] = { 
-    { .hid = "?tsc",      .ptr = &driver_tsc                   },
+  driver_cmd_desc_t cmd_desc[] = {
+    { .hid = "?id",       .ptr = &driver_id                    },   
 
     { .hid = "?reg",      .ptr = &driver_reg_sizeof            },
     { .hid = "<reg",      .ptr = &driver_reg_rd                },
     { .hid = ">reg",      .ptr = &driver_reg_wr                },
 
-    { .hid = "?id",       .ptr = &driver_id                    },
+    { .hid = "?tsc",      .ptr = &driver_tsc                   },
 
     { .hid = "!enc_init", .ptr = &driver_enc_init              },
     { .hid = "!dec_init", .ptr = &driver_dec_init              },

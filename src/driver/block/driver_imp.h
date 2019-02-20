@@ -15,11 +15,12 @@
 
 #include "driver.h"
 
+#define DRIVER_TYPE          "block"
+
 #define DRIVER_VERSION_MAJOR 0
 #define DRIVER_VERSION_MINOR 1
 #define DRIVER_VERSION_PATCH 0
 
 #define DRIVER_VERSION       STR(DRIVER_VERSION_MAJOR) "." STR(DRIVER_VERSION_MINOR) "." STR(DRIVER_VERSION_PATCH)
-#define DRIVER_TYPE          "block"
 
 #endif
