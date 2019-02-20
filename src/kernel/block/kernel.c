@@ -16,9 +16,7 @@ void kernel_dec_init( uint8_t* k, uint8_t* r ) {
 }
 
 void kernel_enc( uint8_t* c, uint8_t* m, uint8_t* k, uint8_t* r ) {
-  for( int i = 0; i < 16; i++ ) {
-    c[ i ] = m[ i ] ^ k[ i ];
-  }
+
 }
 
 void kernel_dec( uint8_t* c, uint8_t* m, uint8_t* k, uint8_t* r ) {
