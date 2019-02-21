@@ -18,7 +18,7 @@ power and EM) stemming from
 [RISC-V](https://riscv.org)-based
 platforms.
 The main
-[repository](https://github.com/scarv/xcrypto)
+[repository](https://github.com/scarv/lab.scarv.org)
 acts as a general container for associated resources;
 this specific submodule houses
 the framework within which target implementations are developed.*
