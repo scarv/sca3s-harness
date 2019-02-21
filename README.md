@@ -1,4 +1,4 @@
-# [`lab.scarv.org`](https://github.com/scarv/lab.scarv.org.git): target  framework
+# [`lab.scarv.org`](https://github.com/scarv/lab.scarv.org.git): target implementation
 
 <!--- -------------------------------------------------------------------- --->
 
@@ -21,7 +21,7 @@ The main
 [repository](https://github.com/scarv/lab.scarv.org)
 acts as a general container for associated resources;
 this specific submodule houses
-the framework within which target implementations are developed.*
+a framework within which target implementations are developed.*
 
 <!--- -------------------------------------------------------------------- --->
 
