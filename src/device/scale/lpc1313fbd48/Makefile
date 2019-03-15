@@ -30,7 +30,7 @@ ${REPO_HOME}/build/%.o : %.s %.h
 ${REPO_HOME}/build/%.o : %.S %.h
 	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${SCALE_CONF} -c -o ${@} ${<}
 
-${REPO_HOME}/build/%.elf ${REPO_HOME}/build/%.map : ${DEVICE_OBJECTS} ${DRIVER_OBJECTS}
+${REPO_HOME}/build/%.elf ${REPO_HOME}/build/%.map : ${DEVICE_OBJECTS} ${TARGET_OBJECTS}
 	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${SCALE_CONF} -Wl,-Map=${REPO_HOME}/build/${*}.map -o ${REPO_HOME}/build/${*}.elf ${^} ${GCC_LIBS}
 ${REPO_HOME}/build/%.bin                          : ${REPO_HOME}/build/%.elf
 	@${GCC_PREFIX}objcopy ${OBJCOPY_FLAGS} -O binary ${<} ${@}
