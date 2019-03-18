@@ -8,7 +8,7 @@
 <!--- -------------------------------------------------------------------- --->
 
 *Acting as a component part of the
-[SCARV](https://github.com/scarv)
+[SCARV](https://www.scarv.org)
 project,
 `lab.scarv.org` is a collection of resources that support the
 development and analysis of cryptographic implementations wrt.
