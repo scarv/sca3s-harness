@@ -1,4 +1,4 @@
-# [`lab.scarv.org`](https://github.com/scarv/lab.scarv.org.git): target implementation
+# [`lab.scarv.org`](https://github.com/scarv/lab.scarv.org): target implementation
 
 <!--- -------------------------------------------------------------------- --->
 
@@ -41,7 +41,13 @@ a framework within which target implementations are developed.*
 
 ## Quickstart
 
-1. Install any associated pre-requisites, e.g.,
+1. The main `lab.scarv.org`
+   [repository](https://github.com/scarv/lab.scarv.org)
+   houses some overarching documentation, which offers some
+   context and explanation: it *might* be sensible to start
+   by reading that.
+
+2. Install any associated pre-requisites, e.g.,
 
    - a device-specific compiler and programming tool-chain,
      e.g., suitable versions of
@@ -52,7 +58,7 @@ a framework within which target implementations are developed.*
      [Doxygen](http://www.doxygen.nl)
      documentation generation system.
 
-2. Go to the 
+3. Go to the 
    [GitHub](https://github.com)-hosted
    repository
    [web-page](https://github.com/scarv/lab-target),
@@ -61,7 +67,7 @@ a framework within which target implementations are developed.*
    of it: doing so will create a copy of the repository in your *own* 
    account, the username for which we will assume is `${USER}`.
 
-3. Execute
+4. Execute
 
    ```sh
    git clone https://github.com/${USER}/lab-target.git
@@ -75,7 +81,7 @@ a framework within which target implementations are developed.*
    `REPO_HOME`
    is set appropriately.
 
-4. Select the device and target implementation (implying the driver 
+5. Select the device and target implementation (implying the driver 
    and kernel) types by setting the environment variables
    `DEVICE`
    and
@@ -88,7 +94,7 @@ a framework within which target implementations are developed.*
    export TARGET="block"
    ```
 
-5. Produce the target implementation in the *forked* repository:
+6. Produce the target implementation in the *forked* repository:
 
    1. edit
 
@@ -111,7 +117,7 @@ a framework within which target implementations are developed.*
 
    3. commit and push the result.
 
-6. Either
+7. Either
 
    1. use the *forked* repository remotely:
       go to 
