@@ -28,24 +28,14 @@ a framework within which target implementations are developed.*
 ## Organisation
 
 ```
-├── bin                     - scripts (e.g., environment configuration)
-├── build                   - working directory for build
-└── src                     - source code
-    ├── device                - device implementations
-    ├── driver                - driver implementations
-    ├── kernel                - kernel implementations
-    └── share                 - shared functionality
+├── bin         - scripts (e.g., environment configuration)
+├── build       - working directory for build
+└── src         - source code
+    ├── device    - device implementations
+    ├── driver    - driver implementations
+    ├── kernel    - kernel implementations
+    └── share     - shared functionality
 ```
-
-<!--- -------------------------------------------------------------------- --->
-
-## Terminology
-
-- The term *device* is used as a catch-all for the hardware platform on 
-  which target implementations are executed.
-- A target implementation is formed by combining two components, namely
-  a *driver* and a *kernel*; when executed on the device, the former 
-  offers a uniform communication interface via which the latter is used.
 
 <!--- -------------------------------------------------------------------- --->
 
@@ -53,7 +43,11 @@ a framework within which target implementations are developed.*
 
 1. Install any associated pre-requisites, e.g.,
 
-   - a device-specific compiler tool-chain,
+   - a device-specific compiler and programming tool-chain,
+     e.g., suitable versions of
+     [GCC](https://gcc.gnu.org)
+     and
+     [OpenOCD](http://openocd.org),
    - the
      [Doxygen](http://www.doxygen.nl)
      documentation generation system.
@@ -76,7 +70,7 @@ a framework within which target implementations are developed.*
    ```
 
    to clone and initialise the *forked* repository,
-   and configure the environment;
+   then configure the environment;
    for example, you should find that the environment variable
    `REPO_HOME`
    is set appropriately.
@@ -119,7 +113,7 @@ a framework within which target implementations are developed.*
 
 6. Either
 
-   1. use the repository *remotely*:
+   1. use the *forked* repository remotely:
       go to 
       [lab.scarv.org](https://lab.scarv.org),
       and submit a job referencing the forked repository, i.e.,
@@ -131,7 +125,7 @@ a framework within which target implementations are developed.*
       in order to acquire an associated trace set,
       or
 
-   2. use the repository  *locally*:
+   2. use the *forked* repository  locally:
       use targets in the top-level `Makefile` to drive a set of
       common tasks, e.g.,
 
@@ -159,6 +153,15 @@ a framework within which target implementations are developed.*
 
         to program the device (assuming it is attached) with the 
         target implementation.
+
+      - execute
+
+        ```sh
+        make clean
+        ```
+
+        to clean-up
+        (e.g., remove everything built in `${REPO_HOME}/build`).
 
 <!--- -------------------------------------------------------------------- --->
 

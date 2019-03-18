@@ -57,13 +57,8 @@ build-target :        ${TARGETS}
 
 build        : build-device build-driver build-target
 
-doc          : Doxyfile
+doc          : ${REPO_HOME}/Doxyfile
 	@doxygen ${<}
 
 clean        :
-	@rm -f ${DEVICE_OBJECTS} 
-	@rm -f ${TARGET_OBJECTS} 
-	@rm -f        ${TARGETS}
-
-spotless     : clean
-	@rm -rf ./build/*
+	@rm -rf ${REPO_HOME}/build/*
