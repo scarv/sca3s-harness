@@ -31,7 +31,7 @@ a framework within which target implementations are developed.*
 ├── bin         - scripts (e.g., environment configuration)
 ├── build       - working directory for build
 └── src         - source code
-    ├── device    - device implementations
+    ├── board     - board  implementations
     ├── driver    - driver implementations
     ├── kernel    - kernel implementations
     └── share     - shared functionality
@@ -49,7 +49,7 @@ a framework within which target implementations are developed.*
 
 2. Install any associated pre-requisites, e.g.,
 
-   - a device-specific compiler and programming tool-chain,
+   - a board-specific compiler and programming tool-chain,
      e.g., suitable versions of
      [GCC](https://gcc.gnu.org)
      and
@@ -81,16 +81,16 @@ a framework within which target implementations are developed.*
    `REPO_HOME`
    is set appropriately.
 
-5. Select the device and target implementation (implying the driver 
+5. Select the board and target implementation (implying the driver 
    and kernel) types by setting the environment variables
-   `DEVICE`
+   `BOARD`
    and
    `TARGET`
    appropriately, 
    e.g., via
 
    ```
-   export DEVICE="scale/lpc1313fbd48"
+   export BOARD="scale/lpc1313fbd48"
    export TARGET="block"
    ```
 
@@ -157,7 +157,7 @@ a framework within which target implementations are developed.*
         make program
         ```
 
-        to program the device (assuming it is attached) with the 
+        to program the board (assuming it is attached) with the 
         target implementation.
 
       - execute

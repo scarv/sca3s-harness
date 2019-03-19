@@ -77,8 +77,8 @@ bool driver_reg_wr    ( char* ack, char* req[], int n ) {
 
 bool driver_tsc       ( char* ack, char* req[], int n ) {
   if( n == 0 ) {
-    uint64_t tsc = device_tsc_diff( driver_tsc_init, 
-                                    driver_tsc_fini );
+    uint64_t tsc = board_tsc_diff( driver_tsc_init, 
+                                   driver_tsc_fini );
 
     return bytestostr( ack, ( uint8_t* )( &tsc ), SIZEOF( tsc ) ) == SIZEOF( tsc );    
   }
@@ -90,7 +90,7 @@ char* driver_rdln( char* x ) {
   char* p = x;
 
   while( true ) {
-    *p = device_uart_rd();
+    *p = board_uart_rd();
 
     if( *p == '\x0D' ) {
       break;
@@ -112,19 +112,19 @@ char* driver_wrln( char* x ) {
       break;
     }
 
-    device_uart_wr( *p );
+    board_uart_wr( *p );
 
     p++;
   }
 
-  device_uart_wr( '\x0D' );
+  board_uart_wr( '\x0D' );
 
   return x;
 }
 
 int driver( driver_reg_desc_t* __driver_reg,
             driver_cmd_desc_t* __driver_cmd ) {
-  if( !device_init() ) {
+  if( !board_init() ) {
     return -1;
   }
 
@@ -154,14 +154,14 @@ int driver( driver_reg_desc_t* __driver_reg,
 
       if( f != NULL ) {
 	if( f->ptr( driver_ack, cp + 1, cn - 1 ) ) {
-          device_uart_wr( '+' ); driver_wrln( driver_ack );
+          board_uart_wr( '+' ); driver_wrln( driver_ack );
         }
         else {
-          device_uart_wr( '-' ); driver_wrln( driver_ack );
+          board_uart_wr( '-' ); driver_wrln( driver_ack );
         }
       }
       else {
-          device_uart_wr( '~' ); driver_wrln( driver_ack );
+          board_uart_wr( '~' ); driver_wrln( driver_ack );
       }
     }
   }

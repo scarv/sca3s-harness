@@ -5,8 +5,8 @@
  * as LICENSE.txt within the associated archive or repository).
  */
 
-#ifndef __DEVICE_IMP_H
-#define __DEVICE_IMP_H
+#ifndef __BOARD_IMP_H
+#define __BOARD_IMP_H
 
 #include <scale/scale.h>
 

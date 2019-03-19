@@ -22,15 +22,15 @@ uint8_t reg_c[ KERNEL_SIZEOF_BLK ];
     }                                       \
   }                                         \
 
-#define    TIME(  x)              \
-  driver_tsc_init = device_tsc(); \
-  x                               \
-  driver_tsc_fini = device_tsc(); \
+#define    TIME(  x)             \
+  driver_tsc_init = board_tsc(); \
+  x                              \
+  driver_tsc_fini = board_tsc(); \
 
-#define TRIGGER(  x)              \
-  device_trigger_wr(  true );     \
-  x                               \
-  device_trigger_wr( false );     \
+#define TRIGGER(  x)             \
+  board_trigger_wr(  true );     \
+  x                              \
+  board_trigger_wr( false );     \
 
 WRAPPER( driver_id,                      strcpy( ack, DRIVER_TYPE ":" DRIVER_VERSION );     )
 
