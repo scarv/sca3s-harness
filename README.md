@@ -49,8 +49,12 @@ a framework within which target implementations are developed.*
 
 2. Install any associated pre-requisites, e.g.,
 
-   - a board-specific compiler and programming tool-chain,
-     e.g., suitable versions of
+   - a suitable
+     compiler 
+     and 
+     programming 
+     tool-chain,
+     e.g., board-specific versions of
      [GCC](https://gcc.gnu.org)
      and
      [OpenOCD](http://openocd.org),
@@ -81,15 +85,16 @@ a framework within which target implementations are developed.*
    `REPO_HOME`
    is set appropriately.
 
-5. Select the board and target implementation (implying the driver 
-   and kernel) types by setting the environment variables
+5. Select the
+   board and target implementation (implying the driver and kernel) types
+   by setting the environment variables
    `BOARD`
    and
    `TARGET`
-   appropriately, 
+   appropriately,
    e.g., via
 
-   ```
+   ```sh
    export BOARD="scale/lpc1313fbd48"
    export TARGET="block"
    ```
@@ -98,7 +103,7 @@ a framework within which target implementations are developed.*
 
    1. edit
 
-      ```
+      ```sh
       ${REPO_HOME}/src/kernel/${TARGET}/kernel.c
       ```
 
@@ -108,7 +113,7 @@ a framework within which target implementations are developed.*
 
    2. edit
 
-      ```
+      ```sh
       ${REPO_HOME}/src/kernel/${TARGET}/kernel.c
       ```
 
