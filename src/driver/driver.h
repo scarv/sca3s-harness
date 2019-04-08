@@ -10,7 +10,7 @@
 
 #include "util.h"
 
-#include "board.h"
+#include  "board.h"
 #include "kernel.h"
 
 #define DRIVER_VERSION_MAJOR 0

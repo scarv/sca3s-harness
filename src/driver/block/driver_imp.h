@@ -10,7 +10,7 @@
 
 #include "util.h"
 
-#include "device.h"
+#include  "board.h"
 #include "kernel.h"
 
 #include "driver.h"
