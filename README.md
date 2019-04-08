@@ -66,7 +66,7 @@ a framework within which target implementations are developed.*
 
       or
 
-   2. pull, launch, and then work within a pre-built
+   2. pull, launch, then work within a pre-built
       [Docker](https://www.docker.com)
       container, e.g., via
 
