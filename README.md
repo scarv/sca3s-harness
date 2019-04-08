@@ -47,20 +47,32 @@ a framework within which target implementations are developed.*
    context and explanation: it *might* be sensible to start
    by reading that.
 
-2. Install any associated pre-requisites, e.g.,
+2. Either
 
-   - a suitable
-     compiler 
-     and 
-     programming 
-     tool-chain,
-     e.g., board-specific versions of
-     [GCC](https://gcc.gnu.org)
-     and
-     [OpenOCD](http://openocd.org),
-   - the
-     [Doxygen](http://www.doxygen.nl)
-     documentation generation system.
+   1. install any associated pre-requisites, e.g.,
+
+      - a suitable
+        compiler 
+        and 
+        programming 
+        tool-chain,
+        e.g., board-specific versions of
+        [GCC](https://gcc.gnu.org)
+        and
+        [OpenOCD](http://openocd.org),
+      - the
+        [Doxygen](http://www.doxygen.nl)
+        documentation generation system,
+
+      or
+
+   2. launch and work within a pre-built
+      [Docker](https://www.docker.com)
+      container, e.g., via
+
+      ```sh
+      docker run --interactive --tty lab-target:0.1.0 bash
+      ```
 
 3. Go to the 
    [GitHub](https://github.com)-hosted

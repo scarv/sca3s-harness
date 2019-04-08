@@ -13,6 +13,12 @@
 #include "board.h"
 #include "kernel.h"
 
+#define DRIVER_VERSION_MAJOR 0
+#define DRIVER_VERSION_MINOR 1
+#define DRIVER_VERSION_PATCH 0
+
+#define DRIVER_VERSION       STR(DRIVER_VERSION_MAJOR) "." STR(DRIVER_VERSION_MINOR) "." STR(DRIVER_VERSION_PATCH)
+
 typedef struct {
   char* hid; uint8_t* ptr; int n;
 } driver_reg_desc_t;
