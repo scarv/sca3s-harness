@@ -24,14 +24,14 @@ deps-clean :
 	@make --no-builtin-rules -C ${REPO_HOME}/build/scale-hw/target/lpc1313fbd48 clean
 
 ${REPO_HOME}/build/%.o : %.c %.h
-	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${SCALE_CONF} -c -o ${@} ${<}
+	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${SCALE_CONF} ${REPO_CONF} -c -o ${@} ${<}
 ${REPO_HOME}/build/%.o : %.s %.h
-	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${SCALE_CONF} -c -o ${@} ${<}
+	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${SCALE_CONF} ${REPO_CONF} -c -o ${@} ${<}
 ${REPO_HOME}/build/%.o : %.S %.h
-	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${SCALE_CONF} -c -o ${@} ${<}
+	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${SCALE_CONF} ${REPO_CONF} -c -o ${@} ${<}
 
 ${REPO_HOME}/build/%.elf ${REPO_HOME}/build/%.map : ${BOARD_OBJECTS} ${TARGET_OBJECTS}
-	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${SCALE_CONF} -Wl,-Map=${REPO_HOME}/build/${*}.map -o ${REPO_HOME}/build/${*}.elf ${^} ${GCC_LIBS}
+	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${SCALE_CONF} ${REPO_CONF} -Wl,-Map=${REPO_HOME}/build/${*}.map -o ${REPO_HOME}/build/${*}.elf ${^} ${GCC_LIBS}
 ${REPO_HOME}/build/%.bin                          : ${REPO_HOME}/build/%.elf
 	@${GCC_PREFIX}objcopy ${OBJCOPY_FLAGS} -O binary ${<} ${@}
 ${REPO_HOME}/build/%.hex                          : ${REPO_HOME}/build/%.elf
