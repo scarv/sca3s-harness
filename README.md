@@ -111,6 +111,15 @@ a framework within which target implementations are developed.*
    export TARGET="block"
    ```
 
+   and, where appropriate, configure the target implementation 
+   via the
+   `CONF`
+   environment variable, e.g.,
+
+   ```sh
+   export CONF="-Dfoo=bar"
+   ```
+
 6. Produce the target implementation in the *forked* repository:
 
    1. edit
