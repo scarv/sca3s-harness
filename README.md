@@ -30,6 +30,7 @@ a framework within which target implementations are developed.*
 ```
 ├── bin         - scripts (e.g., environment configuration)
 ├── build       - working directory for build
+├── docker      - configuration for container
 └── src         - source code
     ├── board     - board  implementations
     ├── driver    - driver implementations
@@ -66,8 +67,9 @@ a framework within which target implementations are developed.*
 
       or
 
-   2. pull, launch, then work within a pre-built
+   2. install the 
       [Docker](https://www.docker.com)
+      container platform, then pull, launch, then work in a pre-built
       container, e.g., via
 
       ```sh
