@@ -55,12 +55,10 @@ build-driver : ${TARGET_OBJECTS}
 
 build-target :        ${TARGETS}
 
-build        : deps-fetch deps-build build-board build-driver build-target
+build        : build-board build-driver build-target
 
 doc          : ${REPO_HOME}/Doxyfile
 	@doxygen ${<}
-
-all          : build report
 
 clean        :
 	@rm -rf ${REPO_HOME}/build/*

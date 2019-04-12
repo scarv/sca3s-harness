@@ -174,19 +174,17 @@ a framework within which target implementations are developed.*
       - execute
 
         ```sh
+        make deps-fetch 
+        make deps-build
+        ```
+
+        then
+
+        ```sh
         make build
         ```
 
         to build the target implementation,
-
-      - execute
-
-        ```sh
-        make program
-        ```
-
-        to program the board (assuming it is attached) with the 
-        target implementation.
 
       - execute
 
