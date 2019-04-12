@@ -37,16 +37,5 @@ ${REPO_HOME}/build/%.bin                          : ${REPO_HOME}/build/%.elf
 ${REPO_HOME}/build/%.hex                          : ${REPO_HOME}/build/%.elf
 	@${GCC_PREFIX}objcopy ${OBJCOPY_FLAGS} -O ihex   ${<} ${@}
 
-report  : ${TARGETS}
-	@arm-none-eabi-readelf --wide --all $(filter %.elf, ${^})
-
-program : ${TARGETS}
-	@openocd -f interface/jlink.cfg                             \
-                 -c "transport select swd"                          \
-                 -f    target/lpc13xx.cfg                           \
-                 -c       "init"                                    \
-                 -c "reset init"                                    \
-                 -c "flash write_image erase $(filter %.hex, ${^})" \
-	         -c "reset  run"                                    \
-                 -c "shutdown"
-
+report : ${TARGETS}
+	@${GCC_PREFIX}readelf --wide --all $(filter %.elf, ${^})
