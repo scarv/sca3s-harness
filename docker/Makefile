@@ -8,9 +8,10 @@ IMAGE = scarv/lab-target:0.1.0
 
 build :
 	@docker build --tag ${IMAGE} --file ./Dockerfile .
-
 push  :
 	@docker push ${IMAGE}
-
 pull  :
 	@docker pull ${IMAGE}
+
+run   :
+	@docker run --env DOCKER_GID=$(id --group) --env DOCKER_UID=$(id --user) --interactive --tty --rm ${IMAGE} bash

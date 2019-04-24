@@ -6,14 +6,16 @@
 # can be found at https://opensource.org/licenses/MIT (or should be included 
 # as LICENSE.txt within the associated archive or repository).
 
-if [ -z "${DOCKER_GID}" ] ; then
+if [ -z "${DOCKER_USER}" ] ; then
+  DOCKER_USER="scarv"
+fi 
+if [ -z "${DOCKER_UID}"  ] ; then
+  DOCKER_UID="1000"
+fi 
+if [ -z "${DOCKER_GID}"  ] ; then
   DOCKER_GID="1000"
 fi 
 
-if [ -z "${DOCKER_UID}" ] ; then
-  DOCKER_UID="1000"
-fi 
+groupadd --gid ${DOCKER_GID} ${DOCKER_USER} ; useradd --gid ${DOCKER_GID} --uid ${DOCKER_UID} --no-user-group ${DOCKER_USER}
 
-groupadd --gid ${DOCKER_GID} scarv ; useradd --gid ${DOCKER_GID} --uid ${DOCKER_UID} --no-user-group scarv
-
-exec /usr/sbin/gosu scarv:scarv "${@}"
+exec /usr/sbin/gosu ${DOCKER_USER}:${DOCKER_USER} "${@}"
