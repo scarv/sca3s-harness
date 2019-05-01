@@ -7,7 +7,7 @@
 IMAGE = scarv/lab-target:0.1.0
 
 build :
-	@docker build --tag ${IMAGE} --file ./Dockerfile .
+	@docker build --tag ${IMAGE} --file ./Dockerfile --build-arg DATE=$(date -u +'%d/%m/%Y-%H:%M:%SZ') .
 push  :
 	@docker push ${IMAGE}
 pull  :

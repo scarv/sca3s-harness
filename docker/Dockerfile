@@ -6,10 +6,15 @@
 
 FROM ubuntu
 
-LABEL maintainer="SCARV project <info@scarv.org>"
+ARG DATE
 
-RUN apt-get --assume-yes --quiet update \
- && apt-get --assume-yes --quiet install gosu make git gcc doxygen wget
+LABEL maintainer="SCARV project <info@scarv.org>"
+LABEL date="${DATE}"
+LABEL url="https://github.com/scarv/lab-target"
+
+RUN apt-get --quiet --assume-yes update \
+ && apt-get --quiet --assume-yes install apt-utils gosu wget \
+ && apt-get --quiet --assume-yes install make gcc git doxygen
 
 RUN wget --quiet https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2018q4/gcc-arm-none-eabi-8-2018-q4-major-linux.tar.bz2 \
  && tar --extract --directory /opt --file gcc-arm-none-eabi-8-2018-q4-major-linux.tar.bz2 \
