@@ -8,9 +8,7 @@ FROM ubuntu
 
 ARG DATE
 
-LABEL maintainer="SCARV project <info@scarv.org>"
-LABEL date="${DATE}"
-LABEL url="https://github.com/scarv/lab-target"
+LABEL maintainer="SCARV project <info@scarv.org>" date="${DATE}" url="https://github.com/scarv/lab-target"
 
 RUN apt-get --quiet --assume-yes update \
  && apt-get --quiet --assume-yes install apt-utils gosu wget \

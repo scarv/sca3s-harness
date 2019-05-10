@@ -4,14 +4,12 @@
 # can be found at https://opensource.org/licenses/MIT (or should be included 
 # as LICENSE.txt within the associated archive or repository).
 
-IMAGE = scarv/lab-target:0.1.0
+DOCKER_IMAGE = scarv/lab-target
+DOCKER_TAGS  = latest 0.1.0
 
 build :
-	@docker build --tag ${IMAGE} --file ./Dockerfile --build-arg DATE=$(date -u +'%d/%m/%Y-%H:%M:%SZ') .
+	@docker build $(foreach TAG,${DOCKER_TAGS},--tag ${DOCKER_IMAGE}:${TAG}) --build-arg DATE=$(shell date -u +'%d/%m/%Y-%H:%M:%SZ') --file ./Dockerfile .
 push  :
-	@docker push ${IMAGE}
+	@docker push ${DOCKER_IMAGE}
 pull  :
-	@docker pull ${IMAGE}
-
-run   :
-	@docker run --env DOCKER_GID=$(id --group) --env DOCKER_UID=$(id --user) --interactive --tty --rm ${IMAGE} bash
+	@docker pull ${DOCKER_IMAGE}

@@ -4,8 +4,12 @@
 # can be found at https://opensource.org/licenses/MIT (or should be included 
 # as LICENSE.txt within the associated archive or repository).
 
+ifndef REPO_HOME
+  $(error "execute 'source ./bin/conf.sh' to configure environment")
+endif
+
 ifndef BOARD
-  $(error "BOARD environment variable undefined: aborting")
+  $(error "BOARD  environment variable undefined: aborting")
 endif
 ifndef TARGET
   $(error "TARGET environment variable undefined: aborting")
@@ -48,6 +52,9 @@ vpath %.h $(subst ${SPACE},${COLON},${INCLUDES})
 vpath %.c $(subst ${SPACE},${COLON},${INCLUDES})
 
 include ${REPO_HOME}/src/board/${BOARD}/Makefile
+
+docker-%     : 
+	@docker run --env REPO_HOME="/mnt/scarv/lab-target" --env BOARD="${BOARD}" --env TARGET="${TARGET}" --env DOCKER_GID="$(shell id --group)" --env DOCKER_UID="$(shell id --user)" --volumes ${PWD}:/mnt/scarv/lab-target --rm scarv/lab-target ${@}
 
 build-board  :  ${BOARD_OBJECTS}
 
