@@ -11,7 +11,7 @@ ARG DATE
 LABEL maintainer="SCARV project <info@scarv.org>" date="${DATE}" url="https://github.com/scarv/lab-target"
 
 RUN apt-get --quiet --assume-yes update \
- && apt-get --quiet --assume-yes install apt-utils gosu wget \
+ && apt-get --quiet --assume-yes install apt-utils gosu sudo wget \
  && apt-get --quiet --assume-yes install make gcc git doxygen
 
 RUN wget --quiet https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2018q4/gcc-arm-none-eabi-8-2018-q4-major-linux.tar.bz2 \
