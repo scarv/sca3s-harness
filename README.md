@@ -69,12 +69,7 @@ a framework within which target implementations are developed.*
 
    2. install the 
       [Docker](https://www.docker.com)
-      container platform, then pull, launch, then work in a pre-built
-      container, e.g., via
-
-      ```sh
-      docker run --interactive --tty scarv/lab-target:0.1.0 bash
-      ```
+      container platform.
 
 3. Go to the 
    [GitHub](https://github.com)-hosted
@@ -164,33 +159,78 @@ a framework within which target implementations are developed.*
       common tasks, e.g.,
 
       - execute
+        either
 
-        ```sh
-        make doc
-        ```
+        1. naively
+
+           ```sh
+           make        doc
+           ```
+   
+           or
+
+        2. via the Docker container 
+   
+           ```sh
+           make docker-doc
+           ```
 
         to build the documentation,
 
       - execute
+        either
 
-        ```sh
-        make deps-fetch 
-        make deps-build
-        ```
+        1. naively
+
+           ```sh
+           make        deps-fetch 
+           make        deps-build
+           ```
+
+           or
+
+        2. via the Docker container 
+
+           ```sh
+           make docker-deps-fetch 
+           make docker-deps-build
+           ```
 
         then
+        either 
 
-        ```sh
-        make build
-        ```
+        1. naively
+
+           ```sh
+           make        build
+           ```
+   
+           or
+
+        2. via the Docker container 
+   
+           ```sh
+           make docker-build
+           ```
 
         to build the target implementation,
 
       - execute
+        either
 
-        ```sh
-        make clean
-        ```
+        1. naively
+
+           ```sh
+           make        clean
+           ```
+   
+           or
+
+        2. via the Docker container 
+   
+           ```sh
+           make docker-clean
+           ```
 
         to clean-up
         (e.g., remove everything built in `${REPO_HOME}/build`).
