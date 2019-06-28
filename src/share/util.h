@@ -15,9 +15,6 @@
 #include  <string.h>
 #include   <ctype.h>
 
-#define __STR(x)      #x
-#define   STR(x) __STR(x)
-
 #define SIZEOF(x) ( sizeof(x)     )
 #define BITSOF(x) ( sizeof(x) * 8 )
 

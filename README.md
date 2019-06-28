@@ -164,7 +164,7 @@ a framework within which target implementations are developed.*
         1. naively
 
            ```sh
-           make        doc
+           make doc
            ```
    
            or
@@ -172,7 +172,7 @@ a framework within which target implementations are developed.*
         2. via the Docker container 
    
            ```sh
-           make docker-doc
+           make docker-docker
            ```
 
         to build the documentation,
@@ -183,8 +183,8 @@ a framework within which target implementations are developed.*
         1. naively
 
            ```sh
-           make        deps-fetch 
-           make        deps-build
+           make deps-fetch 
+           make deps-build
            ```
 
            or
@@ -192,8 +192,8 @@ a framework within which target implementations are developed.*
         2. via the Docker container 
 
            ```sh
-           make docker-deps-fetch 
-           make docker-deps-build
+           make deps-fetch-docker
+           make deps-build-docker
            ```
 
         then
@@ -202,7 +202,7 @@ a framework within which target implementations are developed.*
         1. naively
 
            ```sh
-           make        build
+           make build
            ```
    
            or
@@ -210,7 +210,7 @@ a framework within which target implementations are developed.*
         2. via the Docker container 
    
            ```sh
-           make docker-build
+           make build-docker
            ```
 
         to build the target implementation,
@@ -221,7 +221,7 @@ a framework within which target implementations are developed.*
         1. naively
 
            ```sh
-           make        clean
+           make clean
            ```
    
            or
@@ -229,7 +229,7 @@ a framework within which target implementations are developed.*
         2. via the Docker container 
    
            ```sh
-           make docker-clean
+           make clean-docker
            ```
 
         to clean-up

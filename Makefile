@@ -53,7 +53,7 @@ vpath %.c $(subst ${SPACE},${COLON},${INCLUDES})
 
 include ${REPO_HOME}/src/board/${BOARD}/Makefile
 
-docker-%     : 
+%-docker     : 
 	@docker run --env REPO_HOME="/mnt/scarv/lab-target" --env BOARD="${BOARD}" --env TARGET="${TARGET}" --env DOCKER_GID="$(shell id --group)" --env DOCKER_UID="$(shell id --user)" --volumes ${PWD}:/mnt/scarv/lab-target --rm scarv/lab-target ${@}
 
 build-board  :  ${BOARD_OBJECTS}

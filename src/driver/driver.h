@@ -13,6 +13,9 @@
 #include  "board.h"
 #include "kernel.h"
 
+#define __STR(x)      #x
+#define   STR(x) __STR(x)
+
 #define DRIVER_VERSION_MAJOR 0
 #define DRIVER_VERSION_MINOR 1
 #define DRIVER_VERSION_PATCH 0
