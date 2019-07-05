@@ -1,24 +1,24 @@
-# [`lab.scarv.org`](https://github.com/scarv/lab.scarv.org): target implementation
+# [SCA3S](https://github.com/scarv/sca3s): target implementation
 
 <!--- -------------------------------------------------------------------- --->
 
-[![Build Status](https://travis-ci.com/scarv/lab-target.svg)](https://travis-ci.com/scarv/lab-target)
-[![Documentation](https://codedocs.xyz/scarv/lab-target.svg)](https://codedocs.xyz/scarv/lab-target)
+[![Build Status](https://travis-ci.com/scarv/sca3s-target.svg)](https://travis-ci.com/scarv/sca3s-target)
+[![Documentation](https://codedocs.xyz/scarv/sca3s-target.svg)](https://codedocs.xyz/scarv/sca3s-target)
 
 <!--- -------------------------------------------------------------------- --->
 
 *Acting as a component part of the
 [SCARV](https://www.scarv.org)
 project,
-`lab.scarv.org` is a collection of resources that support the
-development and analysis of cryptographic implementations wrt.
+SCA3S is a collection of resources that support the development 
+and analysis of cryptographic implementations wrt.
 [side-channel attack](https://en.wikipedia.org/wiki/Side-channel_attack):
 it places particular emphasis on analogue side-channels (e.g.,
 power and EM) stemming from
 [RISC-V](https://riscv.org)-based
 platforms.
 The main
-[repository](https://github.com/scarv/lab.scarv.org)
+[repository](https://github.com/scarv/sca3s)
 acts as a general container for associated resources;
 this specific submodule houses
 a framework within which target implementations are developed.*
@@ -42,13 +42,7 @@ a framework within which target implementations are developed.*
 
 ## Quickstart
 
-1. The main `lab.scarv.org`
-   [repository](https://github.com/scarv/lab.scarv.org)
-   houses some overarching documentation, which offers some
-   context and explanation: it *might* be sensible to start
-   by reading that.
-
-2. Either
+1. Either
 
    1. install any associated pre-requisites, e.g.,
 
@@ -71,20 +65,20 @@ a framework within which target implementations are developed.*
       [Docker](https://www.docker.com)
       container platform.
 
-3. Go to the 
+2. Go to the 
    [GitHub](https://github.com)-hosted
    repository
-   [web-page](https://github.com/scarv/lab-target),
+   [web-page](https://github.com/scarv/sca3s-target),
    and create a
    [fork](https://guides.github.com/activities/forking) 
    of it: doing so will create a copy of the repository in your *own* 
    account, the username for which we will assume is `${USER}`.
 
-4. Execute
+3. Execute
 
    ```sh
-   git clone https://github.com/${USER}/lab-target.git
-   cd ./lab-target
+   git clone https://github.com/${USER}/sca3s-target.git
+   cd ./sca3s-target
    source ./bin/conf.sh
    ```
 
@@ -94,7 +88,7 @@ a framework within which target implementations are developed.*
    `REPO_HOME`
    is set appropriately.
 
-5. Select the
+4. Select the
    board and target implementation (implying the driver and kernel) types
    by setting the environment variables
    `BOARD`
@@ -117,7 +111,7 @@ a framework within which target implementations are developed.*
    export CONF="-Dfoo=bar"
    ```
 
-6. Produce the target implementation in the *forked* repository:
+5. Produce the target implementation in the *forked* repository:
 
    1. edit
 
@@ -140,7 +134,7 @@ a framework within which target implementations are developed.*
 
    3. commit and push the result.
 
-7. Either
+6. Either
 
    1. use the *forked* repository remotely:
       go to 
@@ -148,7 +142,7 @@ a framework within which target implementations are developed.*
       and submit a job referencing the forked repository, i.e.,
 
       ```sh
-      https://github.com/${USER}/lab-target.git
+      https://github.com/${USER}/sca3s-target.git
       ```
 
       in order to acquire an associated trace set,
