@@ -10,6 +10,11 @@
 
 #include "util.h"
 
+/** @brief The kernel identifier, i.e., the specific algorithm used.
+  */
+
+#define KERNEL_ID         ""
+
 /** @brief Number of bytes in a plaintext or ciphertext block.
   */
 

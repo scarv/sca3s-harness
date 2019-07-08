@@ -16,6 +16,5 @@
 #include "driver.h"
 
 #define DRIVER_ID "block"
-#define KERNEL_ID ""
 
 #endif
