@@ -116,7 +116,7 @@ a framework within which target implementations are developed.*
    1. edit
 
       ```sh
-      ${REPO_HOME}/src/kernel/${TARGET}/kernel.c
+      ${REPO_HOME}/src/kernel/${TARGET}/kernel.h
       ```
 
       to specify parameters of the implementation, 

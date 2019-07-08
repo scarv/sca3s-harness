@@ -32,7 +32,7 @@ uint8_t reg_c[ KERNEL_SIZEOF_BLK ];
   x                              \
   board_trigger_wr( false );     \
 
-WRAPPER( driver_id,                      strcpy( ack, DRIVER_TYPE ":" DRIVER_VERSION );     )
+WRAPPER( driver_id,       strcpy( ack, DRIVER_VERSION ":" DRIVER_ID ":" KERNEL_ID ); )
 
 WRAPPER( driver_enc_init,          TIME( kernel_enc_init(               reg_k, reg_r );   ) )
 WRAPPER( driver_dec_init,          TIME( kernel_dec_init(               reg_k, reg_r );   ) )

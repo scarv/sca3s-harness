@@ -15,6 +15,7 @@
 
 #include "driver.h"
 
-#define DRIVER_TYPE "block"
+#define DRIVER_ID "block"
+#define KERNEL_ID ""
 
 #endif
