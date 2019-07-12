@@ -52,7 +52,7 @@ int main( int argc, char* argv[] ) {
   };
           
   driver_cmd_desc_t cmd_desc[] = {
-    { .hid = "?id",       .ptr = &driver_id                    },   
+    { .hid = "?id",       .ptr = &driver_id                    },
 
     { .hid = "?reg",      .ptr = &driver_reg_sizeof            },
     { .hid = "<reg",      .ptr = &driver_reg_rd                },
