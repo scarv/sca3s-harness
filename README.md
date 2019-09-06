@@ -1,9 +1,9 @@
-# [SCA3S](https://github.com/scarv/sca3s): target implementation
+# [SCA3S](https://github.com/scarv/sca3s): implementation harness
 
 <!--- -------------------------------------------------------------------- --->
 
-[![Build Status](https://travis-ci.com/scarv/sca3s-target.svg)](https://travis-ci.com/scarv/sca3s-target)
-[![Documentation](https://codedocs.xyz/scarv/sca3s-target.svg)](https://codedocs.xyz/scarv/sca3s-target)
+[![Build Status](https://travis-ci.com/scarv/sca3s-harness.svg)](https://travis-ci.com/scarv/sca3s-harness)
+[![Documentation](https://codedocs.xyz/scarv/sca3s-harness.svg)](https://codedocs.xyz/scarv/sca3s-harness)
 
 <!--- -------------------------------------------------------------------- --->
 
@@ -21,7 +21,7 @@ The main
 [repository](https://github.com/scarv/sca3s)
 acts as a general container for associated resources;
 this specific submodule houses
-a framework within which target implementations are developed.*
+a harness within which target implementations are developed.*
 
 <!--- -------------------------------------------------------------------- --->
 
@@ -68,7 +68,7 @@ a framework within which target implementations are developed.*
 2. Go to the 
    [GitHub](https://github.com)-hosted
    repository
-   [web-page](https://github.com/scarv/sca3s-target),
+   [web-page](https://github.com/scarv/sca3s-harness),
    and create a
    [fork](https://guides.github.com/activities/forking) 
    of it: doing so will create a copy of the repository in your *own* 
@@ -77,8 +77,8 @@ a framework within which target implementations are developed.*
 3. Execute
 
    ```sh
-   git clone https://github.com/${USER}/sca3s-target.git
-   cd ./sca3s-target
+   git clone https://github.com/${USER}/sca3s-harness.git
+   cd ./sca3s-harness
    source ./bin/conf.sh
    ```
 
@@ -142,7 +142,7 @@ a framework within which target implementations are developed.*
       and submit a job referencing the forked repository, i.e.,
 
       ```sh
-      https://github.com/${USER}/sca3s-target.git
+      https://github.com/${USER}/sca3s-harness.git
       ```
 
       in order to acquire an associated trace set,
