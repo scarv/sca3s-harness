@@ -8,64 +8,50 @@ ifndef REPO_HOME
   $(error "execute 'source ./bin/conf.sh' to configure environment")
 endif
 
-ifndef BOARD
-  $(error "BOARD  environment variable undefined: aborting")
+# =============================================================================
+
+# Set defaults for various required environment variables.
+
+export CONTEXT ?= native
+
+export BOARD   ?= scale/lpc1313fbd48
+export TARGET  ?= block
+
+# Include the Docker configuration: we need to specifically do this here, as
+# it supports a) the Docker build context outright, plus b) any Docker-based
+# targets within the native build context.
+
+include ${REPO_HOME}/src/sca3s/harness/board/${BOARD}/conf.mk_docker
+
+# =============================================================================
+
+# Define targets to drive build process, depending on CONTEXT (i.e., on the 
+# selected build context):
+#
+# 1. For the Docker build context, defer everything to the Docker container 
+#    (i.e., execute make on the same target *within* the container).
+#
+# 2. For the native build context, 
+#
+#    - deal with various specific, global targets (e.g., documentation), or
+#    - defer to the appropriate sub-Makefile for everything else.
+
+ifeq "${CONTEXT}" "docker"
+%          :
+	@docker run --rm --volume "${REPO_HOME}:/mnt/scarv/sca3s/harness" --env DOCKER_GID="$(shell id --group)" --env DOCKER_UID="$(shell id --user)" --env CONTEXT="native" --env BOARD="${BOARD}" --env TARGET="${TARGET}" ${DOCKER_FLAGS} ${DOCKER_REPO}:${DOCKER_TAG} ${*}
 endif
-ifndef TARGET
-  $(error "TARGET environment variable undefined: aborting")
-endif
 
-       EMPTY    :=
-       SPACE    := ${EMPTY} ${EMPTY}
-       COLON    := :
+ifeq "${CONTEXT}" "native"
+%-docker  :
+	@make --directory="${REPO_HOME}/src/docker"        ${*}
+%-harness :
+	@make --directory="${REPO_HOME}/src/sca3s/harness" ${*}
 
-       INCLUDES +=            ${REPO_HOME}/src/board
-       INCLUDES +=            ${REPO_HOME}/src/board/${BOARD}
-       INCLUDES +=            ${REPO_HOME}/src/driver
-       INCLUDES +=            ${REPO_HOME}/src/driver/${TARGET}
-       INCLUDES +=            ${REPO_HOME}/src/kernel
-       INCLUDES +=            ${REPO_HOME}/src/kernel/${TARGET}
-       INCLUDES +=            ${REPO_HOME}/src/share
-
- BOARD_SOURCES  += $(wildcard ${REPO_HOME}/src/board/*.c)
- BOARD_SOURCES  += $(wildcard ${REPO_HOME}/src/board/${BOARD}/*.c)
-
-TARGET_SOURCES  += $(wildcard ${REPO_HOME}/src/driver/*.c)
-TARGET_SOURCES  += $(wildcard ${REPO_HOME}/src/driver/${TARGET}/*.c)
-TARGET_SOURCES  += $(wildcard ${REPO_HOME}/src/kernel/*.c)
-TARGET_SOURCES  += $(wildcard ${REPO_HOME}/src/kernel/${TARGET}/*.c)
-TARGET_SOURCES  += $(wildcard ${REPO_HOME}/src/share/*.c)
-
- BOARD_HEADERS  += $(wildcard ${REPO_HOME}/src/board/*.h)
- BOARD_HEADERS  += $(wildcard ${REPO_HOME}/src/board/${BOARD}/*.h)
-
-TARGET_HEADERS  += $(wildcard ${REPO_HOME}/src/driver/*.h)
-TARGET_HEADERS  += $(wildcard ${REPO_HOME}/src/driver/${TARGET}/*.h)
-TARGET_HEADERS  += $(wildcard ${REPO_HOME}/src/kernel*.h)
-TARGET_HEADERS  += $(wildcard ${REPO_HOME}/src/kernel/${TARGET}/*.h)
-TARGET_HEADERS  += $(wildcard ${REPO_HOME}/src/share/*.h)
-
- BOARD_OBJECTS  += $(addprefix ${REPO_HOME}/build/, $(notdir $(patsubst %.c, %.o,  ${BOARD_SOURCES})))
-TARGET_OBJECTS  += $(addprefix ${REPO_HOME}/build/, $(notdir $(patsubst %.c, %.o, ${TARGET_SOURCES})))
-
-vpath %.h $(subst ${SPACE},${COLON},${INCLUDES})
-vpath %.c $(subst ${SPACE},${COLON},${INCLUDES})
-
-include ${REPO_HOME}/src/board/${BOARD}/Makefile
-
-%-docker     : 
-	@docker run --env REPO_HOME="/mnt/scarv/lab-target" --env BOARD="${BOARD}" --env TARGET="${TARGET}" --env DOCKER_GID="$(shell id --group)" --env DOCKER_UID="$(shell id --user)" --volumes ${PWD}:/mnt/scarv/lab-target --rm scarv/lab-target ${@}
-
-build-board  :  ${BOARD_OBJECTS}
-
-build-driver : ${TARGET_OBJECTS}
-
-build-target :        ${TARGETS}
-
-build        : build-board build-driver build-target
-
-doc          : ${REPO_HOME}/Doxyfile
+doc   : ${REPO_HOME}/Doxyfile
 	@doxygen ${<}
 
-clean        :
-	@rm -rf ${REPO_HOME}/build/*
+clean :
+	@rm --force --recursive ${REPO_HOME}/build/*
+endif
+
+# =============================================================================
