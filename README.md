@@ -28,14 +28,16 @@ a harness within which target implementations are developed.*
 ## Organisation
 
 ```
-├── bin         - scripts (e.g., environment configuration)
-├── build       - working directory for build
-├── docker      - configuration for container
-└── src         - source code
-    ├── board     - board  implementations
-    ├── driver    - driver implementations
-    ├── kernel    - kernel implementations
-    └── share     - shared functionality
+├── bin                    - scripts (e.g., environment configuration)
+├── build                  - working directory for build
+└── src
+    ├── docker             - source code for associated containers
+    └── sca3s              - source code for SCA3S
+        └── harness        - source code for SCA3S harness
+            ├── board        - board  implementations
+            ├── driver       - driver implementations
+            ├── kernel       - kernel implementations
+            └── share        - shared functionality
 ```
 
 <!--- -------------------------------------------------------------------- --->
@@ -88,35 +90,47 @@ a harness within which target implementations are developed.*
    `REPO_HOME`
    is set appropriately.
 
-4. Select the
-   board and target implementation (implying the driver and kernel) types
-   by setting the environment variables
-   `BOARD`
-   and
-   `TARGET`
-   appropriately,
-   e.g., via
+3. Perform various preparatory steps:
 
-   ```sh
-   export BOARD="scale/lpc1313fbd48"
-   export TARGET="block"
-   ```
+   1. Optionally,
+      select the
+      build context
+      by setting the environment variable
+      `CONTEXT`
+      appropriately,
+      e.g., via
 
-   and, where appropriate, configure the target implementation 
-   via the
-   `CONF`
-   environment variable, e.g.,
+      ```sh
+      export CONTEXT="native"
+      ```
+  
+      or just accept the default (per [`${REPO_HOME}/Makefile`](./Makefile)).
 
-   ```sh
-   export CONF="-Dfoo=bar"
-   ```
+   2. Optionally, 
+      select the
+      board
+      and
+      target implementation (implying the driver and kernel)
+      by setting the environment variables
+      `BOARD`
+      and
+      `TARGET`
+      appropriately,
+      e.g., via
+
+      ```sh
+      export BOARD="scale/lpc1313fbd48"
+      export TARGET="block"
+      ```
+
+      or just accept the default (per [`${REPO_HOME}/Makefile`](./Makefile)).
 
 5. Produce the target implementation in the *forked* repository:
 
    1. edit
 
       ```sh
-      ${REPO_HOME}/src/kernel/${TARGET}/kernel.h
+      ${REPO_HOME}/src/sca3s/harness/kernel/${TARGET}/kernel.h
       ```
 
       to specify parameters of the implementation, 
@@ -126,7 +140,7 @@ a harness within which target implementations are developed.*
    2. edit
 
       ```sh
-      ${REPO_HOME}/src/kernel/${TARGET}/kernel.c
+      ${REPO_HOME}/src/sca3s/harness/kernel/${TARGET}/kernel.c
       ```
 
       to complete the implementation itself, 
@@ -138,7 +152,19 @@ a harness within which target implementations are developed.*
 
    1. use the *forked* repository remotely:
       go to 
-      [lab.scarv.org](https://lab.scarv.org),
+      [sca3s.scarv.org](https://sca3s.scarv.org),
+      and submit a job referencing the forked repository, i.e.,
+
+      ```sh
+      https://github.com/${USER}/sca3s-harness.git
+      ```
+
+      in order to acquire an associated trace set,
+      or
+
+   2. use the *forked* repository remotely:
+      go to 
+      [sca3s.scarv.org](https://sca3s.scarv.org),
       and submit a job referencing the forked repository, i.e.,
 
       ```sh
