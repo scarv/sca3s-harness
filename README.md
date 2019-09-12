@@ -62,7 +62,6 @@ a harness within which target implementations are developed.*
         [Doxygen](http://www.doxygen.nl)
         documentation generation system,
 
-      thus supporting a native build context,
       and/or
 
    2. provide a Docker build context by installing 
