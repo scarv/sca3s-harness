@@ -46,7 +46,8 @@ a harness within which target implementations are developed.*
 
 1. Either
 
-   1. install associated pre-requisites, e.g.,
+   1. provide a native build context by installing 
+      associated pre-requisites, e.g.,
 
       - a suitable
         compiler 
@@ -64,10 +65,10 @@ a harness within which target implementations are developed.*
       thus supporting a native build context,
       and/or
 
-   2. install the 
+   2. provide a Docker build context by installing 
+      the 
       [Docker](https://www.docker.com)
-      container platform,
-      thus supporting a Docker build context.
+      container platform.
 
 2. Create a *copy* of the 
    [template repository](https://github.com/scarv/sca3s-harness)
