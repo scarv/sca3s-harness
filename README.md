@@ -1,4 +1,4 @@
-# [SCA3S](https://github.com/scarv/sca3s): implementation harness
+# [SCA3S](https://github.com/scarv/sca3s): target implementation harness
 
 <!--- -------------------------------------------------------------------- --->
 
@@ -13,8 +13,8 @@ project,
 SCA3S is a collection of resources that support the development 
 and analysis of cryptographic implementations wrt.
 [side-channel attack](https://en.wikipedia.org/wiki/Side-channel_attack):
-it places particular emphasis on analogue side-channels (e.g.,
-power and EM) stemming from
+mirroring the goals of SCARV, it places particular emphasis on analogue 
+side-channels (e.g., power and EM) stemming from
 [RISC-V](https://riscv.org)-based
 platforms.
 The main
@@ -31,7 +31,7 @@ a harness within which target implementations are developed.*
 ├── bin                    - scripts (e.g., environment configuration)
 ├── build                  - working directory for build
 └── src
-    ├── docker             - source code for associated containers
+    ├── docker             - source code for containers
     └── sca3s              - source code for SCA3S
         └── harness        - source code for SCA3S harness
             ├── board        - board  implementations
@@ -46,7 +46,7 @@ a harness within which target implementations are developed.*
 
 1. Either
 
-   1. install any associated pre-requisites, e.g.,
+   1. install associated pre-requisites, e.g.,
 
       - a suitable
         compiler 
@@ -61,30 +61,37 @@ a harness within which target implementations are developed.*
         [Doxygen](http://www.doxygen.nl)
         documentation generation system,
 
-      or
+      thus supporting a native build context,
+      and/or
 
    2. install the 
       [Docker](https://www.docker.com)
-      container platform.
+      container platform,
+      thus supporting a Docker build context.
 
-2. Go to the 
-   [GitHub](https://github.com)-hosted
-   repository
-   [web-page](https://github.com/scarv/sca3s-harness),
-   and create a
-   [fork](https://guides.github.com/activities/forking) 
-   of it: doing so will create a copy of the repository in your *own* 
-   account, the username for which we will assume is `${USER}`.
+2. Create a *copy* of the 
+   [template repository](https://github.com/scarv/sca3s-harness)
+   in your *own* account: we term this the working repository.
+   Using the
+   [GitHub](https://github.com)-based
+   interface, you can do so via *either* of two methods: either
+
+   - [fork](https://help.github.com/en/articles/fork-a-repo) it,
+     or
+   - use it as a [template](https://help.github.com/en/articles/creating-a-repository-from-a-template).
+
+   From here on, we assume your username is `${USER}` and the 
+   working repository within that account is called `${WORK}`.
 
 3. Execute
 
    ```sh
-   git clone https://github.com/${USER}/sca3s-harness.git
+   git clone https://github.com/${USER}/${WORK}.git
    cd ./sca3s-harness
    source ./bin/conf.sh
    ```
 
-   to clone and initialise the *forked* repository,
+   to clone and initialise the working repository,
    then configure the environment;
    for example, you should find that the environment variable
    `REPO_HOME`
@@ -125,7 +132,7 @@ a harness within which target implementations are developed.*
 
       or just accept the default (per [`${REPO_HOME}/Makefile`](./Makefile)).
 
-5. Produce the target implementation in the *forked* repository:
+5. Develop a target implementation in the working repository:
 
    1. edit
 
@@ -150,110 +157,30 @@ a harness within which target implementations are developed.*
 
 6. Either
 
-   1. use the *forked* repository remotely:
-      go to 
-      [sca3s.scarv.org](https://sca3s.scarv.org),
-      and submit a job referencing the forked repository, i.e.,
-
-      ```sh
-      https://github.com/${USER}/sca3s-harness.git
-      ```
-
-      in order to acquire an associated trace set,
-      or
-
-   2. use the *forked* repository remotely:
-      go to 
-      [sca3s.scarv.org](https://sca3s.scarv.org),
-      and submit a job referencing the forked repository, i.e.,
-
-      ```sh
-      https://github.com/${USER}/sca3s-harness.git
-      ```
-
-      in order to acquire an associated trace set,
-      or
-
-   2. use the *forked* repository  locally:
+   1. use the working repository  locally:
       use targets in the top-level `Makefile` to drive a set of
       common tasks, e.g.,
 
-      - execute
-        either
+      | Command                   | Description
+      | :------------------------ | :--------------------------------------------------------------- |
+      | `make doc`                | build the [Doxygen](http://www.doxygen.nl)-based documentation   |
+      | `make deps-fetch-harness` | fetch (i.e., download) the target implementation dependencies    |
+      | `make deps-build-harness` | build                  the target implementation dependencies    |
+      | `make      build-harness` | build                  the target implementation                 |
+      | `make      clean`         | clean-up (e.g., remove everything built in `${REPO_HOME}/build`) |
 
-        1. naively
 
-           ```sh
-           make doc
-           ```
-   
-           or
+   2. use the working repository remotely:
+      go to
+      [`sca3s.scarv.org`](https://sca3s.scarv.org),
+      and either
 
-        2. via the Docker container 
-   
-           ```sh
-           make docker-docker
-           ```
-
-        to build the documentation,
-
-      - execute
-        either
-
-        1. naively
-
-           ```sh
-           make deps-fetch 
-           make deps-build
-           ```
-
-           or
-
-        2. via the Docker container 
-
-           ```sh
-           make deps-fetch-docker
-           make deps-build-docker
-           ```
-
-        then
-        either 
-
-        1. naively
-
-           ```sh
-           make build
-           ```
-   
-           or
-
-        2. via the Docker container 
-   
-           ```sh
-           make build-docker
-           ```
-
-        to build the target implementation,
-
-      - execute
-        either
-
-        1. naively
-
-           ```sh
-           make clean
-           ```
-   
-           or
-
-        2. via the Docker container 
-   
-           ```sh
-           make clean-docker
-           ```
-
-        to clean-up
-        (e.g., remove everything built in `${REPO_HOME}/build`).
+      1. manually submit a job referencing the working repository,
+         or
+      2. activate
+         [Continuous Integration (CI)](https://en.wikipedia.org/wiki/Continuous_integration)
+         for the working repository, meaning a job will be submitted 
+         automatically, e.g., per commit.
 
 <!--- -------------------------------------------------------------------- --->
 
@@ -261,6 +188,8 @@ a harness within which target implementations are developed.*
 
 This work has been supported in part by EPSRC via grant 
 [EP/R012288/1](https://gow.epsrc.ukri.org/NGBOViewGrant.aspx?GrantRef=EP/R012288/1),
-under the [RISE](http://www.ukrise.org) programme.
+under the [RISE](http://www.ukrise.org) programme, and by the
+[AWS Cloud Credits for Research](https://aws.amazon.com/research-credits)
+program.
 
 <!--- -------------------------------------------------------------------- --->

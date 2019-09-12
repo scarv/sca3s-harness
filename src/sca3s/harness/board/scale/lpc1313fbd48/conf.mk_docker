@@ -4,6 +4,10 @@
 # can be found at https://opensource.org/licenses/MIT (or should be included 
 # as LICENSE.txt within the associated archive or repository).
 
+# =============================================================================
+
 export DOCKER_REPO  = scarv/sca3s-harness.$(subst /,-,${BOARD})
 export DOCKER_TAG   = ${REPO_VERSION}
 export DOCKER_FLAGS =
+
+# =============================================================================
