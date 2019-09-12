@@ -38,7 +38,7 @@ report        : ${TARGETS}
 	@${GCC_PREFIX}readelf --wide --all $(filter %.elf, ${^})
 
 program-jlink : ${TARGETS}
-	@openocd --file "interface/jlink.cfg" --command "transport select swd" --file "target/lpc13xx.cfg" --command "init" --command "reset init" --command "flash write_image erase $(filter %.hex, ${^})" --command "reset run" --command "shutdown"
+	@openocd --file "interface/jlink.cfg" --command "jlink serial ${JLINK}" --command "transport select swd" --file "target/lpc13xx.cfg" --command "init" --command "reset init" --command "flash write_image erase $(filter %.hex, ${^})" --command "reset run" --command "shutdown"
 program-uart  : ${TARGETS}
 	@lpc21isp -wipe -hex $(filter %.hex, ${^}) ${USB} 9600 12000
 program       : program-jlink
