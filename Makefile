@@ -47,10 +47,15 @@ ifeq "${CONTEXT}" "native"
 %-harness :
 	@make --directory="${REPO_HOME}/src/sca3s/harness" ${*}
 
-doc   : ${REPO_HOME}/Doxyfile
+doc    : ${REPO_HOME}/Doxyfile
 	@doxygen ${<}
 
-clean :
+update :
+	@git remote add upstream https://github.com/scarv/sca3s-harness.git
+	@git fetch upstream
+	@git merge upstream/master
+
+clean  :
 	@rm --force --recursive ${REPO_HOME}/build/*
 endif
 
