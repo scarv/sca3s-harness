@@ -188,7 +188,7 @@ a harness within which target implementations are developed.*
 
 This work has been supported in part by EPSRC via grant 
 [EP/R012288/1](https://gow.epsrc.ukri.org/NGBOViewGrant.aspx?GrantRef=EP/R012288/1),
-under the [RISE](http://www.ukrise.org) programme, and by the
+under the [RISE](https://www.ukrise.org) programme, and by the
 [AWS Cloud Credits for Research](https://aws.amazon.com/research-credits)
 program.
 
