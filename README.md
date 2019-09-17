@@ -28,16 +28,16 @@ a harness within which target implementations are developed.*
 ## Organisation
 
 ```
-├── bin                    - scripts (e.g., environment configuration)
-├── build                  - working directory for build
+├── bin                     - scripts (e.g., environment configuration)
+├── build                   - working directory for build
 └── src
-    ├── docker             - source code for containers
-    └── sca3s              - source code for SCA3S
-        └── harness        - source code for SCA3S harness
-            ├── board        - board  implementations
-            ├── driver       - driver implementations
-            ├── kernel       - kernel implementations
-            └── share        - shared functionality
+    ├── docker              - source code for containers
+    └── sca3s               - source code for SCA3S
+        └── harness         - source code for SCA3S harness
+            ├── board         - board  implementations
+            ├── driver        - driver implementations
+            ├── kernel        - kernel implementations
+            └── share         - shared functionality
 ```
 
 <!--- -------------------------------------------------------------------- --->
@@ -185,12 +185,59 @@ a harness within which target implementations are developed.*
 
 <!--- -------------------------------------------------------------------- --->
 
+## Notes
+
+- The 
+  `CONTEXT`
+  environment variable specifies the
+  build context
+  within which the build process is executed:
+
+  | Context              | Description                                                                     |
+  | :------------------- | :------------------------------------------------------------------------------ |
+  | `native`             | The default, native build context                                               |
+  | `docker`             | A containerised build context, offered by an architecture-specific Docker image |
+
+  Note that:
+
+  - Each architecture-specific Docker image is built using 
+    the content housed in
+    [`${REPO_HOME}/src/docker`](./src/docker).
+    However, **there is no need to do this manually**: a pre-built 
+    image can (and will) be pulled from
+    [Docker Hub](https://cloud.docker.com/u/scarv)
+    by the build process as needed.
+
+- The 
+  `BOARD`
+  environment variable specifies the
+
+  | Architecture         | Description                                                                     |
+  | :------------------- | :------------------------------------------------------------------------------ |
+  | `scale/lpc1313fbd48` | An ARM Cortex-M3 [SCALE](https://github.com/danpage/scale)                      |
+
+- The 
+  `TARGET`
+  environment variable specifies the
+
+  | Target               | Description                                                                     |
+  | :------------------- | :------------------------------------------------------------------------------ |
+  | `block`              | A [block cipher](https://en.wikipedia.org/wiki/Block_cipher)                    |
+
+<!--- -------------------------------------------------------------------- --->
+
 ## Acknowledgements
 
-This work has been supported in part by EPSRC via grant 
-[EP/R012288/1](https://gow.epsrc.ukri.org/NGBOViewGrant.aspx?GrantRef=EP/R012288/1),
-under the [RISE](https://www.ukrise.org) programme, and by the
-[AWS Cloud Credits for Research](https://aws.amazon.com/research-credits)
-program.
+This work has been supported in part 
+
+- by EPSRC via grant 
+  [EP/R012288/1](https://gow.epsrc.ukri.org/NGBOViewGrant.aspx?GrantRef=EP/R012288/1)
+  under the 
+  [RISE](https://www.ukrise.org) 
+  programme, 
+  and 
+- by the
+  [AWS Cloud Credits for Research](https://aws.amazon.com/research-credits)
+  programme.
 
 <!--- -------------------------------------------------------------------- --->
