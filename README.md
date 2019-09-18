@@ -33,7 +33,7 @@ a harness within which target implementations are developed.*
 └── src
     ├── docker              - source code for containers
     └── sca3s               - source code for SCA3S
-        └── harness         - source code for SCA3S harness
+        └── harness         - source code for SCA3S target implementation harness
             ├── board         - board  implementations
             ├── driver        - driver implementations
             ├── kernel        - kernel implementations
@@ -169,7 +169,6 @@ a harness within which target implementations are developed.*
       | `make deps-build-harness` | build                  the target implementation dependencies    |
       | `make      build-harness` | build                  the target implementation                 |
       | `make      clean`         | clean-up (e.g., remove everything built in `${REPO_HOME}/build`) |
-
 
    2. use the working repository remotely:
       go to
