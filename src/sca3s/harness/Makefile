@@ -42,10 +42,11 @@ vpath %.c $(subst ${SPACE},${COLON},${INCLUDES})
 
 # =============================================================================
 
-# TODO
+# Include the per board configuration for target implementation plus any
+# dependencies it has.
 
 include ${REPO_HOME}/src/sca3s/harness/board/${BOARD}/conf.mk_deps
-include ${REPO_HOME}/src/sca3s/harness/board/${BOARD}/conf.mk_harness
+include ${REPO_HOME}/src/sca3s/harness/board/${BOARD}/conf.mk_target
 
 # Construct a definitive list of built files, plus their associated paths
 # to allow pre-creation of an appropriate directory structure (note that

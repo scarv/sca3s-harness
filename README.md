@@ -111,26 +111,26 @@ a harness within which target implementations are developed.*
       export CONTEXT="native"
       ```
   
-      or just accept the default (per [`${REPO_HOME}/Makefile`](./Makefile)).
+      or just accept the default(s) per [`${REPO_HOME}/Makefile`](./Makefile).
 
    2. Optionally, 
       select the
+      target implementation (i.e., the driver and kernel)
+      and
       board
-      and
-      target implementation (implying the driver and kernel)
       by setting the environment variables
-      `BOARD`
-      and
       `TARGET`
+      and
+      `BOARD`
       appropriately,
       e.g., via
 
       ```sh
-      export BOARD="scale/lpc1313fbd48"
       export TARGET="block"
+      export BOARD="scale/lpc1313fbd48"
       ```
 
-      or just accept the default (per [`${REPO_HOME}/Makefile`](./Makefile)).
+      or just accept the default(s) per [`${REPO_HOME}/Makefile`](./Makefile).
 
 5. Develop a target implementation in the working repository:
 
@@ -200,29 +200,55 @@ a harness within which target implementations are developed.*
 
   Note that:
 
+  - Up to a point, it is reasonable to view this mechanism as somewhat
+    over-engineered.  In a sense it is, but, equally, there *are* some
+    important motivations for supporting it.
+    For example, a pre-built, i.e., containerised, tool-chain will be
+    uniform across both local and remote use-cases outlined above: if 
+    you can build a target implementation locally via this mechanism, 
+    you can be confident it will *also* build remotely.
+
   - Each architecture-specific Docker image is built using 
     the content housed in
     [`${REPO_HOME}/src/docker`](./src/docker).
-    However, **there is no need to do this manually**: a pre-built 
-    image can (and will) be pulled from
+    However,
+    *there is no need to do this manually*: 
+    a pre-built image can (and will) be pulled from
     [Docker Hub](https://cloud.docker.com/u/scarv)
     by the build process as needed.
 
 - The 
+  `TARGET`
+  environment variable specifies the
+  target implementation type, 
+  i.e., the driver and kernel types:
+
+  | Target               | Description                                                                     |
+  | :------------------- | :------------------------------------------------------------------------------ |
+  | `block`              | A [block cipher](https://en.wikipedia.org/wiki/Block_cipher)                    |
+
+- The 
   `BOARD`
   environment variable specifies the
+  board type,
+  i.e., the board which the target implementation is built to execute on:
 
   | Architecture         | Description                                                                     |
   | :------------------- | :------------------------------------------------------------------------------ |
   | `scale/lpc1313fbd48` | An ARM Cortex-M3 [SCALE](https://github.com/danpage/scale)                      |
 
-- The 
-  `TARGET`
-  environment variable specifies the
+- Each 
+  board
+  requires several configuration files:
 
-  | Target               | Description                                                                     |
-  | :------------------- | :------------------------------------------------------------------------------ |
-  | `block`              | A [block cipher](https://en.wikipedia.org/wiki/Block_cipher)                    |
+  1. `${REPO_HOME}/src/sca3s/harness/board/${BOARD}/Dockerfile.in`,
+     which specifies a build script                        for the Docker build context,
+  2. `${REPO_HOME}/src/sca3s/harness/board/${BOARD}/conf.mk_docker`,
+     which specifies configuration, to the build system, about the Docker build context,
+  3. `${REPO_HOME}/src/sca3s/harness/board/${BOARD}/conf.mk_target`
+     which specifies configuration, to the build system, about the target implementation,
+  4. `${REPO_HOME}/src/sca3s/harness/board/${BOARD}/conf.mk_deps`
+     which specifies configuration, to the build system, about the target implementation dependencies.
 
 <!--- -------------------------------------------------------------------- --->
 
@@ -231,10 +257,7 @@ a harness within which target implementations are developed.*
 This work has been supported in part 
 
 - by EPSRC via grant 
-  [EP/R012288/1](https://gow.epsrc.ukri.org/NGBOViewGrant.aspx?GrantRef=EP/R012288/1)
-  under the 
-  [RISE](https://www.ukrise.org) 
-  programme, 
+  [EP/R012288/1](https://gow.epsrc.ukri.org/NGBOViewGrant.aspx?GrantRef=EP/R012288/1) (under the [RISE](https://www.ukrise.org) programme), 
   and 
 - by the
   [AWS Cloud Credits for Research](https://aws.amazon.com/research-credits)
