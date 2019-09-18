@@ -54,6 +54,7 @@ update :
 	@-git remote add upstream https://github.com/scarv/sca3s-harness.git
 	@-git fetch upstream
 	@-git merge upstream/master
+	@-git push
 
 clean  :
 	@rm --force --recursive ${REPO_HOME}/build/*
