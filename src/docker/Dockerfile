@@ -9,6 +9,7 @@
 FROM ubuntu
 
 ARG DATE
+ARG BOARD
 
 LABEL maintainer="SCARV project <info@scarv.org>" url="https://github.com/scarv/sca3s-harness" date="${DATE}" 
 

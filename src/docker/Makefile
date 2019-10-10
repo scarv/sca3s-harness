@@ -25,7 +25,7 @@ ${CLEAN_PATHS} :
 # =============================================================================
 
 build : ${BUILD_PATHS} ${BUILD_FILES}
-	@docker build --tag ${DOCKER_REPO}:${DOCKER_TAG} --build-arg DATE="$(shell date -u +'%d/%m/%Y-%H:%M:%SZ')" ${REPO_HOME}/build/${BOARD}/docker
+	@docker build --tag ${DOCKER_REPO}:${DOCKER_TAG} --build-arg DATE="$(shell date -u +'%d/%m/%Y-%H:%M:%SZ')" --build-arg BOARD="${BOARD}" ${REPO_HOME}/build/${BOARD}/docker
 
 clean : ${CLEAN_PATHS}
 	@docker images | grep ${DOCKER_REPO} | grep ${DOCKER_TAG} | tr --squeeze-repeats ' ' | cut --delimiter=' ' --fields=3 | uniq | xargs --no-run-if-empty docker rmi --force && rm --force --recursive ${BUILD_PATHS}
