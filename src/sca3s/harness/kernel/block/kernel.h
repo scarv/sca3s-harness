@@ -10,25 +10,25 @@
 
 #include "util.h"
 
-/** @brief The kernel identifier, i.e., the specific algorithm used.
+/** @brief The kernel identifier.
   */
 
-#define KERNEL_ID         ""
+#define KERNEL_ID         ( "unknown" )
 
 /** @brief Number of bytes in a plaintext or ciphertext block.
   */
 
-#define KERNEL_SIZEOF_BLK 16
+#define KERNEL_SIZEOF_BLK ( 16 )
 
 /** @brief Number of bytes in a cipher key.
   */
 
-#define KERNEL_SIZEOF_KEY 16
+#define KERNEL_SIZEOF_KEY ( 16 )
 
 /** @brief Number of bytes of externally supplied randomness.
   */
 
-#define KERNEL_SIZEOF_RND  0
+#define KERNEL_SIZEOF_RND (  0 )
 
 /** @brief Prepare for, or initialise a subsequent encryption operation.
   *        Note that since
