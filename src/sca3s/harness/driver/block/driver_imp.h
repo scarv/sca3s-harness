@@ -18,11 +18,11 @@
 /** @brief The driver identifier.
   */
 
-#define DRIVER_ID      ( "block" )
+#define DRIVER_ID      "block"
 
 /** @brief The driver version.
   */
 
-#define DRIVER_VERSION ( VERSION )
+#define DRIVER_VERSION VERSION
 
 #endif

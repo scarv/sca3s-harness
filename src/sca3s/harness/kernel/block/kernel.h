@@ -13,7 +13,7 @@
 /** @brief The kernel identifier.
   */
 
-#define KERNEL_ID         ( "unknown" )
+#define KERNEL_ID         "unknown"
 
 /** @brief Number of bytes in a plaintext or ciphertext block.
   */
