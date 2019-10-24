@@ -10,10 +10,19 @@
 
 #include "util.h"
 
-/** @brief The kernel identifier.
+/** @brief The kernel identifier, formatted as 
+  *        <kernel>/<function> 
+  *        st.
+  *                 <function> 
+  *        is either
+  *        1) enc for encryption 
+  *           (i.e., kernel_enc_init and kernel_enc will be used),
+  *           or
+  *        2) dec for decryption 
+  *           (i.e., kernel_dec_init and kernel_dec will be used).
   */
 
-#define KERNEL_ID         "unknown"
+#define KERNEL_ID         "generic/enc"
 
 /** @brief Number of bytes in a plaintext or ciphertext block.
   */
