@@ -22,18 +22,18 @@ INCLUDES +=            ${REPO_HOME}/src/sca3s/harness/board/${BOARD}
  HEADERS += $(wildcard ${REPO_HOME}/src/sca3s/harness/board/${BOARD}/*.h)
 
 INCLUDES +=            ${REPO_HOME}/src/sca3s/harness/driver
-INCLUDES +=            ${REPO_HOME}/src/sca3s/harness/driver/${TARGET}
+INCLUDES +=            ${REPO_HOME}/src/sca3s/harness/driver/${DRIVER}
  SOURCES += $(wildcard ${REPO_HOME}/src/sca3s/harness/driver/*.c)
- SOURCES += $(wildcard ${REPO_HOME}/src/sca3s/harness/driver/${TARGET}/*.c)
+ SOURCES += $(wildcard ${REPO_HOME}/src/sca3s/harness/driver/${DRIVER}/*.c)
  HEADERS += $(wildcard ${REPO_HOME}/src/sca3s/harness/driver/*.h)
- HEADERS += $(wildcard ${REPO_HOME}/src/sca3s/harness/driver/${TARGET}/*.h)
+ HEADERS += $(wildcard ${REPO_HOME}/src/sca3s/harness/driver/${DRIVER}/*.h)
 
 INCLUDES +=            ${REPO_HOME}/src/sca3s/harness/kernel
-INCLUDES +=            ${REPO_HOME}/src/sca3s/harness/kernel/${TARGET}
+INCLUDES +=            ${REPO_HOME}/src/sca3s/harness/kernel/${DRIVER}
  SOURCES += $(wildcard ${REPO_HOME}/src/sca3s/harness/kernel/*.c)
- SOURCES += $(wildcard ${REPO_HOME}/src/sca3s/harness/kernel/${TARGET}/*.c)
+ SOURCES += $(wildcard ${REPO_HOME}/src/sca3s/harness/kernel/${DRIVER}/*.c)
  HEADERS += $(wildcard ${REPO_HOME}/src/sca3s/harness/kernel*.h)
- HEADERS += $(wildcard ${REPO_HOME}/src/sca3s/harness/kernel/${TARGET}/*.h)
+ HEADERS += $(wildcard ${REPO_HOME}/src/sca3s/harness/kernel/${DRIVER}/*.h)
 
  OBJECTS += $(addprefix ${REPO_HOME}/build/${BOARD}/, $(notdir $(patsubst %.c, %.o, ${SOURCES})))
 

@@ -115,19 +115,20 @@ a harness within which target implementations are developed.*
 
    2. Optionally, 
       select the
-      target implementation (i.e., the driver and kernel)
-      and
       board
-      by setting the environment variables
-      `TARGET`
       and
-      `BOARD`
+      target implementation 
+      types
+      by setting the environment variables
+      `BOARD`,
+      and
+      `DRIVER`,
       appropriately,
       e.g., via
 
       ```sh
-      export TARGET="block"
       export BOARD="scale/lpc1313fbd48"
+      export DRIVER="block"
       ```
 
       or just accept the default(s) per [`${REPO_HOME}/Makefile`](./Makefile).
@@ -137,21 +138,19 @@ a harness within which target implementations are developed.*
    1. edit
 
       ```sh
-      ${REPO_HOME}/src/sca3s/harness/kernel/${TARGET}/kernel.h
+      ${REPO_HOME}/src/sca3s/harness/kernel/${DRIVER}/kernel.h
       ```
 
-      to specify parameters of the implementation, 
-      e.g., the block size,
+      to specify parameters of the target implementation, 
       then
 
    2. edit
 
       ```sh
-      ${REPO_HOME}/src/sca3s/harness/kernel/${TARGET}/kernel.c
+      ${REPO_HOME}/src/sca3s/harness/kernel/${DRIVER}/kernel.c
       ```
 
-      to complete the implementation itself, 
-      e.g., the `kernel_enc` and/or `kernel_dec` functions,
+      to complete the target implementation itself,
 
    3. commit and push the result.
 
@@ -217,24 +216,28 @@ a harness within which target implementations are developed.*
     by the build process as needed.
 
 - The 
-  `TARGET`
-  environment variable specifies the
-  target implementation type, 
-  i.e., the driver and kernel types:
-
-  | Target               | Description                                                                     |
-  | :------------------- | :------------------------------------------------------------------------------ |
-  | `block`              | A [block cipher](https://en.wikipedia.org/wiki/Block_cipher)                    |
-
-- The 
   `BOARD`
   environment variable specifies the
-  board type,
-  i.e., the board which the target implementation is built to execute on:
+  board 
+  type:
 
   | Architecture         | Description                                                                     |
   | :------------------- | :------------------------------------------------------------------------------ |
   | `scale/lpc1313fbd48` | An ARM Cortex-M3 [SCALE](https://github.com/danpage/scale)                      |
+
+
+- The 
+  `DRIVER`
+  environment variable specifies the
+  target implementation 
+  type:
+
+  | Driver               | Kernel               | Description                                                                                                                                         |
+  | :------------------- | :--------------------| :-------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | `block`              | `generic/enc`        | A   generic                                                           [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in encryption mode |
+  | `block`              | `generic/dec`        | A   generic                                                           [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in decryption mode |
+  | `block`              |     `aes/enc`        | The [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in encryption mode |
+  | `block`              |     `aes/dec`        | The [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in decryption mode |
 
 - Each 
   board

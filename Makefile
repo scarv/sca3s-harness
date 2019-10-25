@@ -14,8 +14,8 @@ endif
 
 export CONTEXT ?= native
 
-export TARGET  ?= block
 export BOARD   ?= scale/lpc1313fbd48
+export DRIVER  ?= block
 
 # Include the Docker configuration: we need to specifically do this here, as
 # it supports a) the Docker build context outright, plus b) any Docker-based
@@ -38,10 +38,11 @@ include ${REPO_HOME}/src/sca3s/harness/board/${BOARD}/conf.mk_docker
 
 ifeq "${CONTEXT}" "docker"
 %          :
-	@docker run --rm --volume "${REPO_HOME}:/mnt/scarv/sca3s/harness" --env DOCKER_GID="$(shell id --group)" --env DOCKER_UID="$(shell id --user)" --env CONTEXT="native" --env BOARD="${BOARD}" --env TARGET="${TARGET}" ${DOCKER_FLAGS} ${DOCKER_REPO}:${DOCKER_TAG} ${*}
+	@docker run --rm --volume "${REPO_HOME}:/mnt/scarv/sca3s/harness" --env DOCKER_GID="$(shell id --group)" --env DOCKER_UID="$(shell id --user)" --env CONTEXT="native" --env BOARD="${BOARD}" --env DRIVER="${DRIVER}" ${DOCKER_FLAGS} ${DOCKER_REPO}:${DOCKER_TAG} ${*}
 endif
 
 ifeq "${CONTEXT}" "native"
+
 %-docker  :
 	@make --directory="${REPO_HOME}/src/docker"        ${*}
 %-harness :
