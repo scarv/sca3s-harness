@@ -1,0 +1,40 @@
+# Copyright (C) 2018 SCARV project <info@scarv.org>
+#
+# Use of this source code is restricted per the MIT license, a copy of which 
+# can be found at https://opensource.org/licenses/MIT (or should be included 
+# as LICENSE.txt within the associated archive or repository).
+
+# =============================================================================
+
+BSP        = ${REPO_HOME}/build/${BOARD}/scale-hw/target/atmega328p/build
+
+-include ${BSP}/lib/scale.conf
+
+GCC_PATHS += -I ${BSP}/include -L ${BSP}/lib
+GCC_FLAGS += -T ${BSP}/lib/scale.ld
+GCC_LIBS  += -lscale
+
+TARGETS   += ${REPO_HOME}/build/${BOARD}/target.elf 
+TARGETS   += ${REPO_HOME}/build/${BOARD}/target.bin 
+TARGETS   += ${REPO_HOME}/build/${BOARD}/target.hex
+
+# =============================================================================
+
+${REPO_HOME}/build/${BOARD}/%.o : %.c %.h
+	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${SCALE_CONF} ${CONF} -c -o ${@} ${<}
+${REPO_HOME}/build/${BOARD}/%.o : %.s %.h
+	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${SCALE_CONF} ${CONF} -c -o ${@} ${<}
+${REPO_HOME}/build/${BOARD}/%.o : %.S %.h
+	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${SCALE_CONF} ${CONF} -c -o ${@} ${<}
+
+${REPO_HOME}/build/${BOARD}/%.elf ${REPO_HOME}/build/${BOARD}/%.map : ${OBJECTS}
+	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${SCALE_CONF} ${CONF} -Wl,-Map=${REPO_HOME}/build/${BOARD}/${*}.map -o ${REPO_HOME}/build/${BOARD}/${*}.elf ${^} ${GCC_LIBS}
+${REPO_HOME}/build/${BOARD}/%.bin                          : ${REPO_HOME}/build/${BOARD}/%.elf
+	@${GCC_PREFIX}objcopy ${OBJCOPY_FLAGS} -O binary ${<} ${@}
+${REPO_HOME}/build/${BOARD}/%.hex                          : ${REPO_HOME}/build/${BOARD}/%.elf
+	@${GCC_PREFIX}objcopy ${OBJCOPY_FLAGS} -O ihex   ${<} ${@}
+
+report        : ${TARGETS}
+	@${GCC_PREFIX}readelf --wide --all $(filter %.elf, ${^})
+
+# =============================================================================

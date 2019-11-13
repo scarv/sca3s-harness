@@ -221,10 +221,13 @@ a harness within which target implementations are developed.*
   board 
   type:
 
-  | Architecture         | Description                                                                     |
-  | :------------------- | :------------------------------------------------------------------------------ |
-  | `scale/lpc1313fbd48` | An ARM Cortex-M3 [SCALE](https://github.com/danpage/scale)                      |
-
+  | Architecture                                      | Description                                                                                                                                         |
+  | :------------------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | `native`                                          | A hardware-agnostic, "simulated" board allowing a natively executable target implementation (e.g., for testing and debugging purposes)              |
+  | `scale/atmega328p`                                | An [SCALE](https://github.com/danpage/scale-hw/target/atmega328p)      Atmel [AVR       ](https://en.wikipedia.org/wiki/AVR_microcontrollers) board |
+  | `scale/lpc1114fn28`                               | An [SCALE](https://github.com/danpage/scale-hw/target/lpc1114fn28)     ARM   [Cortex-M0 ](https://en.wikipedia.org/wiki/ARM_Cortex-M)         board |
+  | `scale/lpc1313fbd48`                              | An [SCALE](https://github.com/danpage/scale-hw/target/lpc1313fbd48)    ARM   [Cortex-M3 ](https://en.wikipedia.org/wiki/ARM_Cortex-M)         board |
+  | `scale/lpc812m101jdh16`                           | An [SCALE](https://github.com/danpage/scale-hw/target/lpc812m101jdh16) ARM   [Cortex-M0+](https://en.wikipedia.org/wiki/ARM_Cortex-M)         board |
 
 - The 
   `DRIVER`
@@ -232,12 +235,12 @@ a harness within which target implementations are developed.*
   target implementation 
   type:
 
-  | Driver               | Kernel               | Description                                                                                                                                         |
-  | :------------------- | :--------------------| :-------------------------------------------------------------------------------------------------------------------------------------------------- |
-  | `block`              | `generic/enc`        | A   generic                                                           [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in encryption mode |
-  | `block`              | `generic/dec`        | A   generic                                                           [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in decryption mode |
-  | `block`              |     `aes/enc`        | The [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in encryption mode |
-  | `block`              |     `aes/dec`        | The [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in decryption mode |
+  | Driver                  | Kernel                  | Description                                                                                                                                         |
+  | :---------------------- | :---------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | `block`                 | `generic/enc`           | A   generic                                                           [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in encryption mode |
+  | `block`                 | `generic/dec`           | A   generic                                                           [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in decryption mode |
+  | `block`                 |     `aes/enc`           | The [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in encryption mode |
+  | `block`                 |     `aes/dec`           | The [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in decryption mode |
 
 - Each 
   board
