@@ -7,7 +7,7 @@
 
 <!--- -------------------------------------------------------------------- --->
 
-*Acting as a component part of the
+*Acting as a component part of the wider
 [SCARV](https://www.scarv.org)
 project,
 SCA3S is a collection of resources that support the development 
