@@ -14,9 +14,11 @@ endif
 
 export CONTEXT ?= native
 
-export BOARD   ?= scale/lpc1313fbd48
+export BOARD   ?= native
 export DRIVER  ?= block
 export CONF    ?=
+
+export DEPS    ?= ${REPO_HOME}/build/${BOARD}/deps
 
 # Include the Docker configuration: we need to specifically do this here, as
 # it supports a) the Docker build context outright, plus b) any Docker-based

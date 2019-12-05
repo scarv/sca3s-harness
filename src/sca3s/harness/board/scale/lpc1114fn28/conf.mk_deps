@@ -7,10 +7,12 @@
 # =============================================================================
 
 deps-fetch :
-	@git clone --reference-if-able ${CACHE}/scale-hw http://www.github.com/danpage/scale-hw.git ${REPO_HOME}/build/${BOARD}/scale-hw
+	@git clone https://github.com/danpage/scale-hw.git ${DEPS}/scale-hw
+
 deps-build :
-	@make --no-builtin-rules --directory="${REPO_HOME}/build/${BOARD}/scale-hw/target/lpc1114fn28" all
+	@make --no-builtin-rules --directory="${DEPS}/scale-hw/target/lpc1114fn28" all
+
 deps-clean : 
-	@make --no-builtin-rules --directory="${REPO_HOME}/build/${BOARD}/scale-hw/target/lpc1114fn28" clean
+	@make --no-builtin-rules --directory="${DEPS}/scale-hw/target/lpc1114fn28" clean
 
 # =============================================================================

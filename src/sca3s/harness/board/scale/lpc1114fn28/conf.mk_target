@@ -6,12 +6,11 @@
 
 # =============================================================================
 
-BSP        = ${REPO_HOME}/build/${BOARD}/scale-hw/target/lpc1114fn28/build
+-include ${DEPS}/scale-hw/target/lpc1114fn28/build/lib/scale.conf
 
--include ${BSP}/lib/scale.conf
-
-GCC_PATHS += -I ${BSP}/include -L ${BSP}/lib
-GCC_FLAGS += -T ${BSP}/lib/scale.ld
+GCC_PATHS += -I ${DEPS}/scale-hw/target/lpc1114fn28/build/include 
+GCC_PATHS += -L ${DEPS}/scale-hw/target/lpc1114fn28/build/lib
+GCC_FLAGS += -T ${DEPS}/scale-hw/target/lpc1114fn28/build/lib/scale.ld
 GCC_LIBS  += -lscale
 
 TARGETS   += ${REPO_HOME}/build/${BOARD}/target.elf 
@@ -34,7 +33,7 @@ ${REPO_HOME}/build/${BOARD}/%.bin                          : ${REPO_HOME}/build/
 ${REPO_HOME}/build/${BOARD}/%.hex                          : ${REPO_HOME}/build/${BOARD}/%.elf
 	@${GCC_PREFIX}objcopy ${OBJCOPY_FLAGS} -O ihex   ${<} ${@}
 
-report        : ${TARGETS}
+report : ${TARGETS}
 	@${GCC_PREFIX}readelf --wide --all $(filter %.elf, ${^})
 
 # =============================================================================

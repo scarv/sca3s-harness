@@ -6,13 +6,24 @@
 
 # =============================================================================
 
-${REPO_HOME}/build/${BOARD}/docker/Dockerfile    : ${REPO_HOME}/src/docker/Dockerfile
+${REPO_HOME}/build/${BOARD}/docker/Dockerfile     : ${REPO_HOME}/src/docker/Dockerfile
 	@m4 --include="${REPO_HOME}/src/docker" --include="${REPO_HOME}/src/sca3s/harness/board/${BOARD}" ${<} > ${@}
-${REPO_HOME}/build/${BOARD}/docker/entrypoint.sh : ${REPO_HOME}/src/docker/entrypoint.sh
+${REPO_HOME}/build/${BOARD}/docker/entrypoint.sh  : ${REPO_HOME}/src/docker/entrypoint.sh
+	@m4 --include="${REPO_HOME}/src/docker" --include="${REPO_HOME}/src/sca3s/harness/board/${BOARD}" ${<} > ${@}
+
+${REPO_HOME}/build/${BOARD}/docker/conf.mk_docker : ${REPO_HOME}/src/sca3s/harness/board/${BOARD}/conf.mk_docker
+	@m4 --include="${REPO_HOME}/src/docker" --include="${REPO_HOME}/src/sca3s/harness/board/${BOARD}" ${<} > ${@}
+${REPO_HOME}/build/${BOARD}/docker/conf.mk_target : ${REPO_HOME}/src/sca3s/harness/board/${BOARD}/conf.mk_target
+	@m4 --include="${REPO_HOME}/src/docker" --include="${REPO_HOME}/src/sca3s/harness/board/${BOARD}" ${<} > ${@}
+${REPO_HOME}/build/${BOARD}/docker/conf.mk_deps   : ${REPO_HOME}/src/sca3s/harness/board/${BOARD}/conf.mk_deps
 	@m4 --include="${REPO_HOME}/src/docker" --include="${REPO_HOME}/src/sca3s/harness/board/${BOARD}" ${<} > ${@}
 
 BUILD_FILES  = ${REPO_HOME}/build/${BOARD}/docker/Dockerfile
 BUILD_FILES += ${REPO_HOME}/build/${BOARD}/docker/entrypoint.sh
+
+BUILD_FILES += ${REPO_HOME}/build/${BOARD}/docker/conf.mk_docker
+BUILD_FILES += ${REPO_HOME}/build/${BOARD}/docker/conf.mk_target
+BUILD_FILES += ${REPO_HOME}/build/${BOARD}/docker/conf.mk_deps
 
 BUILD_PATHS  = ${REPO_HOME}/build/${BOARD}/docker
 

@@ -20,7 +20,14 @@ RUN apt-get --assume-yes --quiet update \
 
 # -----------------------------------------------------------------------------
 
+ENV DEPS="/opt/scarv/sca3s/harness/board/${BOARD}/deps"
+RUN mkdir --parents ${DEPS}
+
 include(`Dockerfile.in')
+
+COPY conf.mk_deps ${DEPS}/Makefile
+RUN make --directory="${DEPS}" deps-fetch \
+ && make --directory="${DEPS}" deps-build
 
 # -----------------------------------------------------------------------------
 

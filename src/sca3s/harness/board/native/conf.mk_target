@@ -24,7 +24,7 @@ ${REPO_HOME}/build/${BOARD}/%.o : %.S %.h
 ${REPO_HOME}/build/${BOARD}/%.elf ${REPO_HOME}/build/${BOARD}/%.map : ${OBJECTS}
 	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${SCALE_CONF} ${CONF} -Wl,-Map=${REPO_HOME}/build/${BOARD}/${*}.map -o ${REPO_HOME}/build/${BOARD}/${*}.elf ${^} ${GCC_LIBS}
 
-report        : ${TARGETS}
+report : ${TARGETS}
 	@${GCC_PREFIX}readelf --wide --all $(filter %.elf, ${^})
 
 # =============================================================================
