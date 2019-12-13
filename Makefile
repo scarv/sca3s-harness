@@ -15,7 +15,7 @@ endif
 export CONTEXT ?= native
 
 export BOARD   ?= native
-export DRIVER  ?= block
+export KERNEL  ?= block
 export CONF    ?=
 
 export DEPS    ?= ${REPO_HOME}/build/${BOARD}/deps
@@ -41,7 +41,7 @@ include ${REPO_HOME}/src/sca3s/harness/board/${BOARD}/conf.mk_docker
 
 ifeq "${CONTEXT}" "docker"
 %          :
-	@docker run --rm --volume "${REPO_HOME}:/mnt/scarv/sca3s/harness" --env DOCKER_GID="$(shell id --group)" --env DOCKER_UID="$(shell id --user)" --env CONTEXT="native" --env BOARD="${BOARD}" --env DRIVER="${DRIVER}" ${DOCKER_FLAGS} ${DOCKER_REPO}:${DOCKER_TAG} ${*}
+	@docker run --rm --volume "${REPO_HOME}:/mnt/scarv/sca3s/harness" --env DOCKER_GID="$(shell id --group)" --env DOCKER_UID="$(shell id --user)" --env CONTEXT="native" --env BOARD="${BOARD}" --env KERNEL="${KERNEL}" ${DOCKER_FLAGS} ${DOCKER_REPO}:${DOCKER_TAG} ${*}
 endif
 
 ifeq "${CONTEXT}" "native"

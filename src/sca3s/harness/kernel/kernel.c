@@ -6,19 +6,3 @@
  */
 
 #include "kernel.h"
-
-void kernel_enc_init( uint8_t* k, uint8_t* r ) {
-
-}
-
-void kernel_dec_init( uint8_t* k, uint8_t* r ) {
-
-}
-
-void kernel_enc( uint8_t* c, uint8_t* m, uint8_t* k, uint8_t* r ) {
-
-}
-
-void kernel_dec( uint8_t* c, uint8_t* m, uint8_t* k, uint8_t* r ) {
-
-}

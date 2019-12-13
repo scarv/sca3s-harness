@@ -10,27 +10,29 @@
 
 #include "util.h"
 
-#include  "board.h"
 #include "kernel.h"
+#include "kernel_imp.h"
 
-typedef struct {
-  char* hid; uint8_t* ptr; int n;
-} driver_reg_desc_t;
+#include "board.h"
 
-typedef struct {
-  char* hid; bool (*ptr)( char* ack, char* req[], int n );
-} driver_cmd_desc_t;
+typedef bool (*driver_command_t)( char* ack, char* req[], int n );
 
-extern uint64_t driver_tsc_init;
-extern uint64_t driver_tsc_fini;
+#define DRIVER_COMMAND(f) bool f( char* ack, char* req[], int n )
 
-extern bool driver_tsc       ( char* ack, char* req[], int n );
-
-extern bool driver_reg_sizeof( char* ack, char* req[], int n );
-extern bool driver_reg_rd    ( char* ack, char* req[], int n );
-extern bool driver_reg_wr    ( char* ack, char* req[], int n );
-
-extern int  driver( driver_reg_desc_t* __driver_reg,
-                    driver_cmd_desc_t* __driver_cmd );
+#define DRIVER_EXECUTE(x,f) {    \
+  if( x ) {                      \
+    board_trigger_wr(  true );   \
+  }                              \
+                                 \
+  driver_tsc_init = board_tsc(); \
+  bool r = f;                    \
+  driver_tsc_fini = board_tsc(); \
+                                 \
+  if( x ) {                      \
+    board_trigger_wr( false );   \
+  }                              \
+                                 \
+  return r;                      \
+}
 
 #endif

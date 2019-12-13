@@ -21,19 +21,16 @@ INCLUDES +=            ${REPO_HOME}/src/sca3s/harness/board/${BOARD}
  HEADERS += $(wildcard ${REPO_HOME}/src/sca3s/harness/board/*.h)
  HEADERS += $(wildcard ${REPO_HOME}/src/sca3s/harness/board/${BOARD}/*.h)
 
-INCLUDES +=            ${REPO_HOME}/src/sca3s/harness/driver
-INCLUDES +=            ${REPO_HOME}/src/sca3s/harness/driver/${DRIVER}
- SOURCES += $(wildcard ${REPO_HOME}/src/sca3s/harness/driver/*.c)
- SOURCES += $(wildcard ${REPO_HOME}/src/sca3s/harness/driver/${DRIVER}/*.c)
- HEADERS += $(wildcard ${REPO_HOME}/src/sca3s/harness/driver/*.h)
- HEADERS += $(wildcard ${REPO_HOME}/src/sca3s/harness/driver/${DRIVER}/*.h)
-
 INCLUDES +=            ${REPO_HOME}/src/sca3s/harness/kernel
-INCLUDES +=            ${REPO_HOME}/src/sca3s/harness/kernel/${DRIVER}
+INCLUDES +=            ${REPO_HOME}/src/sca3s/harness/kernel/${KERNEL}
  SOURCES += $(wildcard ${REPO_HOME}/src/sca3s/harness/kernel/*.c)
- SOURCES += $(wildcard ${REPO_HOME}/src/sca3s/harness/kernel/${DRIVER}/*.c)
- HEADERS += $(wildcard ${REPO_HOME}/src/sca3s/harness/kernel*.h)
- HEADERS += $(wildcard ${REPO_HOME}/src/sca3s/harness/kernel/${DRIVER}/*.h)
+ SOURCES += $(wildcard ${REPO_HOME}/src/sca3s/harness/kernel/${KERNEL}/*.c)
+ HEADERS += $(wildcard ${REPO_HOME}/src/sca3s/harness/kernel/*.h)
+ HEADERS += $(wildcard ${REPO_HOME}/src/sca3s/harness/kernel/${KERNEL}/*.h)
+
+INCLUDES +=            ${REPO_HOME}/src/sca3s/harness/driver
+ SOURCES += $(wildcard ${REPO_HOME}/src/sca3s/harness/driver/*.c)
+ HEADERS += $(wildcard ${REPO_HOME}/src/sca3s/harness/driver/*.h)
 
  OBJECTS += $(addprefix ${REPO_HOME}/build/${BOARD}/, $(notdir $(patsubst %.c, %.o, ${SOURCES})))
 
@@ -41,6 +38,11 @@ vpath %.h $(subst ${SPACE},${COLON},${INCLUDES})
 vpath %.c $(subst ${SPACE},${COLON},${INCLUDES})
 
 # =============================================================================
+
+# Translate the BOARD and KERNEL environment varaibles into pre-processor 
+# symbols, so they can be used in the target implementation.
+
+GCC_FLAGS = -DBOARD='"${BOARD}"' -DKERNEL='"${KERNEL}"'
 
 # Include the per board configuration for target implementation plus any
 # dependencies it has.

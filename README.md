@@ -122,13 +122,13 @@ a harness within which target implementations are developed.*
       by setting the environment variables
       `BOARD`,
       and
-      `DRIVER`,
+      `KERNEL`,
       appropriately,
       e.g., via
 
       ```sh
       export BOARD="scale/lpc1313fbd48"
-      export DRIVER="block"
+      export KERNEL="block"
       ```
 
       or just accept the default(s) per [`${REPO_HOME}/Makefile`](./Makefile).
@@ -138,7 +138,7 @@ a harness within which target implementations are developed.*
    1. edit
 
       ```sh
-      ${REPO_HOME}/src/sca3s/harness/kernel/${DRIVER}/kernel.h
+      ${REPO_HOME}/src/sca3s/harness/kernel/${KERNEL}/kernel_imp.h
       ```
 
       to specify parameters of the target implementation, 
@@ -147,7 +147,7 @@ a harness within which target implementations are developed.*
    2. edit
 
       ```sh
-      ${REPO_HOME}/src/sca3s/harness/kernel/${DRIVER}/kernel.c
+      ${REPO_HOME}/src/sca3s/harness/kernel/${KERNEL}/kernel_imp.c
       ```
 
       to complete the target implementation itself,
@@ -221,26 +221,26 @@ a harness within which target implementations are developed.*
   board 
   type:
 
-  | Architecture                                      | Description                                                                                                                                         |
-  | :------------------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
-  | `native`                                          | A hardware-agnostic, "simulated" board allowing a natively executable target implementation (e.g., for testing and debugging purposes)              |
-  | `scale/atmega328p`                                | An [SCALE](https://github.com/danpage/scale-hw/target/atmega328p)      Atmel [AVR       ](https://en.wikipedia.org/wiki/AVR_microcontrollers) board |
-  | `scale/lpc1114fn28`                               | An [SCALE](https://github.com/danpage/scale-hw/target/lpc1114fn28)     ARM   [Cortex-M0 ](https://en.wikipedia.org/wiki/ARM_Cortex-M)         board |
-  | `scale/lpc1313fbd48`                              | An [SCALE](https://github.com/danpage/scale-hw/target/lpc1313fbd48)    ARM   [Cortex-M3 ](https://en.wikipedia.org/wiki/ARM_Cortex-M)         board |
-  | `scale/lpc812m101jdh16`                           | An [SCALE](https://github.com/danpage/scale-hw/target/lpc812m101jdh16) ARM   [Cortex-M0+](https://en.wikipedia.org/wiki/ARM_Cortex-M)         board |
+  | `BOARD`                                                                     | Description                                                                                                                                         |
+  | :-------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | `native`                                                                    | A hardware-agnostic, "simulated" board allowing a natively executable target implementation (e.g., for testing and debugging purposes)              |
+  | `scale/atmega328p`                                                          | An [SCALE](https://github.com/danpage/scale-hw/target/atmega328p)      Atmel [AVR       ](https://en.wikipedia.org/wiki/AVR_microcontrollers) board |
+  | `scale/lpc1114fn28`                                                         | An [SCALE](https://github.com/danpage/scale-hw/target/lpc1114fn28)     ARM   [Cortex-M0 ](https://en.wikipedia.org/wiki/ARM_Cortex-M)         board |
+  | `scale/lpc1313fbd48`                                                        | An [SCALE](https://github.com/danpage/scale-hw/target/lpc1313fbd48)    ARM   [Cortex-M3 ](https://en.wikipedia.org/wiki/ARM_Cortex-M)         board |
+  | `scale/lpc812m101jdh16`                                                     | An [SCALE](https://github.com/danpage/scale-hw/target/lpc812m101jdh16) ARM   [Cortex-M0+](https://en.wikipedia.org/wiki/ARM_Cortex-M)         board |
 
 - The 
-  `DRIVER`
+  `KERNEL`
   environment variable specifies the
   target implementation 
   type:
 
-  | Driver                  | Kernel                  | Description                                                                                                                                         |
-  | :---------------------- | :---------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
-  | `block`                 | `generic/enc`           | A   generic                                                           [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in encryption mode |
-  | `block`                 | `generic/dec`           | A   generic                                                           [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in decryption mode |
-  | `block`                 |     `aes/enc`           | The [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in encryption mode |
-  | `block`                 |     `aes/dec`           | The [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in decryption mode |
+  | `KERNEL`                | `KERNEL_NAMEOF`         | `KERNEL_TYPEOF`         | Description                                                                                                                                         |
+  | :---------------------- | :---------------------- | :---------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | `block`                 | `generic`               | `enc`                   | A   generic                                                           [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in encryption mode |
+  | `block`                 | `generic`               | `dec`                   | A   generic                                                           [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in decryption mode |
+  | `block`                 | `aes`                   | `enc`                   | The [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in encryption mode |
+  | `block`                 | `aes`                   | `dec`                   | The [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in decryption mode |
 
 - Each 
   board
