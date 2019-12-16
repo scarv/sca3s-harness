@@ -75,19 +75,26 @@ a harness within which target implementations are developed.*
    in your *own* account: we term this the working repository.
    Using the
    [GitHub](https://github.com)-based
-   interface, you can do so via *either* of two methods: either
+   UI, 
+   you can do so via *either* of two methods: either
 
    - [fork](https://help.github.com/en/articles/fork-a-repo) it,
      or
    - use it as a [template](https://help.github.com/en/articles/creating-a-repository-from-a-template).
 
-   From here on, we assume your username is `${USER}` and the 
-   working repository within that account is called `${WORK}`.
+   Either way, we assume
+   `${REPO_WORK}`
+   denotes a usable working repository URL from here on: 
+   using the
+   [GitHub](https://github.com)-based
+   UI,
+   you can copy-and-paste it (in HTTPS and SSH formats) via the button 
+   labelled "clone or download".
 
 3. Execute
 
    ```sh
-   git clone https://github.com/${USER}/${WORK}.git
+   git clone ${REPO_WORK} ./sca3s-harness
    cd ./sca3s-harness
    source ./bin/conf.sh
    ```
@@ -199,7 +206,7 @@ a harness within which target implementations are developed.*
   - `repo-install`
     performs any (post-clone) installation of content into the working
     repository.  An example is the pre-commit
-    [hook](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks)
+    [hook](https://git-scm.com/docs/githooks)
     (i.e., `${REPO_HOME}/.git/hooks/pre-commit`) which updates
     `${REPO_HOME}/README.md`
     to ensure any status icons (or [shields](https://shields.io)) are
@@ -265,7 +272,7 @@ a harness within which target implementations are developed.*
        and
     b) any software dependencies (e.g., libraries)
     are installed within the associated container.
-    Building a target implementation is therefore achived by executing
+    Building a target implementation is therefore achieved by executing
 
     ```sh
     make CONTEXT="docker"      clean-harness
@@ -273,6 +280,12 @@ a harness within which target implementations are developed.*
     ```
 
     alone.
+
+  - The
+    `DEPS`
+    environment variable controls where the software dependencies; it
+    is set automatically by the build system, so, assuming you proceed
+    as above, you can ignore it.
 
 - The 
   `BOARD`
