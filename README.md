@@ -2,10 +2,9 @@
 
 <!--- -------------------------------------------------------------------- --->
 
-<!--- shield -->
-[![Build Status](https://travis-ci.com/scarv/sca3s-harness.svg)](https://travis-ci.com/scarv/sca3s-harness)
 [![Documentation](https://codedocs.xyz/scarv/sca3s-harness.svg)](https://codedocs.xyz/scarv/sca3s-harness)
-<!--- shield -->
+<!--- SCA3S shields -->
+<!--- SCA3S shields -->
 
 <!--- -------------------------------------------------------------------- --->
 
@@ -165,10 +164,10 @@ a harness within which target implementations are developed.*
       | Command                   | Description
       | :------------------------ | :--------------------------------------------------------------- |
       | `make doc`                | build the [Doxygen](http://www.doxygen.nl)-based documentation   |
-      | `make update`             | update working repository to match template repository           |
       | `make deps-fetch-harness` | fetch (i.e., download) the target implementation dependencies    |
       | `make deps-build-harness` | build                  the target implementation dependencies    |
       | `make      build-harness` | build                  the target implementation                 |
+      | `make      clean-harness` | clean                  the target implementation                 |
       | `make      clean`         | clean-up (e.g., remove everything built in `${REPO_HOME}/build`) |
 
    2. use the working repository remotely:
@@ -181,11 +180,33 @@ a harness within which target implementations are developed.*
       2. activate
          [Continuous Integration (CI)](https://en.wikipedia.org/wiki/Continuous_integration)
          for the working repository, meaning a job will be submitted 
-         automatically, e.g., per commit.
+         automatically; see below for a more detailed overview.
 
 <!--- -------------------------------------------------------------------- --->
 
 ## Notes
+
+- Not all targets in the top-level `Makefile` are listed above.  Extra
+  cases include the following, which, for example, relate to management 
+  of the working repository:
+
+  - `repo-merge`
+    merges changes in the template repository into working repository;
+    doing so is important, in so far as a "stale" working repository
+    may be rejected when used via
+    [`sca3s.scarv.org`](https://sca3s.scarv.org).
+    
+  - `repo-install`
+    performs any (post-clone) installation of content into the working
+    repository.  An example is the pre-commit
+    [hook](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks)
+    (i.e., `${REPO_HOME}/.git/hooks/pre-commit`) which updates
+    `${REPO_HOME}/README.md`
+    to ensure any status icons (or [shields](https://shields.io)) are
+    displayed for the correct branch in the working repository; doing
+    so is important, for example, to accurately reflect the working 
+    repository status when used via
+    [`sca3s.scarv.org`](https://sca3s.scarv.org).
 
 - The 
   `CONTEXT`
@@ -216,6 +237,42 @@ a harness within which target implementations are developed.*
     a pre-built image can (and will) be pulled from
     [Docker Hub](https://cloud.docker.com/u/scarv)
     by the build process as needed.
+
+  - Using the 
+    `native`
+    build context implies
+    a) the tool-chain,
+       and
+    b) any software dependencies (e.g., libraries)
+    need to be installed manually.
+    Building a target implementation is therefore achived by executing
+
+    ```sh
+    make CONTEXT="native"      clean-harness
+    make CONTEXT="native" deps-fetch-harness
+    make CONTEXT="native" deps-build-harness
+    make CONTEXT="native"      build-harness
+    ```
+
+    assuming your `PATH` environment variable captures the tool-chain:
+    the second and third steps will fetch (or download) and build the
+    software dependencies for you.
+
+  - Using the 
+    `docker`
+    build context implies
+    a) the tool-chain,
+       and
+    b) any software dependencies (e.g., libraries)
+    are installed within the associated container.
+    Building a target implementation is therefore achived by executing
+
+    ```sh
+    make CONTEXT="docker"      clean-harness
+    make CONTEXT="docker"      build-harness
+    ```
+
+    alone.
 
 - The 
   `BOARD`
@@ -257,6 +314,12 @@ a harness within which target implementations are developed.*
      which specifies configuration, to the build system, about the target implementation,
   4. `${REPO_HOME}/src/sca3s/harness/board/${BOARD}/conf.mk_deps`
      which specifies configuration, to the build system, about the target implementation dependencies.
+
+- The file
+  `${REPO_HOME}/sca3s.json`
+  configures application of 
+  [Continuous Integration (CI)](https://en.wikipedia.org/wiki/Continuous_integration)
+  per the above.
 
 <!--- -------------------------------------------------------------------- --->
 

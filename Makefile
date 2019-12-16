@@ -45,22 +45,24 @@ ifeq "${CONTEXT}" "docker"
 endif
 
 ifeq "${CONTEXT}" "native"
+repo-install :
+	@install --mode=755 ${REPO_HOME}/bin/shield.py ${REPO_HOME}/.git/hooks/pre-commit
+
+repo-merge   :
+	@-git remote add upstream https://github.com/scarv/sca3s-harness.git
+	@-git fetch upstream
+	@-git merge upstream/master
+	@-git push
 
 %-docker  :
 	@make --directory="${REPO_HOME}/src/docker"        ${*}
 %-harness :
 	@make --directory="${REPO_HOME}/src/sca3s/harness" ${*}
 
-doc    : ${REPO_HOME}/Doxyfile
+doc   : ${REPO_HOME}/Doxyfile
 	@doxygen ${<}
 
-update :
-	@-git remote add upstream https://github.com/scarv/sca3s-harness.git
-	@-git fetch upstream
-	@-git merge upstream/master
-	@-git push
-
-clean  :
+clean :
 	@rm --force --recursive ${REPO_HOME}/build/*
 endif
 

@@ -1,1 +1,1 @@
-{ "enable" : true, "board" : "", "kernel" : "", "conf" : "" }
+{ "enable" : false, "board" : "", "kernel" : "", "conf" : "" }

@@ -35,7 +35,7 @@ if ( __name__ == '__main__' ) :
   fd_readme_old = open(       'README.md', 'r' )
   fd_readme_new = open( 'build/README.md', 'w' )
   
-  marker_line = '<!--- shield -->'
+  marker_line = '<!--- SCA3S shields -->'
   marker_flag = False
   
   for line in fd_readme_old.readlines() :
