@@ -17,16 +17,9 @@ DRIVER_COMMAND(driver_data_sizeof    ) {
   if( n == 1 ) {
     for( kernel_data_desc_t* desc = kernel_data_desc; desc->id != NULL; desc++ ) {    
       if( 0 == strcmp( desc->id, req[ 0 ] ) ) {
-        *ack++ = itox( ( desc->size >> 28 ) & 0xF );
-        *ack++ = itox( ( desc->size >> 24 ) & 0xF );
-        *ack++ = itox( ( desc->size >> 20 ) & 0xF );
-        *ack++ = itox( ( desc->size >> 16 ) & 0xF );
-        *ack++ = itox( ( desc->size >> 12 ) & 0xF );
-        *ack++ = itox( ( desc->size >>  8 ) & 0xF );
-        *ack++ = itox( ( desc->size >>  4 ) & 0xF );
-        *ack++ = itox( ( desc->size >>  0 ) & 0xF );
-    
-        *ack++ = '\x00'; return true;
+        uint32_t x = desc->size;
+
+        return bytestostr( ack, ( uint8_t* )( &x ), SIZEOF( x ) ) == SIZEOF( x );
       }
     }
   }
@@ -37,10 +30,10 @@ DRIVER_COMMAND(driver_data_sizeof    ) {
 DRIVER_COMMAND(driver_data_rd        ) {
   if( n == 1 ) {
     if( 0 == strcmp( "tsc", req[ 0 ] ) ) {
-      uint64_t tsc = board_tsc_diff( driver_tsc_init, 
+        uint64_t x = board_tsc_diff( driver_tsc_init, 
                                      driver_tsc_fini );
 
-      return bytestostr( ack, ( uint8_t* )( &tsc ), SIZEOF( tsc ) ) == SIZEOF( tsc );    
+        return bytestostr( ack, ( uint8_t* )( &x ), SIZEOF( x ) ) == SIZEOF( x );
     }
     else {
       for( kernel_data_desc_t* desc = kernel_data_desc; desc->id != NULL; desc++ ) {    
@@ -73,7 +66,7 @@ DRIVER_COMMAND(driver_data_wr         ) {
 
 DRIVER_COMMAND(driver_kernel_id      ) {
   if( n == 0 ) {
-    strcpy( ack, VERSION ":" KERNEL ":" KERNEL_ID ); return true;
+    kernel_func_desc.kernel_id( ack ); return true;
   }
 
   return false;

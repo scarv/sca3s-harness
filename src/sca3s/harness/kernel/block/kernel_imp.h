@@ -8,61 +8,76 @@
 #ifndef __KERNEL_IMP_H
 #define __KERNEL_IMP_H
 
-#include "util.h"
-
+#include   "util.h"
 #include "kernel.h"
-#include "kernel_imp.h"
 
 // ============================================================================
 
-/** @brief The kernel name, e.g., 
-  *        1) generic, for generic (or unknown) block cipher,
-  *        2)     aes, for AES                  block cipher,
-  *        3) ...
+/** \defgroup block_boilerplate
+  * \defgroup block_imp
   */
 
-#define KERNEL_NAMEOF     "generic"
-
-/** @brief The kernel type, i.e., either
-  *        1) KERNEL_TYPEOF_ENC for encryption,
-  *           or
-  *        2) KERNEL_TYPEOF_DEC for decryption.
+/** @ingroup  block_boilerplate
+  * @brief    An identifier for generic block cipher.
   */
 
-#define KERNEL_TYPEOF_ENC ( 0 )
-#define KERNEL_TYPEOF_DEC ( 1 )
+#define KERNEL_NAMEOF_GENERIC ( 0 )
+
+/** @ingroup  block_boilerplate
+  * @brief    An identifier for AES     block cipher.
+  */
+
+#define KERNEL_NAMEOF_AES     ( 1 )
+
+/** @ingroup  block_boilerplate
+  * @brief    An identifier for encryption operation.
+  */
+
+#define KERNEL_TYPEOF_ENC     ( 0 )
+
+/** @ingroup  block_boilerplate
+  * @brief    An identifier for decryption operation.
+  */
+
+#define KERNEL_TYPEOF_DEC     ( 1 )
+
+// ============================================================================
+
+/** @ingroup  block_imp
+  * @brief    The kernel name, e.g., 
+  *           1) KERNEL_NAMEOF_GENERIC, for generic block cipher,
+  *           2) KERNEL_NAMEOF_AES,     for AES     block cipher,
+  *           3) ...
+  */
+
+#define KERNEL_NAMEOF     KERNEL_NAMEOF_GENERIC
+
+/** @ingroup  block_imp
+  * @brief    The kernel type, i.e., either
+  *           1) KERNEL_TYPEOF_ENC for encryption operation,
+  *              or
+  *           2) KERNEL_TYPEOF_DEC for decryption operation.
+  */
 
 #define KERNEL_TYPEOF     KERNEL_TYPEOF_ENC
 
-/** @brief Number of bytes of externally supplied randomness.
+/** @ingroup  block_imp
+  * @brief    Number of bytes of externally supplied randomness.
   */
 
 #define KERNEL_SIZEOF_RND (  0 )
 
-/** @brief Number of bytes in a cipher key.
+/** @ingroup  block_imp
+  * @brief    Number of bytes in a cipher key.
   */
 
 #define KERNEL_SIZEOF_KEY ( 16 )
 
-/** @brief Number of bytes in a plaintext or ciphertext block.
+/** @ingroup  block_imp
+  * @brief    Number of bytes in a plaintext or ciphertext block.
   */
 
 #define KERNEL_SIZEOF_BLK ( 16 )
-
-// ============================================================================
-
-#if   ( KERNEL_TYPEOF == KERNEL_TYPEOF_ENC )
-#define KERNEL_ID KERNEL_NAMEOF "/" "enc"
-#elif ( KERNEL_TYPEOF == KERNEL_TYPEOF_DEC )
-#define KERNEL_ID KERNEL_NAMEOF "/" "dec"
-#endif
-
-extern kernel_data_desc_t kernel_data_desc[];
-extern kernel_func_desc_t kernel_func_desc;
-
-extern bool kernel_prologue();
-extern bool kernel();
-extern bool kernel_epilogue();
 
 // ============================================================================
 

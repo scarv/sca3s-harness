@@ -2,8 +2,10 @@
 
 <!--- -------------------------------------------------------------------- --->
 
+<!--- shield -->
 [![Build Status](https://travis-ci.com/scarv/sca3s-harness.svg)](https://travis-ci.com/scarv/sca3s-harness)
 [![Documentation](https://codedocs.xyz/scarv/sca3s-harness.svg)](https://codedocs.xyz/scarv/sca3s-harness)
+<!--- shield -->
 
 <!--- -------------------------------------------------------------------- --->
 
@@ -237,10 +239,10 @@ a harness within which target implementations are developed.*
 
   | `KERNEL`                | `KERNEL_NAMEOF`         | `KERNEL_TYPEOF`         | Description                                                                                                                                         |
   | :---------------------- | :---------------------- | :---------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
-  | `block`                 | `generic`               | `enc`                   | A   generic                                                           [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in encryption mode |
-  | `block`                 | `generic`               | `dec`                   | A   generic                                                           [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in decryption mode |
-  | `block`                 | `aes`                   | `enc`                   | The [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in encryption mode |
-  | `block`                 | `aes`                   | `dec`                   | The [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in decryption mode |
+  | `block`                 | `generic`               | `KERNEL_TYPEOF_ENC`     | A   generic                                                           [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in encryption mode |
+  | `block`                 | `generic`               | `KERNEL_TYPEOF_DEC`     | A   generic                                                           [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in decryption mode |
+  | `block`                 | `aes`                   | `KERNEL_TYPEOF_ENC`     | The [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in encryption mode |
+  | `block`                 | `aes`                   | `KERNEL_TYPEOF_DEC`     | The [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in decryption mode |
 
 - Each 
   board

@@ -8,12 +8,9 @@
 #ifndef __DRIVER_H
 #define __DRIVER_H
 
-#include "util.h"
-
+#include   "util.h"
 #include "kernel.h"
-#include "kernel_imp.h"
-
-#include "board.h"
+#include  "board.h"
 
 typedef bool (*driver_command_t)( char* ack, char* req[], int n );
 
