@@ -9,44 +9,8 @@
 
 // ============================================================================
 
-/** @ingroup  block_boilerplate
-  * @brief    A buffer that houses the randomness.
-  */
-
-uint8_t r[ KERNEL_SIZEOF_RND ];
-
-/** @ingroup  block_boilerplate
-  * @brief    A buffer that houses the cipher key.
-  */
-
-uint8_t k[ KERNEL_SIZEOF_KEY ];
-
-/** @ingroup  block_boilerplate
-  * @brief    A buffer that houses the  plaintext.
-  */
-
-uint8_t m[ KERNEL_SIZEOF_BLK ];
-
-/** @ingroup  block_boilerplate
-  * @brief    A buffer that houses the ciphertext.
-  */
-
-uint8_t c[ KERNEL_SIZEOF_BLK ];
-
 void kernel_id( char* x ) {
-#if   ( KERNEL_NAMEOF == KERNEL_NAMEOF_GENERIC )
-#define __KERNEL_NAMEOF "generic"
-#elif ( KERNEL_NAMEOF == KERNEL_NAMEOF_AES     )
-#define __KERNEL_NAMEOF "aes"
-#endif
-
-#if   ( KERNEL_MODEOF == KERNEL_MODEOF_ENC     )
-#define __KERNEL_MODEOF "enc"
-#elif ( KERNEL_MODEOF == KERNEL_MODEOF_DEC     )
-#define __KERNEL_MODEOF "dec"
-#endif
-
-  strcpy( x, VERSION ":" KERNEL ":" __KERNEL_NAMEOF "/" __KERNEL_MODEOF );
+  strcpy( x, VERSION ":" KERNEL );
 }
 
 bool kernel_prologue();
@@ -54,16 +18,7 @@ bool kernel();
 bool kernel_epilogue();
 
 kernel_data_desc_t kernel_data_desc[] = {
-  {  "r",    r, SIZEOF( r ), KERNEL_DATA_TYPE_I },
-  {  "k",    k, SIZEOF( k ), KERNEL_DATA_TYPE_I },
-#if   ( KERNEL_MODEOF == KERNEL_MODEOF_ENC )
-  {  "m",    m, SIZEOF( m ), KERNEL_DATA_TYPE_I },
-  {  "c",    c, SIZEOF( c ), KERNEL_DATA_TYPE_O },
-#elif ( KERNEL_MODEOF == KERNEL_MODEOF_DEC )
-  {  "m",    m, SIZEOF( m ), KERNEL_DATA_TYPE_O },
-  {  "c",    c, SIZEOF( c ), KERNEL_DATA_TYPE_I },
-#endif
-  { NULL, NULL,           0,                  0 }
+  { NULL, NULL, 0, 0 }
 };
 
 kernel_func_desc_t kernel_func_desc   = {

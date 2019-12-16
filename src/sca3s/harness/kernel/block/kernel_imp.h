@@ -33,13 +33,13 @@
   * @brief    An identifier for encryption operation.
   */
 
-#define KERNEL_TYPEOF_ENC     ( 0 )
+#define KERNEL_MODEOF_ENC     ( 0 )
 
 /** @ingroup  block_boilerplate
   * @brief    An identifier for decryption operation.
   */
 
-#define KERNEL_TYPEOF_DEC     ( 1 )
+#define KERNEL_MODEOF_DEC     ( 1 )
 
 // ============================================================================
 
@@ -54,12 +54,12 @@
 
 /** @ingroup  block_imp
   * @brief    The kernel type, i.e., either
-  *           1) KERNEL_TYPEOF_ENC for encryption operation,
+  *           1) KERNEL_MODEOF_ENC for encryption operation,
   *              or
-  *           2) KERNEL_TYPEOF_DEC for decryption operation.
+  *           2) KERNEL_MODEOF_DEC for decryption operation.
   */
 
-#define KERNEL_TYPEOF     KERNEL_TYPEOF_ENC
+#define KERNEL_MODEOF     KERNEL_MODEOF_ENC
 
 /** @ingroup  block_imp
   * @brief    Number of bytes of externally supplied randomness.

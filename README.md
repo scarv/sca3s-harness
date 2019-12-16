@@ -237,12 +237,13 @@ a harness within which target implementations are developed.*
   target implementation 
   type:
 
-  | `KERNEL`                | `KERNEL_NAMEOF`         | `KERNEL_TYPEOF`         | Description                                                                                                                                         |
+  | `KERNEL`                | `KERNEL_NAMEOF`         | `KERNEL_MODEOF`         | Description                                                                                                                                         |
   | :---------------------- | :---------------------- | :---------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
-  | `block`                 | `generic`               | `KERNEL_TYPEOF_ENC`     | A   generic                                                           [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in encryption mode |
-  | `block`                 | `generic`               | `KERNEL_TYPEOF_DEC`     | A   generic                                                           [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in decryption mode |
-  | `block`                 | `aes`                   | `KERNEL_TYPEOF_ENC`     | The [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in encryption mode |
-  | `block`                 | `aes`                   | `KERNEL_TYPEOF_DEC`     | The [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in decryption mode |
+  | `generic`               |                         |                         | A   generic                                                           function                                                                      |
+  | `block`                 | `generic`               | `KERNEL_MODEOF_ENC`     | A   generic                                                           [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in encryption mode |
+  | `block`                 | `generic`               | `KERNEL_MODEOF_DEC`     | A   generic                                                           [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in decryption mode |
+  | `block`                 | `aes`                   | `KERNEL_MODEOF_ENC`     | The [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in encryption mode |
+  | `block`                 | `aes`                   | `KERNEL_MODEOF_DEC`     | The [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) [block cipher](https://en.wikipedia.org/wiki/Block_cipher) in decryption mode |
 
 - Each 
   board
