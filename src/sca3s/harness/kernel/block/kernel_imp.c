@@ -9,29 +9,34 @@
 
 // ============================================================================
 
-/** @ingroup  block_boilerplate
+/** @ingroup  block_agnostic
   * @brief    A buffer that houses the randomness.
   */
 
 uint8_t r[ KERNEL_SIZEOF_RND ];
 
-/** @ingroup  block_boilerplate
+/** @ingroup  block_agnostic
   * @brief    A buffer that houses the cipher key.
   */
 
 uint8_t k[ KERNEL_SIZEOF_KEY ];
 
-/** @ingroup  block_boilerplate
+/** @ingroup  block_agnostic
   * @brief    A buffer that houses the  plaintext.
   */
 
 uint8_t m[ KERNEL_SIZEOF_BLK ];
 
-/** @ingroup  block_boilerplate
+/** @ingroup  block_agnostic
   * @brief    A buffer that houses the ciphertext.
   */
 
 uint8_t c[ KERNEL_SIZEOF_BLK ];
+
+/** @ingroup  block_agnostic
+  * @brief    Produce a string identifying the kernel.
+  * @arg      a (pointer to a) buffer \c x into which the string is copied
+  */
 
 void kernel_id( char* x ) {
 #if   ( KERNEL_NAMEOF == KERNEL_NAMEOF_GENERIC )
@@ -53,6 +58,10 @@ bool kernel_prologue();
 bool kernel();
 bool kernel_epilogue();
 
+/** @ingroup  block_agnostic
+  * @brief    ...
+  */
+
 kernel_data_desc_t kernel_data_desc[] = {
   {  "r",    r, SIZEOF( r ), KERNEL_DATA_TYPE_I },
   {  "k",    k, SIZEOF( k ), KERNEL_DATA_TYPE_I },
@@ -66,6 +75,10 @@ kernel_data_desc_t kernel_data_desc[] = {
   { NULL, NULL,           0,                  0 }
 };
 
+/** @ingroup  block_agnostic
+  * @brief    ...
+  */
+
 kernel_func_desc_t kernel_func_desc   = {
   .kernel_id       = kernel_id,
 
@@ -76,30 +89,32 @@ kernel_func_desc_t kernel_func_desc   = {
 
 // ============================================================================
 
-/** @ingroup  block_imp
-  * @brief    Execute the kernel prologue.
-  * 
-  * @return a Boolean flag indicating success (true) or failure (false)
+/** @ingroup  block_specific
+  * @brief    Execute the kernel prologue, i.e.,
+  *           any  pre-execution steps such as   allocation of memory;
+  *           execution of this function is excluded from the trigger period.
+  * @return   a Boolean flag indicating success (\c true) or failure (\c false)
   */
 
 bool kernel_prologue() {
   return true;
 }
 
-/** @ingroup  block_imp
-  * @brief    Execute the kernel.
-  * 
-  * @return a Boolean flag indicating success (true) or failure (false)
+/** @ingroup  block_specific
+  * @brief    Execute the kernel itself:
+  *           execution of this function is included in   the trigger period.
+  * @return   a Boolean flag indicating success (\c true) or failure (\c false)
   */
 
 bool kernel() {
   return true;
 }
 
-/** @ingroup  block_imp
-  * @brief    Execute the kernel epilogue.
-  * 
-  * @return a Boolean flag indicating success (true) or failure (false)
+/** @ingroup  block_specific
+  * @brief    Execute the kernel epilogue, i.e.,
+  *           any post-execution steps such as deallocation of memory;
+  *           execution of this function is excluded from the trigger period.
+  * @return   a Boolean flag indicating success (\c true) or failure (\c false)
   */
 
 bool kernel_epilogue() {
