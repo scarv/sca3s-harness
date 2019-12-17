@@ -203,9 +203,8 @@ a harness within which target implementations are developed.*
     may be rejected when used via
     [`sca3s.scarv.org`](https://sca3s.scarv.org).
     
-  - `repo-install`
-    performs any (post-clone) installation of content into the working
-    repository.  An example is the pre-commit
+  - `repo-hook`
+    performs (post-clone) installation of a pre-commit
     [hook](https://git-scm.com/docs/githooks)
     (i.e., `${REPO_HOME}/.git/hooks/pre-commit`) which updates
     `${REPO_HOME}/README.md`
