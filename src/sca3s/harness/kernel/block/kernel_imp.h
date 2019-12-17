@@ -57,7 +57,7 @@
   *             3) ...
   */
 
-#define KERNEL_NAMEOF     KERNEL_NAMEOF_GENERIC
+#define KERNEL_NAMEOF     ( KERNEL_NAMEOF_GENERIC )
 
 /** @ingroup    block_specific
   * @brief      The kernel type, i.e., either
@@ -66,7 +66,7 @@
   *             2) KERNEL_MODEOF_DEC for decryption operation.
   */
 
-#define KERNEL_MODEOF     KERNEL_MODEOF_ENC
+#define KERNEL_MODEOF     ( KERNEL_MODEOF_ENC     )
 
 /** @ingroup    block_specific
   * @brief      Number of bytes of the (externally supplied) randomness.
