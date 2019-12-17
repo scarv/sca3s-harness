@@ -63,16 +63,16 @@ bool kernel_epilogue();
   */
 
 kernel_data_desc_t kernel_data_desc[] = {
-  {  "r",    r, SIZEOF( r ), KERNEL_DATA_TYPE_I },
-  {  "k",    k, SIZEOF( k ), KERNEL_DATA_TYPE_I },
+  { .id =  "r", .ptr =    r, .size = SIZEOF( r ), .type = KERNEL_DATA_TYPE_I },
+  { .id =  "k", .ptr =    k, .size = SIZEOF( k ), .type = KERNEL_DATA_TYPE_I },
 #if   ( KERNEL_MODEOF == KERNEL_MODEOF_ENC )
-  {  "m",    m, SIZEOF( m ), KERNEL_DATA_TYPE_I },
-  {  "c",    c, SIZEOF( c ), KERNEL_DATA_TYPE_O },
+  { .id =  "m", .ptr =    m, .size = SIZEOF( m ), .type = KERNEL_DATA_TYPE_I },
+  { .id =  "c", .ptr =    c, .size = SIZEOF( c ), .type = KERNEL_DATA_TYPE_O },
 #elif ( KERNEL_MODEOF == KERNEL_MODEOF_DEC )
-  {  "m",    m, SIZEOF( m ), KERNEL_DATA_TYPE_O },
-  {  "c",    c, SIZEOF( c ), KERNEL_DATA_TYPE_I },
+  { .id =  "m", .ptr =    m, .size = SIZEOF( m ), .type = KERNEL_DATA_TYPE_O },
+  { .id =  "c", .ptr =    c, .size = SIZEOF( c ), .type = KERNEL_DATA_TYPE_I },
 #endif
-  { NULL, NULL,           0,                  0 }
+  { .id = NULL, .ptr = NULL, .size =           0, .type =                  0 }
 };
 
 /** @ingroup  block_agnostic

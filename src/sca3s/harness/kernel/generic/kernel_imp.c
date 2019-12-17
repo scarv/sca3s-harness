@@ -18,7 +18,7 @@ bool kernel();
 bool kernel_epilogue();
 
 kernel_data_desc_t kernel_data_desc[] = {
-  { NULL, NULL, 0, 0 }
+  { .id = NULL, .ptr = NULL, .size = 0, .type = 0 }
 };
 
 kernel_func_desc_t kernel_func_desc   = {
