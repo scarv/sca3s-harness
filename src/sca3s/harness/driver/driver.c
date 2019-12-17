@@ -7,19 +7,56 @@
 
 #include "driver.h" 
 
+/** @brief      A temporary buffer used to store request         strings;
+  *             note the fixed upper-bound on length of such strings.
+  */
+
 char     driver_req[ 64 ];
+
+/** @brief      A temporary buffer used to store acknowledgement strings;
+  *             note the fixed upper-bound on length of such strings.
+  */
+
 char     driver_ack[ 64 ];
 
+/** @brief      A temporary TSC value, sampled before a given operation.
+  */
+
 uint64_t driver_tsc_init;
+
+/** @brief      A temporary TSC value, sampled after  a given operation.
+  */
+
 uint64_t driver_tsc_fini;
+
+/** @brief      Service a request of the form
+  *             \verbatim ?data <id> \endverbatim
+  *             i.e., query the size (in bytes) of an identified data buffer.
+  *
+  * @param[out] ack the acknowledgement string
+  * @param[in]  req an array of strings capturing arguments of the request
+  * @param[in]    n the length of the argument array \c req
+  *
+  * @return     a Boolean flag indicating success (\c true) or failure (\c false)
+  *
+  * @note       An entry for the buffer identifier should be locatable within 
+  *             \c kernel_data_desc; a special-case \c tsc identifies the TSC.
+  */
 
 DRIVER_COMMAND(driver_data_sizeof    ) {
   if( n == 1 ) {
-    for( kernel_data_desc_t* desc = kernel_data_desc; desc->id != NULL; desc++ ) {    
-      if( 0 == strcmp( desc->id, req[ 0 ] ) ) {
-        uint32_t x = desc->size;
+    if( 0 == strcmp( "tsc", req[ 0 ] ) ) {
+          uint32_t x = SIZEOF( uint64_t );
 
-        return bytestostr( ack, ( uint8_t* )( &x ), SIZEOF( x ) ) == SIZEOF( x );
+          return bytestostr( ack, ( uint8_t* )( &x ), SIZEOF( x ) ) == SIZEOF( x );
+    }
+    else {
+      for( kernel_data_desc_t* desc = kernel_data_desc; desc->id != NULL; desc++ ) {    
+        if( 0 == strcmp( desc->id, req[ 0 ] ) ) {
+          uint32_t x = desc->size;
+
+          return bytestostr( ack, ( uint8_t* )( &x ), SIZEOF( x ) ) == SIZEOF( x );
+        }
       }
     }
   }
@@ -27,13 +64,27 @@ DRIVER_COMMAND(driver_data_sizeof    ) {
   return false;
 }
 
+/** @brief      Service a request of the form
+  *             \verbatim <data <id> \endverbatim
+  *             i.e., read  an octet string from an identified data buffer.
+  *
+  * @param[out] ack the acknowledgement string
+  * @param[in]  req an array of strings capturing arguments of the request
+  * @param[in]    n the length of the argument array \c req
+  *
+  * @return     a Boolean flag indicating success (\c true) or failure (\c false)
+  *
+  * @note       An entry for the buffer identifier should be locatable within 
+  *             \c kernel_data_desc; a special-case \c tsc identifies the TSC.
+  */
+
 DRIVER_COMMAND(driver_data_rd        ) {
   if( n == 1 ) {
     if( 0 == strcmp( "tsc", req[ 0 ] ) ) {
-        uint64_t x = board_tsc_diff( driver_tsc_init, 
-                                     driver_tsc_fini );
+          uint64_t x = board_tsc_diff( driver_tsc_init, 
+                                       driver_tsc_fini );
 
-        return bytestostr( ack, ( uint8_t* )( &x ), SIZEOF( x ) ) == SIZEOF( x );
+          return bytestostr( ack, ( uint8_t* )( &x ), SIZEOF( x ) ) == SIZEOF( x );
     }
     else {
       for( kernel_data_desc_t* desc = kernel_data_desc; desc->id != NULL; desc++ ) {    
@@ -46,6 +97,20 @@ DRIVER_COMMAND(driver_data_rd        ) {
 
   return false;
 }
+
+/** @brief      Service a request of the form
+  *             \verbatim >data <id> <octet string> \endverbatim
+  *             i.e., write an octet string into an identified data buffer.
+  *
+  * @param[out] ack the acknowledgement string
+  * @param[in]  req an array of strings capturing arguments of the request
+  * @param[in]    n the length of the argument array \c req
+  *
+  * @return     a Boolean flag indicating success (\c true) or failure (\c false)
+  *
+  * @note       An entry for the buffer identifier should be locatable within 
+  *             \c kernel_data_desc; a special-case \c tsc identifies the TSC.
+  */
 
 DRIVER_COMMAND(driver_data_wr         ) {
   if( n == 2 ) {
@@ -64,6 +129,17 @@ DRIVER_COMMAND(driver_data_wr         ) {
   return false;
 }
 
+/** @brief      Service a request of the form
+  *             \verbatim ?kernel_id \endverbatim
+  *             i.e., ...
+  *
+  * @param[out] ack the acknowledgement string
+  * @param[in]  req an array of strings capturing arguments of the request
+  * @param[in]    n the length of the argument array \c req
+  *
+  * @return     a Boolean flag indicating success (\c true) or failure (\c false)
+  */
+
 DRIVER_COMMAND(driver_kernel_id      ) {
   if( n == 0 ) {
     kernel_func_desc.kernel_id( ack ); return true;
@@ -73,6 +149,19 @@ DRIVER_COMMAND(driver_kernel_id      ) {
 }
 
 #include <stdio.h>
+
+/** @brief      Service a request of the form
+  *             \verbatim ?kernel_data < \endverbatim
+  *             or
+  *             \verbatim ?kernel_data > \endverbatim
+  *             i.e., ...
+  *
+  * @param[out] ack the acknowledgement string
+  * @param[in]  req an array of strings capturing arguments of the request
+  * @param[in]    n the length of the argument array \c req
+  *
+  * @return     a Boolean flag indicating success (\c true) or failure (\c false)
+  */
 
 DRIVER_COMMAND(driver_kernel_data    ) {
   if( n == 1 ) {
@@ -93,6 +182,17 @@ DRIVER_COMMAND(driver_kernel_data    ) {
   return false;
 }
 
+/** @brief      Service a request of the form
+  *             \verbatim !kernel_prologue \endverbatim
+  *             i.e., execute the kernel prologue.
+  *
+  * @param[out] ack the acknowledgement string
+  * @param[in]  req an array of strings capturing arguments of the request
+  * @param[in]    n the length of the argument array \c req
+  *
+  * @return     a Boolean flag indicating success (\c true) or failure (\c false)
+  */
+
 DRIVER_COMMAND(driver_kernel_prologue) {
   if( n == 0 ) {
     DRIVER_EXECUTE( false, kernel_func_desc.kernel_prologue() );
@@ -100,6 +200,17 @@ DRIVER_COMMAND(driver_kernel_prologue) {
 
   return false;
 }
+
+/** @brief      Service a request of the form
+  *             \verbatim !kernel \endverbatim
+  *             i.e., execute the kernel.
+  *
+  * @param[out] ack the acknowledgement string
+  * @param[in]  req an array of strings capturing arguments of the request
+  * @param[in]    n the length of the argument array \c req
+  *
+  * @return     a Boolean flag indicating success (\c true) or failure (\c false)
+  */
 
 DRIVER_COMMAND(driver_kernel         ) {
   if( n == 0 ) {
@@ -109,6 +220,17 @@ DRIVER_COMMAND(driver_kernel         ) {
   return false;
 }
 
+/** @brief      Service a request of the form
+  *             \verbatim !kernel_epilogue \endverbatim
+  *             i.e., execute the kernel epilogue.
+  *
+  * @param[out] ack the acknowledgement string
+  * @param[in]  req an array of strings capturing arguments of the request
+  * @param[in]    n the length of the argument array \c req
+  *
+  * @return     a Boolean flag indicating success (\c true) or failure (\c false)
+  */
+
 DRIVER_COMMAND(driver_kernel_epilogue) {
   if( n == 0 ) {
     DRIVER_EXECUTE( false, kernel_func_desc.kernel_epilogue() );
@@ -117,6 +239,19 @@ DRIVER_COMMAND(driver_kernel_epilogue) {
   return false;
 }
 
+/** @brief      Service a request of the form
+  *             \verbatim !nop \endverbatim
+  *             i.e., execute a NOP (or empty, null) operation: this supports
+  *             more accurate use of TSC values, in the sense that any fixed 
+  *             overhead can be corrected for.
+  *
+  * @param[out] ack the acknowledgement string
+  * @param[in]  req an array of strings capturing arguments of the request
+  * @param[in]    n the length of the argument array \c req
+  *
+  * @return     a Boolean flag indicating success (\c true) or failure (\c false)
+  */
+
 DRIVER_COMMAND(driver_nop            ) {
   if( n == 0 ) {
     DRIVER_EXECUTE( false, true                               );
@@ -124,6 +259,15 @@ DRIVER_COMMAND(driver_nop            ) {
 
   return false;
 }
+
+/** @brief      Read  a line from the UART,
+  *             respecting an EOL sematics based on use of CR only (i.e., no 
+  *             associated LF).
+  *
+  * @param[out] x a string capturing the line read
+  *
+  * @return     the string \c x.
+  */
 
 char* driver_rdln( char* x ) {
   char* p = x;
@@ -143,6 +287,15 @@ char* driver_rdln( char* x ) {
   return x;
 }
 
+/** @brief      Write a line to   the UART, 
+  *             respecting an EOL sematics based on use of CR only (i.e., no 
+  *             associated LF).
+  *
+  * @param[in]  x a string capturing the line written
+  *
+  * @return     the string \c x.
+  */
+
 char* driver_wrln( char* x ) {
   char* p = x;
 
@@ -159,39 +312,6 @@ char* driver_wrln( char* x ) {
   board_uart_wr( '\x0D' );
 
   return x;
-}
-
-driver_command_t driver_command( char* command ) {
-  if     ( 0 == strcmp( command, "?data"            ) ) {
-    return driver_data_sizeof;
-  }
-  else if( 0 == strcmp( command, "<data"            ) ) {
-    return driver_data_rd;
-  }
-  else if( 0 == strcmp( command, ">data"            ) ) {
-    return driver_data_wr;
-  }
-  else if( 0 == strcmp( command, "?kernel_id"       ) ) {
-    return driver_kernel_id;
-  }
-  else if( 0 == strcmp( command, "?kernel_data"     ) ) {
-    return driver_kernel_data;
-  }
-  else if( 0 == strcmp( command, "!kernel_prologue" ) ) {
-    return driver_kernel_prologue;
-  }
-  else if( 0 == strcmp( command, "!kernel"          ) ) {
-    return driver_kernel;
-  }
-  else if( 0 == strcmp( command, "!kernel_epilogue" ) ) {
-    return driver_kernel_epilogue;
-  }
-  else if( 0 == strcmp( command, "!nop"             ) ) {
-    return driver_nop;
-  }
-  else {
-    return NULL;
-  }
 }
 
 int main( int argc, char* argv[] ) {
@@ -218,7 +338,35 @@ int main( int argc, char* argv[] ) {
     strcpy( driver_ack, "" );
 
     if( cn > 0 ) {
-      driver_command_t f = driver_command( cp[ 0 ] );
+      driver_command_t f = NULL;
+
+      if     ( 0 == strcmp( cp[ 0 ], "?data"            ) ) {
+        f = driver_data_sizeof;
+      }
+      else if( 0 == strcmp( cp[ 0 ], "<data"            ) ) {
+        f = driver_data_rd;
+      }
+      else if( 0 == strcmp( cp[ 0 ], ">data"            ) ) {
+        f = driver_data_wr;
+      }
+      else if( 0 == strcmp( cp[ 0 ], "?kernel_id"       ) ) {
+        f = driver_kernel_id;
+      }
+      else if( 0 == strcmp( cp[ 0 ], "?kernel_data"     ) ) {
+        f = driver_kernel_data;
+      }
+      else if( 0 == strcmp( cp[ 0 ], "!kernel_prologue" ) ) {
+        f = driver_kernel_prologue;
+      }
+      else if( 0 == strcmp( cp[ 0 ], "!kernel"          ) ) {
+        f = driver_kernel;
+      }
+      else if( 0 == strcmp( cp[ 0 ], "!kernel_epilogue" ) ) {
+        f = driver_kernel_epilogue;
+      }
+      else if( 0 == strcmp( cp[ 0 ], "!nop"             ) ) {
+        f = driver_nop;
+      }
 
       if( f != NULL ) {
 	if( f( driver_ack, cp + 1, cn - 1 ) ) {

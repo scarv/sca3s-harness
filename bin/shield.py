@@ -64,4 +64,4 @@ if ( __name__ == '__main__' ) :
   fd_readme_old.close()
   fd_readme_new.close()
   
-  #shutil.move( 'build/README.md', 'README.md' )
+  shutil.move( 'build/README.md', 'README.md' )
