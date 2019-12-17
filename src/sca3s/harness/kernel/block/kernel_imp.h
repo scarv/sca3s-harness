@@ -11,8 +11,6 @@
 #include   "util.h"
 #include "kernel.h"
 
-// ============================================================================
-
 /** \defgroup   block_agnostic Block cipher kernel: implementation-agnostic functionality
   *             The functionality captured by this group is agnostic to the 
   *             kernel being implemented:
@@ -23,6 +21,8 @@
   *             kernel being implemented:
   *             it must     be altered when producing an associated implementation.
   */
+
+// ============================================================================
 
 /** @ingroup    block_agnostic
   * @brief      A symbolic identifier for generic block cipher.
@@ -69,19 +69,19 @@
 #define KERNEL_MODEOF     KERNEL_MODEOF_ENC
 
 /** @ingroup    block_specific
-  * @brief      Number of bytes of externally supplied randomness.
+  * @brief      Number of bytes of the (externally supplied) randomness.
   */
 
 #define KERNEL_SIZEOF_RND (  0 )
 
 /** @ingroup    block_specific
-  * @brief      Number of bytes in a cipher key.
+  * @brief      Number of bytes in the cipher key.
   */
 
 #define KERNEL_SIZEOF_KEY ( 16 )
 
 /** @ingroup    block_specific
-  * @brief      Number of bytes in a plaintext or ciphertext block.
+  * @brief      Number of bytes in the plaintext or ciphertext block.
   */
 
 #define KERNEL_SIZEOF_BLK ( 16 )

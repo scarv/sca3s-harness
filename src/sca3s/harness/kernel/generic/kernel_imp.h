@@ -11,4 +11,15 @@
 #include   "util.h"
 #include "kernel.h"
 
+/** \defgroup   generic_agnostic Generic kernel: implementation-agnostic functionality
+  *             The functionality captured by this group is agnostic to the 
+  *             kernel being implemented:
+  *             it must not be altered when producing an associated implementation.
+  *
+  * \defgroup   generic_specific Generic kernel: implementation-specific functionality
+  *             The functionality captured by this group is specific to the 
+  *             kernel being implemented:
+  *             it must     be altered when producing an associated implementation.
+  */
+
 #endif

@@ -16,7 +16,7 @@ typedef enum   {
 
 typedef struct {
   char* id; uint8_t* ptr; int size; kernel_data_type_t type;
-} kernel_data_desc_t;
+} kernel_data_spec_t;
 
 typedef struct {
   void (*kernel_id)( char* x );
@@ -24,9 +24,9 @@ typedef struct {
   bool (*kernel_prologue)();
   bool (*kernel         )();
   bool (*kernel_epilogue)();
-} kernel_func_desc_t;
+} kernel_func_spec_t;
 
-extern kernel_data_desc_t kernel_data_desc[];
-extern kernel_func_desc_t kernel_func_desc;
+extern kernel_data_spec_t kernel_data_spec[];
+extern kernel_func_spec_t kernel_func_spec;
 
 #endif

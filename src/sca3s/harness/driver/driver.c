@@ -40,7 +40,7 @@ uint64_t driver_tsc_fini;
   * @return     a Boolean flag indicating success (\c true) or failure (\c false)
   *
   * @note       An entry for the buffer identifier should be locatable within 
-  *             \c kernel_data_desc; a special-case \c tsc identifies the TSC.
+  *             \c kernel_data_spec; a special-case \c tsc identifies the TSC.
   */
 
 DRIVER_COMMAND(driver_data_sizeof    ) {
@@ -51,9 +51,9 @@ DRIVER_COMMAND(driver_data_sizeof    ) {
           return bytestostr( ack, ( uint8_t* )( &x ), SIZEOF( x ) ) == SIZEOF( x );
     }
     else {
-      for( kernel_data_desc_t* desc = kernel_data_desc; desc->id != NULL; desc++ ) {    
-        if( 0 == strcmp( desc->id, req[ 0 ] ) ) {
-          uint32_t x = desc->size;
+      for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
+        if( 0 == strcmp( spec->id, req[ 0 ] ) ) {
+          uint32_t x = spec->size;
 
           return bytestostr( ack, ( uint8_t* )( &x ), SIZEOF( x ) ) == SIZEOF( x );
         }
@@ -75,7 +75,7 @@ DRIVER_COMMAND(driver_data_sizeof    ) {
   * @return     a Boolean flag indicating success (\c true) or failure (\c false)
   *
   * @note       An entry for the buffer identifier should be locatable within 
-  *             \c kernel_data_desc; a special-case \c tsc identifies the TSC.
+  *             \c kernel_data_spec; a special-case \c tsc identifies the TSC.
   */
 
 DRIVER_COMMAND(driver_data_rd        ) {
@@ -87,9 +87,9 @@ DRIVER_COMMAND(driver_data_rd        ) {
           return bytestostr( ack, ( uint8_t* )( &x ), SIZEOF( x ) ) == SIZEOF( x );
     }
     else {
-      for( kernel_data_desc_t* desc = kernel_data_desc; desc->id != NULL; desc++ ) {    
-        if( 0 == strcmp( desc->id, req[ 0 ] ) ) {
-          return bytestostr( ack, desc->ptr, desc->size           ) == desc->size;
+      for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
+        if( 0 == strcmp( spec->id, req[ 0 ] ) ) {
+          return bytestostr( ack, spec->ptr, spec->size           ) == spec->size;
         }
       }
     }
@@ -109,7 +109,7 @@ DRIVER_COMMAND(driver_data_rd        ) {
   * @return     a Boolean flag indicating success (\c true) or failure (\c false)
   *
   * @note       An entry for the buffer identifier should be locatable within 
-  *             \c kernel_data_desc; a special-case \c tsc identifies the TSC.
+  *             \c kernel_data_spec; a special-case \c tsc identifies the TSC.
   */
 
 DRIVER_COMMAND(driver_data_wr         ) {
@@ -118,9 +118,9 @@ DRIVER_COMMAND(driver_data_wr         ) {
 
     }
     else {
-      for( kernel_data_desc_t* desc = kernel_data_desc; desc->id != NULL; desc++ ) {    
-        if( 0 == strcmp( desc->id, req[ 0 ] ) ) {
-          return strtobytes(      desc->ptr, desc->size, req[ 1 ] ) == desc->size;
+      for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
+        if( 0 == strcmp( spec->id, req[ 0 ] ) ) {
+          return strtobytes(      spec->ptr, spec->size, req[ 1 ] ) == spec->size;
         }
       }
     }
@@ -142,7 +142,7 @@ DRIVER_COMMAND(driver_data_wr         ) {
 
 DRIVER_COMMAND(driver_kernel_id      ) {
   if( n == 0 ) {
-    kernel_func_desc.kernel_id( ack ); return true;
+    kernel_func_spec.kernel_id( ack ); return true;
   }
 
   return false;
@@ -167,12 +167,12 @@ DRIVER_COMMAND(driver_kernel_data    ) {
   if( n == 1 ) {
     bool f = false;
 
-    for( kernel_data_desc_t* desc = kernel_data_desc; desc->id != NULL; desc++ ) {    
-      if     ( ( req[ 0 ][ 0 ] == '<' ) && ( ( desc->type == KERNEL_DATA_TYPE_I ) || ( desc->type == KERNEL_DATA_TYPE_IO ) ) ) {
-        if( f ) { strcat( ack, "," ); } strcat( ack, desc->id ); f = true;
+    for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
+      if     ( ( req[ 0 ][ 0 ] == '<' ) && ( ( spec->type == KERNEL_DATA_TYPE_I ) || ( spec->type == KERNEL_DATA_TYPE_IO ) ) ) {
+        if( f ) { strcat( ack, "," ); } strcat( ack, spec->id ); f = true;
       }
-      else if( ( req[ 0 ][ 0 ] == '>' ) && ( ( desc->type == KERNEL_DATA_TYPE_O ) || ( desc->type == KERNEL_DATA_TYPE_IO ) ) ) {
-        if( f ) { strcat( ack, "," ); } strcat( ack, desc->id ); f = true;
+      else if( ( req[ 0 ][ 0 ] == '>' ) && ( ( spec->type == KERNEL_DATA_TYPE_O ) || ( spec->type == KERNEL_DATA_TYPE_IO ) ) ) {
+        if( f ) { strcat( ack, "," ); } strcat( ack, spec->id ); f = true;
       }
     }
 
@@ -195,7 +195,7 @@ DRIVER_COMMAND(driver_kernel_data    ) {
 
 DRIVER_COMMAND(driver_kernel_prologue) {
   if( n == 0 ) {
-    DRIVER_EXECUTE( false, kernel_func_desc.kernel_prologue() );
+    DRIVER_EXECUTE( false, kernel_func_spec.kernel_prologue() );
   }
 
   return false;
@@ -214,7 +214,7 @@ DRIVER_COMMAND(driver_kernel_prologue) {
 
 DRIVER_COMMAND(driver_kernel         ) {
   if( n == 0 ) {
-    DRIVER_EXECUTE(  true, kernel_func_desc.kernel()          );
+    DRIVER_EXECUTE(  true, kernel_func_spec.kernel()          );
   }
 
   return false;
@@ -233,7 +233,7 @@ DRIVER_COMMAND(driver_kernel         ) {
 
 DRIVER_COMMAND(driver_kernel_epilogue) {
   if( n == 0 ) {
-    DRIVER_EXECUTE( false, kernel_func_desc.kernel_epilogue() );
+    DRIVER_EXECUTE( false, kernel_func_spec.kernel_epilogue() );
   }
 
   return false;

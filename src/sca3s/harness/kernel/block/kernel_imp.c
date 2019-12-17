@@ -10,7 +10,7 @@
 // ============================================================================
 
 /** @ingroup    block_agnostic
-  * @brief      A data buffer that houses the randomness.
+  * @brief      A data buffer that houses the (externally supplied) randomness.
   */
 
 uint8_t r[ KERNEL_SIZEOF_RND ];
@@ -34,9 +34,13 @@ uint8_t m[ KERNEL_SIZEOF_BLK ];
 uint8_t c[ KERNEL_SIZEOF_BLK ];
 
 /** @ingroup    block_agnostic
-  * @brief      Produce a string identifying the kernel.
+  * @brief      Generate a kernel identifier string.
   *
-  * @param[out] x a (pointer to a) buffer into which the string is copied
+  * @param[out] x a (pointer to a) buffer into which the identifier string is copied
+  *
+  * @note       By convention, the identifier string constitutes a sequence 
+  *             of colon-separated fields; to allow the string to be parsed, 
+  *             the first two fields must be \c VERSION and \c KERNEL.
   */
 
 void kernel_id( char* x ) {
@@ -60,10 +64,16 @@ bool kernel();
 bool kernel_epilogue();
 
 /** @ingroup    block_agnostic
-  * @brief      ...
+  * @brief      A specification of the
+  *             data buffers
+  *             accessible within the kernel.
+  *
+  * @note       By setting \c .id equal to \c NULL, the entry will act as a
+  *             terminator for the array; such a terminator entry must exist
+  *             as the final entry.
   */
 
-kernel_data_desc_t kernel_data_desc[] = {
+kernel_data_spec_t kernel_data_spec[] = {
   { .id =  "r", .ptr =    r, .size = SIZEOF( r ), .type = KERNEL_DATA_TYPE_I },
   { .id =  "k", .ptr =    k, .size = SIZEOF( k ), .type = KERNEL_DATA_TYPE_I },
 #if   ( KERNEL_MODEOF == KERNEL_MODEOF_ENC )
@@ -77,10 +87,12 @@ kernel_data_desc_t kernel_data_desc[] = {
 };
 
 /** @ingroup    block_agnostic
-  * @brief      ...
+  * @brief      A specification of the
+  *             functions
+  *             accessible within the kernel.
   */
 
-kernel_func_desc_t kernel_func_desc   = {
+kernel_func_spec_t kernel_func_spec   = {
   .kernel_id       = kernel_id,
 
   .kernel_prologue = kernel_prologue,
