@@ -34,9 +34,10 @@ if ( __name__ == '__main__' ) :
   
   fd_readme_old = open(       'README.md', 'r' )
   fd_readme_new = open( 'build/README.md', 'w' )
-  
+
+  marker_flag = False  
   marker_line = '<!--- SCA3S shields -->'
-  marker_flag = False
+  header_line = '## Status'
   
   for line in fd_readme_old.readlines() :
     line = line.rstrip( '\n' )
@@ -53,8 +54,11 @@ if ( __name__ == '__main__' ) :
         print( x.format( **repo ), file = fd_readme_new )
   
       print( marker_line, file = fd_readme_new )
+      print( header_line, file = fd_readme_new )
+
       shield( '[![SCA3S acquire data](https://lab.scarv.org/api/shields/acquisition/{repo_owner}/{repo_name}.svg?branch={repo_branch})](...)' )
       shield( '[![SCA3S analyse data](https://lab.scarv.org/api/shields/analysis/{repo_owner}/{repo_name}.svg?branch={repo_branch})](...)' )
+
       print( marker_line, file = fd_readme_new )
   
   fd_readme_old.close()

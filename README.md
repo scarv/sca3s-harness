@@ -3,8 +3,6 @@
 <!--- -------------------------------------------------------------------- --->
 
 [![Documentation](https://codedocs.xyz/scarv/sca3s-harness.svg)](https://codedocs.xyz/scarv/sca3s-harness)
-<!--- SCA3S shields -->
-<!--- SCA3S shields -->
 
 <!--- -------------------------------------------------------------------- --->
 
@@ -23,6 +21,11 @@ The main
 acts as a general container for associated resources;
 this specific submodule houses
 a harness within which target implementations are developed.*
+
+<!--- -------------------------------------------------------------------- --->
+
+<!--- SCA3S shields -->
+<!--- SCA3S shields -->
 
 <!--- -------------------------------------------------------------------- --->
 
