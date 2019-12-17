@@ -66,7 +66,7 @@
   *             2) KERNEL_MODEOF_DEC for decryption operation.
   */
 
-#define KERNEL_MODEOF     ( KERNEL_MODEOF_ENC     )
+#define KERNEL_MODEOF     ( KERNEL_MODEOF_ENC )
 
 /** @ingroup    block_specific
   * @brief      Number of bytes of the (externally supplied) randomness.
