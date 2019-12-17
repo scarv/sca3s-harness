@@ -39,7 +39,7 @@ if ( __name__ == '__main__' ) :
   marker_flag = False
   
   for line in fd_readme_old.readlines() :
-    line = line.strip()
+    line = line.rstrip( '\n' )
   
     if   ( ( marker_flag == False ) and ( line != marker_line ) ) :
       print( line, file = fd_readme_new )
