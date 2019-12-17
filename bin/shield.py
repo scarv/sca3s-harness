@@ -8,28 +8,19 @@
 
 import json, os, re, shutil, subprocess, urllib.parse
 
-def parse_conf() :
-  if ( not os.path.isfile( 'sca3s.json' ) ) :
-    return { 'enable' : false }
-  else :
-    return json.load( open( 'sca3s.json', 'r' ) )
-
-def parse_repo() :
+if ( __name__ == '__main__' ) :
   repo_url    = subprocess.check_output( [ 'git', 'config', '--get', 'remote.origin.url' ] ).decode().strip()
   repo_branch = subprocess.check_output( [ 'git', 'rev-parse', '--abbrev-ref', 'HEAD'    ] ).decode().strip()
   
-  t = re.match( '/?(?P<repo_owner>[-\w]+)/?(?P<repo_name>[-\w]+)(.git)?', urllib.parse.urlparse( repo_url ).path )
+  repo_url    = re.match( '/?(?P<repo_owner>[-\w]+)/?(?P<repo_name>[-\w]+)(.git)?', urllib.parse.urlparse( repo_url ).path )
 
-  if ( t == None ) :
-    return None
-  else :
-    return { 'repo_branch' : repo_branch, 'repo_owner' : t.group( 'repo_owner' ),
-                                          'repo_name'  : t.group( 'repo_name'  ) }
+  if ( repo_url == None ) :
+    exit( 0 )
 
-if ( __name__ == '__main__' ) :
-  conf = parse_conf() ; repo = parse_repo()
+  repo =  { 'repo_branch' : repo_branch, 'repo_owner' : repo_url.group( 'repo_owner' ),
+                                         'repo_name'  : repo_url.group( 'repo_name'  ) }
   
-  if ( ( not conf[ 'enable' ] ) or ( not os.path.isfile( 'README.md' ) ) ) :
+  if ( not os.path.isfile( 'README.md' ) ) :
     exit( 0 )
   
   fd_readme_old = open(       'README.md', 'r' )
@@ -37,7 +28,6 @@ if ( __name__ == '__main__' ) :
 
   marker_flag = False  
   marker_line = '<!--- SCA3S shields -->'
-  header_line = '## Status'
   
   for line in fd_readme_old.readlines() :
     line = line.rstrip( '\n' )
@@ -54,11 +44,8 @@ if ( __name__ == '__main__' ) :
         print( x.format( **repo ), file = fd_readme_new )
   
       print( marker_line, file = fd_readme_new )
-      print( header_line, file = fd_readme_new )
-
       shield( '[![SCA3S acquire data](https://lab.scarv.org/api/shields/acquisition/{repo_owner}/{repo_name}.svg?branch={repo_branch})](...)' )
       shield( '[![SCA3S analyse data](https://lab.scarv.org/api/shields/analysis/{repo_owner}/{repo_name}.svg?branch={repo_branch})](...)' )
-
       print( marker_line, file = fd_readme_new )
   
   fd_readme_old.close()

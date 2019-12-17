@@ -24,7 +24,11 @@ a harness within which target implementations are developed.*
 
 <!--- -------------------------------------------------------------------- --->
 
+## Status
+
 <!--- SCA3S shields -->
+[![SCA3S acquire data](https://lab.scarv.org/api/shields/acquisition/scarv/sca3s-harness.svg?branch=master)](...)
+[![SCA3S analyse data](https://lab.scarv.org/api/shields/analysis/scarv/sca3s-harness.svg?branch=master)](...)
 <!--- SCA3S shields -->
 
 <!--- -------------------------------------------------------------------- --->
