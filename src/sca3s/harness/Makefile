@@ -39,16 +39,16 @@ vpath %.c $(subst ${SPACE},${COLON},${INCLUDES})
 
 # =============================================================================
 
-# Translate the BOARD and KERNEL environment varaibles into pre-processor 
-# symbols, so they can be used in the target implementation.
-
-GCC_FLAGS = -DBOARD='"${BOARD}"' -DKERNEL='"${KERNEL}"'
-
 # Include the per board configuration for target implementation plus any
 # dependencies it has.
 
 include ${REPO_HOME}/src/sca3s/harness/board/${BOARD}/conf.mk_deps
 include ${REPO_HOME}/src/sca3s/harness/board/${BOARD}/conf.mk_target
+
+# Translate the BOARD and KERNEL environment varaibles into pre-processor 
+# symbols, so they can be used in the target implementation.
+
+GCC_FLAGS += -DBOARD='"${BOARD}"' -DKERNEL='"${KERNEL}"'
 
 # Construct a definitive list of built files, plus their associated paths
 # to allow pre-creation of an appropriate directory structure (note that
