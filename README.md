@@ -108,9 +108,9 @@ a harness within which target implementations are developed.*
 
    to clone and initialise the working repository,
    then configure the environment;
-   for example, you should find that the environment variable
+   for example, you should find that the
    `REPO_HOME`
-   is set appropriately.
+   environment variable is set appropriately.
 
 3. Perform various preparatory steps:
 
