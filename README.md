@@ -79,7 +79,7 @@ a harness within which target implementations are developed.*
 
 2. Create a *copy* of the 
    [template repository](https://github.com/scarv/sca3s-harness)
-   in your *own* account: we term this the working repository.
+   in your *own* account: we term this copy the working repository.
    Using the
    [GitHub](https://github.com)-based
    UI, 
@@ -117,8 +117,9 @@ a harness within which target implementations are developed.*
    1. Optionally,
       select the
       build context
-      by setting the environment variable
+      by setting the 
       `CONTEXT`
+      environment variable
       appropriately,
       e.g., via
 
@@ -126,7 +127,7 @@ a harness within which target implementations are developed.*
       export CONTEXT="native"
       ```
   
-      or just accept the default(s) per [`${REPO_HOME}/Makefile`](./Makefile).
+      or just accept the default(s) per `${REPO_HOME}/Makefile`.
 
    2. Optionally, 
       select the
@@ -134,10 +135,11 @@ a harness within which target implementations are developed.*
       and
       target implementation 
       types
-      by setting the environment variables
-      `BOARD`,
+      by setting the 
+      `BOARD`
       and
-      `KERNEL`,
+      `KERNEL`
+      environment variables
       appropriately,
       e.g., via
 
@@ -146,7 +148,7 @@ a harness within which target implementations are developed.*
       export KERNEL="block"
       ```
 
-      or just accept the default(s) per [`${REPO_HOME}/Makefile`](./Makefile).
+      or just accept the default(s) per `${REPO_HOME}/Makefile`.
 
 5. Develop a target implementation in the working repository:
 
@@ -166,6 +168,7 @@ a harness within which target implementations are developed.*
       ```
 
       to complete the target implementation itself,
+      then
 
    3. commit and push the result.
 
@@ -194,7 +197,7 @@ a harness within which target implementations are developed.*
       2. activate
          [Continuous Integration (CI)](https://en.wikipedia.org/wiki/Continuous_integration)
          for the working repository, meaning a job will be submitted 
-         automatically; see below for a more detailed overview.
+         automatically.
 
 <!--- -------------------------------------------------------------------- --->
 
