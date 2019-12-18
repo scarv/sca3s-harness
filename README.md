@@ -90,8 +90,8 @@ a harness within which target implementations are developed.*
    - use it as a [template](https://help.github.com/en/articles/creating-a-repository-from-a-template).
 
    Either way, we assume
-   `${REPO_WORK}`
-   denotes a usable working repository URL from here on: 
+   `REPO_WORK`
+   is set to a usable working repository URL from here on: 
    using the
    [GitHub](https://github.com)-based
    UI,
