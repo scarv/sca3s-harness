@@ -119,9 +119,7 @@ a harness within which target implementations are developed.*
       build context
       by setting the 
       `CONTEXT`
-      environment variable
-      appropriately,
-      e.g., via
+      environment variable  appropriately, e.g., via
 
       ```sh
       export CONTEXT="native"
@@ -139,9 +137,7 @@ a harness within which target implementations are developed.*
       `BOARD`
       and
       `KERNEL`
-      environment variables
-      appropriately,
-      e.g., via
+      environment variables appropriately, e.g., via
 
       ```sh
       export BOARD="scale/lpc1313fbd48"
