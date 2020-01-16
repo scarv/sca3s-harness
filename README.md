@@ -181,7 +181,7 @@ a harness within which target implementations are developed.*
       | `make      build-harness` | build                  the target implementation                 |
       | `make      clean-harness` | clean                  the target implementation                 |
       | `make doxygen`            | build the [Doxygen](http://www.doxygen.nl)-based documentation   |
-      | `make spotless`           | remove *everything* built in `${REPO_HOME}/build`)               |
+      | `make spotless`           | remove *everything* built in `${REPO_HOME}/build`                |
 
    2. use the working repository remotely:
       go to
