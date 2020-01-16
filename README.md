@@ -176,12 +176,12 @@ a harness within which target implementations are developed.*
 
       | Command                   | Description
       | :------------------------ | :--------------------------------------------------------------- |
-      | `make doc`                | build the [Doxygen](http://www.doxygen.nl)-based documentation   |
       | `make deps-fetch-harness` | fetch (i.e., download) the target implementation dependencies    |
       | `make deps-build-harness` | build                  the target implementation dependencies    |
       | `make      build-harness` | build                  the target implementation                 |
       | `make      clean-harness` | clean                  the target implementation                 |
-      | `make      clean`         | clean-up (e.g., remove everything built in `${REPO_HOME}/build`) |
+      | `make doxygen`            | build the [Doxygen](http://www.doxygen.nl)-based documentation   |
+      | `make spotless`           | remove *everything* built in `${REPO_HOME}/build`)               |
 
    2. use the working repository remotely:
       go to

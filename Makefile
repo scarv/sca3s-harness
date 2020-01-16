@@ -39,10 +39,14 @@ include ${REPO_HOME}/src/sca3s/harness/board/${BOARD}/conf.mk_docker
 #    - deal with various specific, global targets (e.g., documentation), or
 #    - defer to the appropriate sub-Makefile for everything else.
 
+# -----------------------------------------------------------------------------
+
 ifeq "${CONTEXT}" "docker"
 %          :
 	@docker run --rm --volume "${REPO_HOME}:/mnt/scarv/sca3s/harness" --env DOCKER_GID="$(shell id --group)" --env DOCKER_UID="$(shell id --user)" --env CONTEXT="native" --env BOARD="${BOARD}" --env KERNEL="${KERNEL}" ${DOCKER_FLAGS} ${DOCKER_REPO}:${DOCKER_TAG} ${*}
 endif
+
+# -----------------------------------------------------------------------------
 
 ifeq "${CONTEXT}" "native"
 repo-merge :
@@ -59,10 +63,10 @@ repo-hook  :
 %-harness  :
 	@make --directory="${REPO_HOME}/src/sca3s/harness" ${*}
 
-doc        : ${REPO_HOME}/Doxyfile
+doxygen  : ${REPO_HOME}/Doxyfile
 	@doxygen ${<}
 
-clean      :
+spotless :
 	@rm --force --recursive ${REPO_HOME}/build/*
 endif
 
