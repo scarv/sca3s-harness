@@ -54,8 +54,8 @@ endif
 ifeq "${CONTEXT}" "native"
 repo-merge :
 	@-git remote add upstream https://github.com/scarv/sca3s-harness.git
-	@-git fetch upstream
-	@-git merge upstream/master
+	@-git fetch --all upstream
+	@-git merge --allow-unrelated-histories upstream/master
 	@-git push
 
 repo-hook  :
