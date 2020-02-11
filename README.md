@@ -38,6 +38,8 @@ a harness within which target implementations are developed.*
 ```
 ├── bin                     - scripts (e.g., environment configuration)
 ├── build                   - working directory for build
+├── extern                  - external resources (e.g., submodules)
+│   └── wiki                  - submodule: scarv/sca3s-harness.wiki
 └── src
     ├── docker              - source code for containers
     └── sca3s               - source code for SCA3S
