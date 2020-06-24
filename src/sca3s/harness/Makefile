@@ -18,6 +18,10 @@ INCLUDES +=            ${REPO_HOME}/src/sca3s/harness/board
 INCLUDES +=            ${REPO_HOME}/src/sca3s/harness/board/${BOARD}
  SOURCES += $(wildcard ${REPO_HOME}/src/sca3s/harness/board/*.c)
  SOURCES += $(wildcard ${REPO_HOME}/src/sca3s/harness/board/${BOARD}/*.c)
+ SOURCES += $(wildcard ${REPO_HOME}/src/sca3s/harness/board/*.s)
+ SOURCES += $(wildcard ${REPO_HOME}/src/sca3s/harness/board/${BOARD}/*.s)
+ SOURCES += $(wildcard ${REPO_HOME}/src/sca3s/harness/board/*.S)
+ SOURCES += $(wildcard ${REPO_HOME}/src/sca3s/harness/board/${BOARD}/*.S)
  HEADERS += $(wildcard ${REPO_HOME}/src/sca3s/harness/board/*.h)
  HEADERS += $(wildcard ${REPO_HOME}/src/sca3s/harness/board/${BOARD}/*.h)
 
@@ -32,10 +36,14 @@ INCLUDES +=            ${REPO_HOME}/src/sca3s/harness/driver
  SOURCES += $(wildcard ${REPO_HOME}/src/sca3s/harness/driver/*.c)
  HEADERS += $(wildcard ${REPO_HOME}/src/sca3s/harness/driver/*.h)
 
- OBJECTS += $(addprefix ${REPO_HOME}/build/${BOARD}/, $(notdir $(patsubst %.c, %.o, ${SOURCES})))
+ OBJECTS += $(addprefix ${REPO_HOME}/build/${BOARD}/, $(notdir $(patsubst %.c, %.o, $(filter %.c, ${SOURCES}))))
+ OBJECTS += $(addprefix ${REPO_HOME}/build/${BOARD}/, $(notdir $(patsubst %.S, %.o, $(filter %.S, ${SOURCES}))))
+ OBJECTS += $(addprefix ${REPO_HOME}/build/${BOARD}/, $(notdir $(patsubst %.s, %.o, $(filter %.s, ${SOURCES}))))
 
 vpath %.h $(subst ${SPACE},${COLON},${INCLUDES})
 vpath %.c $(subst ${SPACE},${COLON},${INCLUDES})
+vpath %.s $(subst ${SPACE},${COLON},${INCLUDES})
+vpath %.S $(subst ${SPACE},${COLON},${INCLUDES})
 
 # =============================================================================
 

@@ -57,7 +57,9 @@
   *             3) ...
   */
 
+#if !defined( KERNEL_NAMEOF     )
 #define KERNEL_NAMEOF     ( KERNEL_NAMEOF_GENERIC )
+#endif
 
 /** @ingroup    block_specific
   * @brief      The kernel type, i.e., either
@@ -66,25 +68,57 @@
   *             2) KERNEL_MODEOF_DEC for decryption operation.
   */
 
+#if !defined( KERNEL_MODEOF     )
 #define KERNEL_MODEOF     ( KERNEL_MODEOF_ENC )
+#endif
 
 /** @ingroup    block_specific
-  * @brief      Number of bytes of the (externally supplied) randomness.
+  * @brief      Number of bytes in the (externally supplied) randomness.
   */
 
+#if !defined( KERNEL_SIZEOF_RND )
 #define KERNEL_SIZEOF_RND (  0 )
+#endif
+
+/** @ingroup    block_specific
+  * @brief      Initial value   of the (externally supplied) randomness.
+  */
+
+#if !defined( KERNEL_INITOF_RND )
+#define KERNEL_INITOF_RND
+#endif
 
 /** @ingroup    block_specific
   * @brief      Number of bytes in the cipher key.
   */
 
+#if !defined( KERNEL_SIZEOF_KEY )
 #define KERNEL_SIZEOF_KEY ( 16 )
+#endif
+
+/** @ingroup    block_specific
+  * @brief      Initial value   of the cipher key.
+  */
+
+#if !defined( KERNEL_INITOF_KEY )
+#define KERNEL_INITOF_KEY
+#endif
 
 /** @ingroup    block_specific
   * @brief      Number of bytes in the plaintext or ciphertext block.
   */
 
+#if !defined( KERNEL_SIZEOF_BLK )
 #define KERNEL_SIZEOF_BLK ( 16 )
+#endif
+
+/** @ingroup    block_specific
+  * @brief      Initial value   of the plaintext or ciphertext block.
+  */
+
+#if !defined( KERNEL_INITOF_BLK )
+#define KERNEL_INITOF_BLK
+#endif
 
 // ============================================================================
 

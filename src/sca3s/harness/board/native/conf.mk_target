@@ -6,25 +6,28 @@
 
 # =============================================================================
 
-GCC_PATHS += 
-GCC_FLAGS += 
-GCC_LIBS  += 
+    GCC_PREFIX  =
+    GCC_PATHS  += 
+    GCC_FLAGS  += 
+    GCC_LIBS   += 
 
-TARGETS   += ${REPO_HOME}/build/${BOARD}/target.elf
+READELF_FLAGS  += --wide --all
+
+TARGETS        += ${REPO_HOME}/build/${BOARD}/target.elf
 
 # =============================================================================
 
 ${REPO_HOME}/build/${BOARD}/%.o : %.c %.h
-	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${SCALE_CONF} ${CONF} -c -o ${@} ${<}
+	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${CONF} -c -o ${@} ${<}
 ${REPO_HOME}/build/${BOARD}/%.o : %.s %.h
-	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${SCALE_CONF} ${CONF} -c -o ${@} ${<}
+	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${CONF} -c -o ${@} ${<}
 ${REPO_HOME}/build/${BOARD}/%.o : %.S %.h
-	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${SCALE_CONF} ${CONF} -c -o ${@} ${<}
+	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${CONF} -c -o ${@} ${<}
 
 ${REPO_HOME}/build/${BOARD}/%.elf ${REPO_HOME}/build/${BOARD}/%.map : ${OBJECTS}
-	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${SCALE_CONF} ${CONF} -Wl,-Map=${REPO_HOME}/build/${BOARD}/${*}.map -o ${REPO_HOME}/build/${BOARD}/${*}.elf ${^} ${GCC_LIBS}
+	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${CONF} -Wl,-Map=${REPO_HOME}/build/${BOARD}/${*}.map -o ${REPO_HOME}/build/${BOARD}/${*}.elf ${^} ${GCC_LIBS}
 
 report : ${TARGETS}
-	@${GCC_PREFIX}readelf --wide --all $(filter %.elf, ${^})
+	@${GCC_PREFIX}readelf ${READELF_FLAGS} $(filter %.elf, ${^})
 
 # =============================================================================

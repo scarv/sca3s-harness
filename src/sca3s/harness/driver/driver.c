@@ -319,6 +319,13 @@ int main( int argc, char* argv[] ) {
     return -1;
   }
 
+  #if defined( DRIVER_NONINTERACTIVE )
+  kernel_func_spec.kernel_prologue();
+  board_trigger_wr(  true );
+  kernel_func_spec.kernel();
+  board_trigger_wr( false );
+  kernel_func_spec.kernel_epilogue();
+  #else
   while( true ) {
     char* cp[ 10 ] = { NULL }; int cn = 0;
 
@@ -381,6 +388,7 @@ int main( int argc, char* argv[] ) {
       }
     }
   }
+  #endif
 
   return 0;
 }

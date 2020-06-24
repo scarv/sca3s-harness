@@ -13,25 +13,25 @@
   * @brief      A data buffer that houses the (externally supplied) randomness.
   */
 
-uint8_t r[ KERNEL_SIZEOF_RND ];
+uint8_t r[ KERNEL_SIZEOF_RND ] = { KERNEL_INITOF_RND };
 
 /** @ingroup    block_agnostic
   * @brief      A data buffer that houses the cipher key.
   */
 
-uint8_t k[ KERNEL_SIZEOF_KEY ];
+uint8_t k[ KERNEL_SIZEOF_KEY ] = { KERNEL_INITOF_KEY };
 
 /** @ingroup    block_agnostic
   * @brief      A data buffer that houses the  plaintext.
   */
 
-uint8_t m[ KERNEL_SIZEOF_BLK ];
+uint8_t m[ KERNEL_SIZEOF_BLK ] = { KERNEL_INITOF_BLK };
 
 /** @ingroup    block_agnostic
   * @brief      A data buffer that houses the ciphertext.
   */
 
-uint8_t c[ KERNEL_SIZEOF_BLK ];
+uint8_t c[ KERNEL_SIZEOF_BLK ] = { KERNEL_INITOF_BLK };
 
 /** @ingroup    block_agnostic
   * @brief      Generate a kernel identifier string.
