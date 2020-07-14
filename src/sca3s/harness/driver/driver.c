@@ -148,8 +148,6 @@ DRIVER_COMMAND(driver_kernel_id      ) {
   return false;
 }
 
-#include <stdio.h>
-
 /** @brief      Service a request of the form
   *             \verbatim ?kernel_data < \endverbatim
   *             or
