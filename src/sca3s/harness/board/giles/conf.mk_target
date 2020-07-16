@@ -44,10 +44,10 @@ ${REPO_HOME}/build/${BOARD}/%.hex                                   : ${REPO_HOM
 ${REPO_HOME}/build/${BOARD}/%.trs                                   : ${TARGETS}
 	@GILES ${CONF} --input $(filter %.bin, ${^}) --output ${@}
 
-inspect  : ${TARGETS}
-	@${GCC_PREFIX}readelf ${READELF_FLAGS} $(filter %.elf, ${^})         | tee ${REPO_HOME}/build/${BOARD}/target.inspect
-prepare  : ${TARGETS}
-	@cat ${REPO_HOME}/build/${BOARD}/*.log | $(call parse) | sort | uniq | tee ${REPO_HOME}/build/${BOARD}/target.prepare
+report   : ${TARGETS}
+	@${GCC_PREFIX}readelf ${READELF_FLAGS} $(filter %.elf, ${^})
+io       : ${TARGETS}
+	@cat ${REPO_HOME}/build/${BOARD}/*.log | $(call parse) | sort | uniq > ${REPO_HOME}/build/${BOARD}/target.io
 
 simulate : ${TARGETS} ${TRACE}
 

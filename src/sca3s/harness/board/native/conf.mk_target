@@ -32,9 +32,9 @@ ${REPO_HOME}/build/${BOARD}/%.o : %.S %.h
 ${REPO_HOME}/build/${BOARD}/%.elf ${REPO_HOME}/build/${BOARD}/%.map : ${OBJECTS}
 	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${CONF} -Wl,-Map="${REPO_HOME}/build/${BOARD}/${*}.map" -o ${REPO_HOME}/build/${BOARD}/${*}.elf ${^} ${GCC_LIBS}
 
-inspect  : ${TARGETS}
-	@${GCC_PREFIX}readelf ${READELF_FLAGS} $(filter %.elf, ${^})         | tee ${REPO_HOME}/build/${BOARD}/target.inspect
-prepare  : ${TARGETS}
-	@cat ${REPO_HOME}/build/${BOARD}/*.log | $(call parse) | sort | uniq | tee ${REPO_HOME}/build/${BOARD}/target.prepare
+report   : ${TARGETS}
+	@${GCC_PREFIX}readelf ${READELF_FLAGS} $(filter %.elf, ${^})
+io       : ${TARGETS}
+	@cat ${REPO_HOME}/build/${BOARD}/*.log | $(call parse) | sort | uniq > ${REPO_HOME}/build/${BOARD}/target.io
 
 # =============================================================================
