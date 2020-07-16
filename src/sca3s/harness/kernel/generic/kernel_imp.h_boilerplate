@@ -5,16 +5,6 @@
  * as LICENSE.txt within the associated archive or repository).
  */
 
-#ifndef __KERNEL_IMP_H
-#define __KERNEL_IMP_H
-
-#include   "util.h"
-#include "kernel.h"
-
 // ============================================================================
 
-#include "kernel_imp.h_boilerplate"
-
 // ============================================================================
-
-#endif

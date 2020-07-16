@@ -15,6 +15,9 @@
 #include  <string.h>
 #include   <ctype.h>
 
+#define __INT(x)      #x
+#define   INT(x) __INT x
+
 #define __STR(x)      #x
 #define   STR(x) __STR(x)
 

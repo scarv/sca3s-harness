@@ -21,17 +21,21 @@ TARGETS        += ${REPO_HOME}/build/${BOARD}/target.hex
 
 TRACE           = ${REPO_HOME}/build/${BOARD}/target.trs
 
+define parse
+  grep 'note:' | sed -e 's|.*note: \#pragma message: ||'
+endef
+
 # =============================================================================
 
 ${REPO_HOME}/build/${BOARD}/%.o : %.c %.h
-	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${CONF} -c -o ${@} ${<}
+	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${CONF} -c -o ${@} ${<} 2>&1 | tee ${REPO_HOME}/build/${BOARD}/${*}.log
 ${REPO_HOME}/build/${BOARD}/%.o : %.s %.h
-	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${CONF} -c -o ${@} ${<}
+	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${CONF} -c -o ${@} ${<} 2>&1 | tee ${REPO_HOME}/build/${BOARD}/${*}.log
 ${REPO_HOME}/build/${BOARD}/%.o : %.S %.h
-	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${CONF} -c -o ${@} ${<}
+	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${CONF} -c -o ${@} ${<} 2>&1 | tee ${REPO_HOME}/build/${BOARD}/${*}.log
 
 ${REPO_HOME}/build/${BOARD}/%.elf ${REPO_HOME}/build/${BOARD}/%.map : ${OBJECTS}
-	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${CONF} -Wl,-Map=${REPO_HOME}/build/${BOARD}/${*}.map -o ${REPO_HOME}/build/${BOARD}/${*}.elf ${^} ${GCC_LIBS}
+	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${CONF} -Wl,-Map="${REPO_HOME}/build/${BOARD}/${*}.map" -o ${REPO_HOME}/build/${BOARD}/${*}.elf ${^} ${GCC_LIBS}
 ${REPO_HOME}/build/${BOARD}/%.bin                                   : ${REPO_HOME}/build/${BOARD}/%.elf
 	@${GCC_PREFIX}objcopy ${OBJCOPY_FLAGS} --output-target="binary" ${<} ${@}
 ${REPO_HOME}/build/${BOARD}/%.hex                                   : ${REPO_HOME}/build/${BOARD}/%.elf
@@ -40,8 +44,10 @@ ${REPO_HOME}/build/${BOARD}/%.hex                                   : ${REPO_HOM
 ${REPO_HOME}/build/${BOARD}/%.trs                                   : ${TARGETS}
 	@GILES ${CONF} --input $(filter %.bin, ${^}) --output ${@}
 
-report   : ${TARGETS}
-	@${GCC_PREFIX}readelf ${READELF_FLAGS} $(filter %.elf, ${^})
+inspect  : ${TARGETS}
+	@${GCC_PREFIX}readelf ${READELF_FLAGS} $(filter %.elf, ${^})         | tee ${REPO_HOME}/build/${BOARD}/target.inspect
+prepare  : ${TARGETS}
+	@cat ${REPO_HOME}/build/${BOARD}/*.log | $(call parse) | sort | uniq | tee ${REPO_HOME}/build/${BOARD}/target.prepare
 
 simulate : ${TARGETS} ${TRACE}
 

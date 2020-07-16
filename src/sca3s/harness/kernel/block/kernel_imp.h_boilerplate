@@ -1,0 +1,30 @@
+/* Copyright (C) 2018 SCARV project <info@scarv.org>
+ *
+ * Use of this source code is restricted per the MIT license, a copy of which 
+ * can be found at https://opensource.org/licenses/MIT (or should be included 
+ * as LICENSE.txt within the associated archive or repository).
+ */
+
+// ============================================================================
+
+/** @brief      A symbolic identifier for generic block cipher.
+  */
+
+#define KERNEL_NAMEOF_GENERIC ( 0 )
+
+/** @brief      A symbolic identifier for AES     block cipher.
+  */
+
+#define KERNEL_NAMEOF_AES     ( 1 )
+
+/** @brief      A symbolic identifier for encryption operation.
+  */
+
+#define KERNEL_MODEOF_ENC     ( 0 )
+
+/** @brief      A symbolic identifier for decryption operation.
+  */
+
+#define KERNEL_MODEOF_DEC     ( 1 )
+
+// ============================================================================
