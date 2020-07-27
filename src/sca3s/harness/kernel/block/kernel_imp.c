@@ -7,9 +7,10 @@
 
 #include "kernel_imp.h"
 
-// ============================================================================
+#include "kernel_imp.h_harness"
+#include "kernel_imp.c_harness"
 
-#include "kernel_imp.c_boilerplate"
+// ============================================================================
 
 /** @brief      Execute the kernel prologue, i.e.,
   *             any  pre-execution steps such as   allocation of memory.

@@ -8,12 +8,7 @@
 #ifndef __KERNEL_IMP_H
 #define __KERNEL_IMP_H
 
-#include   "util.h"
-#include "kernel.h"
-
 // ============================================================================
-
-#include "kernel_imp.h_boilerplate"
 
 /** @brief      The kernel name, e.g., 
   *             1) KERNEL_NAMEOF_GENERIC, for generic block cipher,
@@ -42,13 +37,6 @@
 #define KERNEL_SIZEOF_RND (  0 )
 #endif
 
-/** @brief      Initial value   of the (externally supplied) randomness.
-  */
-
-#if !defined( KERNEL_INITOF_RND )
-#define KERNEL_INITOF_RND
-#endif
-
 /** @brief      Number of bytes in the cipher key.
   */
 
@@ -56,25 +44,11 @@
 #define KERNEL_SIZEOF_KEY ( 16 )
 #endif
 
-/** @brief      Initial value   of the cipher key.
-  */
-
-#if !defined( KERNEL_INITOF_KEY )
-#define KERNEL_INITOF_KEY
-#endif
-
 /** @brief      Number of bytes in the plaintext or ciphertext block.
   */
 
 #if !defined( KERNEL_SIZEOF_BLK )
 #define KERNEL_SIZEOF_BLK ( 16 )
-#endif
-
-/** @brief      Initial value   of the plaintext or ciphertext block.
-  */
-
-#if !defined( KERNEL_INITOF_BLK )
-#define KERNEL_INITOF_BLK
 #endif
 
 // ============================================================================

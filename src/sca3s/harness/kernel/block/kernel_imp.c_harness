@@ -37,25 +37,25 @@
 
 // ============================================================================
 
-/** @brief      A data buffer that houses the (externally supplied) randomness.
+/** @brief      A                data buffer that houses the (externally supplied) randomness.
   */
 
-uint8_t r[ KERNEL_SIZEOF_RND ] = { KERNEL_INITOF_RND };
+uint8_t r[ KERNEL_SIZEOF_RND ] = { KERNEL_INITOF_R };
 
-/** @brief      A data buffer that houses the cipher key.
+/** @brief      A                data buffer that houses the cipher key.
   */
 
-uint8_t k[ KERNEL_SIZEOF_KEY ] = { KERNEL_INITOF_KEY };
+uint8_t k[ KERNEL_SIZEOF_KEY ] = { KERNEL_INITOF_K };
 
-/** @brief      A data buffer that houses the  plaintext.
+/** @brief      A                data buffer that houses the  plaintext.
   */
 
-uint8_t m[ KERNEL_SIZEOF_BLK ] = { KERNEL_INITOF_BLK };
+uint8_t m[ KERNEL_SIZEOF_BLK ] = { KERNEL_INITOF_M };
 
-/** @brief      A data buffer that houses the ciphertext.
+/** @brief      A                data buffer that houses the ciphertext.
   */
 
-uint8_t c[ KERNEL_SIZEOF_BLK ] = { KERNEL_INITOF_BLK };
+uint8_t c[ KERNEL_SIZEOF_BLK ] = { KERNEL_INITOF_C };
 
 /** @brief      Generate a kernel identifier string.
   *
