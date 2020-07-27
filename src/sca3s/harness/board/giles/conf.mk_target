@@ -42,7 +42,7 @@ ${REPO_HOME}/build/${BOARD}/%.hex                                   : ${REPO_HOM
 	@${GCC_PREFIX}objcopy ${OBJCOPY_FLAGS} --output-target="ihex"   ${<} ${@}
 
 ${REPO_HOME}/build/${BOARD}/%.trs                                   : ${TARGETS}
-	@GILES ${CONF} --input $(filter %.bin, ${^}) --output ${@}
+	@GILES --input $(filter %.bin, ${^}) --output ${@}
 
 report   : ${TARGETS}
 	@${GCC_PREFIX}readelf ${READELF_FLAGS} $(filter %.elf, ${^})
