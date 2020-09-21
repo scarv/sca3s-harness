@@ -1,0 +1,15 @@
+# Copyright (C) 2018 SCARV project <info@scarv.org>
+#
+# Use of this source code is restricted per the MIT license, a copy of which 
+# can be found at https://opensource.org/licenses/MIT (or should be included 
+# as LICENSE.txt within the associated archive or repository).
+
+# =============================================================================
+
+RUN wget --quiet https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2018q4/gcc-arm-none-eabi-8-2018-q4-major-linux.tar.bz2 \
+ && tar --extract --directory ${DEPS} --file gcc-arm-none-eabi-8-2018-q4-major-linux.tar.bz2 \
+ && rm --force gcc-arm-none-eabi-8-2018-q4-major-linux.tar.bz2
+
+ENV PATH "${DEPS}/gcc-arm-none-eabi-8-2018-q4-major/bin:${PATH}"
+
+# =============================================================================

@@ -16,9 +16,9 @@
 READELF_FLAGS  += --wide --all
 OBJCOPY_FLAGS  +=
 
-TARGETS        += ${REPO_HOME}/build/${BOARD}/target.elf 
-TARGETS        += ${REPO_HOME}/build/${BOARD}/target.bin 
-TARGETS        += ${REPO_HOME}/build/${BOARD}/target.hex
+ TARGETS       += ${REPO_HOME}/build/${BOARD}/target.elf 
+ TARGETS       += ${REPO_HOME}/build/${BOARD}/target.bin 
+ TARGETS       += ${REPO_HOME}/build/${BOARD}/target.hex
 
 define parse
   grep 'note:' | sed -e 's|.*note: \#pragma message: ||'
