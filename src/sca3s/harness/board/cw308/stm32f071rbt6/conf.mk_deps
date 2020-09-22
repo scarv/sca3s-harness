@@ -12,9 +12,9 @@ INCLUDES       += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0/CM
 INCLUDES       += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0/CMSIS/device
 INCLUDES       += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0/Legacy
 
- SOURCES       += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0/stm32f4_startup.S
- SOURCES       += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0/stm32f4_hal.c 
- SOURCES       += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0/stm32f4_hal_lowlevel.c 
+ SOURCES       += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0/stm32f0_startup.S
+ SOURCES       += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0/stm32f0_hal.c 
+ SOURCES       += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0/stm32f0_hal_lowlevel.c 
 
 # -----------------------------------------------------------------------------
 

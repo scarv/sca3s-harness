@@ -6,6 +6,10 @@
 
 # =============================================================================
 
+-include ${DEPS}/scale-hw/target/lpc1114fn28/build/lib/scale.conf
+
+# -----------------------------------------------------------------------------
+
 deps-fetch :
 	@git clone https://github.com/danpage/scale-hw.git ${DEPS}/scale-hw
 

@@ -12,10 +12,6 @@
 
 # -----------------------------------------------------------------------------
 
-    GCC_PATHS  +=
-    GCC_FLAGS  += -DBOARD='"${BOARD}"' -DKERNEL='"${KERNEL}"'
-    GCC_LIBS   +=
-
 INCLUDES       +=            ${REPO_HOME}/src/sca3s/harness/share
  SOURCES       += $(wildcard ${REPO_HOME}/src/sca3s/harness/share/*.c)
  HEADERS       += $(wildcard ${REPO_HOME}/src/sca3s/harness/share/*.h)
@@ -43,6 +39,10 @@ INCLUDES       +=            ${REPO_HOME}/src/sca3s/harness/driver
  HEADERS       += $(wildcard ${REPO_HOME}/src/sca3s/harness/driver/*.h)
 
 include ${REPO_HOME}/src/sca3s/harness/board/${BOARD}/conf.mk_deps
+
+    GCC_PATHS  +=
+    GCC_FLAGS  += -DBOARD='"${BOARD}"' -DKERNEL='"${KERNEL}"'
+    GCC_LIBS   +=
 
  OBJECTS       += $(addprefix ${REPO_HOME}/build/${BOARD}/, $(notdir $(patsubst %.c, %.o, $(filter %.c, ${SOURCES}))))
  OBJECTS       += $(addprefix ${REPO_HOME}/build/${BOARD}/, $(notdir $(patsubst %.s, %.o, $(filter %.s, ${SOURCES}))))

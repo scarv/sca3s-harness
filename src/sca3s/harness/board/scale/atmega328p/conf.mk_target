@@ -6,8 +6,6 @@
 
 # =============================================================================
 
--include ${DEPS}/scale-hw/target/atmega328p/build/lib/scale.conf
-
     GCC_PATHS  += -I ${DEPS}/scale-hw/target/atmega328p/build/include 
     GCC_PATHS  += -L ${DEPS}/scale-hw/target/atmega328p/build/lib
     GCC_FLAGS  += -T ${DEPS}/scale-hw/target/atmega328p/build/lib/scale.ld
