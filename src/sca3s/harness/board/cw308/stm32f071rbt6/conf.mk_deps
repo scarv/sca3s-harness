@@ -6,26 +6,15 @@
 
 # =============================================================================
 
-DEPS_INCLUDES += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0
-DEPS_INCLUDES += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0/CMSIS
-DEPS_INCLUDES += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0/CMSIS/core
-DEPS_INCLUDES += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0/CMSIS/device
-DEPS_INCLUDES += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0/Legacy
+INCLUDES       += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0
+INCLUDES       += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0/CMSIS
+INCLUDES       += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0/CMSIS/core
+INCLUDES       += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0/CMSIS/device
+INCLUDES       += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0/Legacy
 
-DEPS_SOURCES  += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0/stm32f4_startup.S
-DEPS_SOURCES  += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0/stm32f4_hal.c 
-DEPS_SOURCES  += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0/stm32f4_hal_lowlevel.c 
-
-DEPS_OBJECTS  += $(patsubst %.c, %.o, $(filter %.c, ${DEPS_SOURCES}))
-DEPS_OBJECTS  += $(patsubst %.S, %.o, $(filter %.S, ${DEPS_SOURCES}))
-DEPS_OBJECTS  += $(patsubst %.s, %.o, $(filter %.s, ${DEPS_SOURCES}))
-
-${DEPS}/chipwhisperer/hardware/victims/firmware/hal/%.o : ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/%.c 
-	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${DEPS_INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} -c -o ${@} ${<}
-${DEPS}/chipwhisperer/hardware/victims/firmware/hal/%.o : ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/%.S
-	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${DEPS_INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} -c -o ${@} ${<}
-${DEPS}/chipwhisperer/hardware/victims/firmware/hal/%.o : ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/%.s
-	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${DEPS_INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} -c -o ${@} ${<}
+ SOURCES       += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0/stm32f4_startup.S
+ SOURCES       += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0/stm32f4_hal.c 
+ SOURCES       += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0/stm32f4_hal_lowlevel.c 
 
 # -----------------------------------------------------------------------------
 

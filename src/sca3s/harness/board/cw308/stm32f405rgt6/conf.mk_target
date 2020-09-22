@@ -7,7 +7,6 @@
 # =============================================================================
 
     GCC_PREFIX  = arm-none-eabi-
-
     GCC_PATHS  += -I ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f4
     GCC_PATHS  += -L ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f4
     GCC_FLAGS  += -mcpu="cortex-m4" -mthumb -mfloat-abi="soft" 
@@ -18,12 +17,6 @@
 
 READELF_FLAGS  += --wide --all
 OBJCOPY_FLAGS  += --gap-fill="0" --remove-section .eeprom --remove-section .fuse --remove-section .lock --remove-section .signature
-
-INCLUDES       += ${DEPS_INCLUDES}
- SOURCES       +=
- HEADERS       +=
-
- OBJECTS       += ${DEPS_OBJECTS}
 
  TARGETS       += ${REPO_HOME}/build/${BOARD}/target.elf 
  TARGETS       += ${REPO_HOME}/build/${BOARD}/target.bin 
@@ -37,9 +30,9 @@ endef
 
 ${REPO_HOME}/build/${BOARD}/%.o : %.c %.h
 	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${SCALE_CONF} ${CONF} -c -o ${@} ${<} 2>&1 | tee ${REPO_HOME}/build/${BOARD}/${*}.log
-${REPO_HOME}/build/${BOARD}/%.o : %.s %.h
+${REPO_HOME}/build/${BOARD}/%.o : %.s
 	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${SCALE_CONF} ${CONF} -c -o ${@} ${<} 2>&1 | tee ${REPO_HOME}/build/${BOARD}/${*}.log
-${REPO_HOME}/build/${BOARD}/%.o : %.S %.h
+${REPO_HOME}/build/${BOARD}/%.o : %.S
 	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${SCALE_CONF} ${CONF} -c -o ${@} ${<} 2>&1 | tee ${REPO_HOME}/build/${BOARD}/${*}.log
 
 ${REPO_HOME}/build/${BOARD}/%.elf ${REPO_HOME}/build/${BOARD}/%.map : ${OBJECTS}
