@@ -1,1 +1,1 @@
-{ "board" : "", "kernel" : "", "conf" : "", "analysis" : [] }
+{ "BOARD" : "giles", "KERNEL" : "block", "CONF" : "" }
