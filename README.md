@@ -79,12 +79,13 @@ a harness within which target implementations are developed.*
    [workflow](https://github.com/scarv/sca3s-harness/wiki/Workflow),
    which, roughly speaking, involves the following steps:
 
-   1. create user repository,
-   2. clone  user repository,
-   3. develop target implementation,
-   4. build   target implementation,
-   5. commit  target implementation,
-   6. use     target implementation.
+   1. enroll (via the [SCA3S web-based interface](https://sca3s.scarv.org)),
+   2. create user repository,
+   3. clone  user repository,
+   4. develop target implementation,
+   5. build   target implementation,
+   6. commit  target implementation,
+   7. use     target implementation.
 
 <!--- -------------------------------------------------------------------- --->
 
