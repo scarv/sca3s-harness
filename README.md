@@ -75,123 +75,16 @@ a harness within which target implementations are developed.*
       [Docker](https://www.docker.com)
       container platform.
 
-2. Create a *copy* of the 
-   [template repository](https://github.com/scarv/sca3s-harness)
-   in your *own* account: we term this copy the working repository.
-   Using the
-   [GitHub](https://github.com)-based
-   UI, 
-   you can do so via *either* of two methods: either
+2. Follow the recommended
+   [workflow](https://github.com/scarv/sca3s-harness/wiki/Workflow),
+   which, roughly speaking, involves the following steps:
 
-   - [fork](https://help.github.com/en/articles/fork-a-repo) it,
-     or
-   - use it as a [template](https://help.github.com/en/articles/creating-a-repository-from-a-template).
-
-   Either way, we assume
-   `REPO_WORK`
-   is set to a usable working repository URL from here on: 
-   using the
-   [GitHub](https://github.com)-based
-   UI,
-   you can copy-and-paste it (in HTTPS and SSH formats) via the button 
-   labelled "clone or download".
-
-3. Execute
-
-   ```sh
-   git clone ${REPO_WORK} ./sca3s-harness
-   cd ./sca3s-harness
-   source ./bin/conf.sh
-   ```
-
-   to clone and initialise the working repository,
-   then configure the environment;
-   for example, you should find that the
-   `REPO_HOME`
-   environment variable is set appropriately.
-
-3. Perform various preparatory steps:
-
-   1. Optionally,
-      select the
-      build context
-      by setting the 
-      `CONTEXT`
-      environment variable  appropriately, e.g., via
-
-      ```sh
-      export CONTEXT="native"
-      ```
-  
-      or just accept the default(s) per `${REPO_HOME}/Makefile`.
-
-   2. Optionally, 
-      select the
-      board
-      and
-      target implementation 
-      types
-      by setting the 
-      `BOARD`
-      and
-      `KERNEL`
-      environment variables appropriately, e.g., via
-
-      ```sh
-      export BOARD="scale/lpc1313fbd48"
-      export KERNEL="block"
-      ```
-
-      or just accept the default(s) per `${REPO_HOME}/Makefile`.
-
-5. Develop a target implementation in the working repository:
-
-   1. edit
-
-      ```sh
-      ${REPO_HOME}/src/sca3s/harness/kernel/${KERNEL}/kernel_imp.h
-      ```
-
-      to specify parameters of the target implementation, 
-      then
-
-   2. edit
-
-      ```sh
-      ${REPO_HOME}/src/sca3s/harness/kernel/${KERNEL}/kernel_imp.c
-      ```
-
-      to complete the target implementation itself,
-      then
-
-   3. commit and push the result.
-
-6. Either
-
-   1. use the working repository  locally:
-      use targets in the top-level `Makefile` to drive a set of
-      common tasks, e.g.,
-
-      | Command                   | Description
-      | :------------------------ | :--------------------------------------------------------------- |
-      | `make deps-fetch-harness` | fetch (i.e., download) the target implementation dependencies    |
-      | `make deps-build-harness` | build                  the target implementation dependencies    |
-      | `make      build-harness` | build                  the target implementation                 |
-      | `make      clean-harness` | clean                  the target implementation                 |
-      | `make doxygen`            | build the [Doxygen](http://www.doxygen.nl)-based documentation   |
-      | `make spotless`           | remove *everything* built in `${REPO_HOME}/build`                |
-
-   2. use the working repository remotely:
-      go to
-      [`sca3s.scarv.org`](https://sca3s.scarv.org),
-      and either
-
-      1. manually submit a job referencing the working repository,
-         or
-      2. activate
-         [Continuous Integration (CI)](https://en.wikipedia.org/wiki/Continuous_integration)
-         for the working repository, meaning a job will be submitted 
-         automatically.
+   1. create user repository,
+   2. clone  user repository,
+   3. develop target implementation,
+   4. build   target implementation,
+   5. commit  target implementation,
+   6. use     target implementation.
 
 <!--- -------------------------------------------------------------------- --->
 
