@@ -15,9 +15,9 @@ endif
 
 # Set defaults for various required environment variables.
 
-export CONTEXT ?= native
+export CONTEXT ?= docker
 
-export BOARD   ?= native
+export BOARD   ?= giles
 export KERNEL  ?= block
 export CONF    ?=
 
@@ -52,19 +52,16 @@ endif
 # -----------------------------------------------------------------------------
 
 ifeq "${CONTEXT}" "native"
-repo-merge :
-	@-git remote add upstream https://github.com/scarv/sca3s-harness.git
-	@-git fetch --all
-	@-git merge --allow-unrelated-histories upstream/master
-	@-git push
-
-repo-hook  :
-	@install --mode=755 ${REPO_HOME}/bin/shield.py ${REPO_HOME}/.git/hooks/pre-commit
-
 %-docker   :
 	@make --directory="${REPO_HOME}/src/docker"        ${*}
 %-harness  :
 	@make --directory="${REPO_HOME}/src/sca3s/harness" ${*}
+
+update   :
+	@-git remote add upstream https://github.com/scarv/sca3s-harness.git
+	@-git fetch --all
+	@-git merge --allow-unrelated-histories upstream/master
+	@-git push
 
 doxygen  : ${REPO_HOME}/Doxyfile
 	@doxygen ${<}
