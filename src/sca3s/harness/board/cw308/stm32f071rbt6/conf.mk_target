@@ -7,6 +7,7 @@
 # =============================================================================
 
     GCC_PREFIX  = arm-none-eabi-
+
     GCC_PATHS  += -I ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0
     GCC_PATHS  += -L ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0
     GCC_FLAGS  += -mcpu="cortex-m0" -mthumb -mfloat-abi="soft" 

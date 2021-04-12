@@ -7,6 +7,7 @@
 # =============================================================================
 
     GCC_PREFIX  = arm-none-eabi-
+
     GCC_PATHS  += 
     GCC_FLAGS  += -mcpu="cortex-m0" -mthumb -nostartfiles -Wall -std="gnu99" -Os 
     GCC_FLAGS  += -T ${REPO_HOME}/src/sca3s/harness/board/${BOARD}/bsp.ld

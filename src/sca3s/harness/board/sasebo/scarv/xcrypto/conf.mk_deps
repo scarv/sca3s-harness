@@ -1,0 +1,21 @@
+# Copyright (C) 2018 SCARV project <info@scarv.org>
+#
+# Use of this source code is restricted per the MIT license, a copy of which 
+# can be found at https://opensource.org/licenses/MIT (or should be included 
+# as LICENSE.txt within the associated archive or repository).
+
+# =============================================================================
+
+deps-fetch :
+	@git clone https://github.com/scarv/scarv-soc.git ${DEPS}/scarv-soc
+
+deps-patch :
+	@sed --in-place ${DEPS}/scarv-soc/Makefile --expression="s|riscv64|riscv32|g"
+
+deps-build :
+	@SOC_HOME="${DEPS}/scarv-soc" SOC_WORK="${DEPS}/scarv-soc/work" make --directory="${DEPS}/scarv-soc" --quiet bsp-lib
+
+deps-clean : 
+	@SOC_HOME="${DEPS}/scarv-soc" SOC_WORK="${DEPS}/scarv-soc/work" make --directory="${DEPS}/scarv-soc" --quiet bsp-clean
+
+# =============================================================================

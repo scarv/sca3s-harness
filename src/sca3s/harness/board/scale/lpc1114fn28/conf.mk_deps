@@ -13,6 +13,8 @@
 deps-fetch :
 	@git clone https://github.com/danpage/scale-hw.git ${DEPS}/scale-hw
 
+deps-patch :
+
 deps-build :
 	@make --no-builtin-rules --directory="${DEPS}/scale-hw/target/lpc1114fn28" all
 

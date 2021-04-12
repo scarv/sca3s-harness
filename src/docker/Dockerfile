@@ -18,7 +18,7 @@ LABEL maintainer="SCARV project <info@scarv.org>" url="https://github.com/scarv/
 ENV DEBIAN_FRONTEND="noninteractive"
 
 RUN apt-get --assume-yes --quiet update \
- && apt-get --assume-yes --quiet install apt-utils autoconf automake doxygen gcc git gosu make sudo wget
+ && apt-get --assume-yes --quiet install apt-utils autoconf automake doxygen gcc git gosu make python sudo wget
 
 # -----------------------------------------------------------------------------
 
@@ -29,6 +29,7 @@ include(`Dockerfile.in')
 
 COPY conf.mk_deps ${DEPS}/Makefile
 RUN make --directory="${DEPS}" deps-fetch \
+ && make --directory="${DEPS}" deps-patch \
  && make --directory="${DEPS}" deps-build
 
 # -----------------------------------------------------------------------------

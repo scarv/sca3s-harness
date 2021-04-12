@@ -1,0 +1,22 @@
+# Copyright (C) 2018 SCARV project <info@scarv.org>
+#
+# Use of this source code is restricted per the MIT license, a copy of which 
+# can be found at https://opensource.org/licenses/MIT (or should be included 
+# as LICENSE.txt within the associated archive or repository).
+
+# =============================================================================
+
+ENV RISCV "${DEPS}/riscv"
+
+RUN apt-get --assume-yes --quiet install autoconf automake autotools-dev curl python3 libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf libtool patchutils bc zlib1g-dev libexpat-dev \
+ && git clone https://github.com/riscv/riscv-gnu-toolchain \
+ && cd ./riscv-gnu-toolchain \
+ && git submodule update --init --recursive \
+ && ./configure --prefix="${RISCV}" --enable-multilib --with-multilib-generator="rv32gc-ilp32--;rv64gc-lp64--" \
+ && make \
+ && cd .. \
+ && rm --force --recursive ./riscv-gnu-toolchain
+
+ENV PATH "${RISCV}/bin:${PATH}"
+
+# =============================================================================

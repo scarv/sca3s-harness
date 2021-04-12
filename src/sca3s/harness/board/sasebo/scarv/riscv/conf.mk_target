@@ -1,0 +1,48 @@
+# Copyright (C) 2018 SCARV project <info@scarv.org>
+#
+# Use of this source code is restricted per the MIT license, a copy of which 
+# can be found at https://opensource.org/licenses/MIT (or should be included 
+# as LICENSE.txt within the associated archive or repository).
+
+# =============================================================================
+
+    GCC_PREFIX  = riscv64-unknown-elf-
+
+    GCC_PATHS  += -I ${DEPS}/scarv-soc/work/bsp/include
+    GCC_PATHS  += -L ${DEPS}/scarv-soc/work/bsp/lib
+    GCC_FLAGS  += -march=rv32gc -mabi=ilp32 -Wall -O2 -nostartfiles -T ${DEPS}/scarv-soc/src/examples/share/link.ld
+    GCC_LIBS   += -lscarvsocbsp
+
+READELF_FLAGS  += --wide --all
+OBJCOPY_FLAGS  +=
+
+ TARGETS       += ${REPO_HOME}/build/${BOARD}/target.elf 
+ TARGETS       += ${REPO_HOME}/build/${BOARD}/target.bin 
+ TARGETS       += ${REPO_HOME}/build/${BOARD}/target.hex
+
+define parse
+  grep 'note:' | sed -e 's|.*note: \#pragma message: ||'
+endef
+
+# =============================================================================
+
+${REPO_HOME}/build/${BOARD}/%.o : %.c %.h
+	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${CONF} -c -o ${@} ${<} 2>&1 | tee ${REPO_HOME}/build/${BOARD}/${*}.log
+${REPO_HOME}/build/${BOARD}/%.o : %.s
+	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${CONF} -c -o ${@} ${<} 2>&1 | tee ${REPO_HOME}/build/${BOARD}/${*}.log
+${REPO_HOME}/build/${BOARD}/%.o : %.S
+	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${CONF} -c -o ${@} ${<} 2>&1 | tee ${REPO_HOME}/build/${BOARD}/${*}.log
+
+${REPO_HOME}/build/${BOARD}/%.elf ${REPO_HOME}/build/${BOARD}/%.map : ${OBJECTS}
+	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${CONF} -Wl,-Map="${REPO_HOME}/build/${BOARD}/${*}.map" -o ${REPO_HOME}/build/${BOARD}/${*}.elf ${^} ${GCC_LIBS}
+${REPO_HOME}/build/${BOARD}/%.bin                                   : ${REPO_HOME}/build/${BOARD}/%.elf
+	@${GCC_PREFIX}objcopy ${OBJCOPY_FLAGS} --output-target="binary" ${<} ${@}
+${REPO_HOME}/build/${BOARD}/%.hex                                   : ${REPO_HOME}/build/${BOARD}/%.elf
+	@${GCC_PREFIX}objcopy ${OBJCOPY_FLAGS} --output-target="ihex"   ${<} ${@}
+
+report   : ${TARGETS}
+	@${GCC_PREFIX}readelf ${READELF_FLAGS} $(filter %.elf, ${^})
+io       : ${TARGETS}
+	@cat ${REPO_HOME}/build/${BOARD}/*.log | $(call parse) | sort | uniq > ${REPO_HOME}/build/${BOARD}/target.io
+
+# =============================================================================

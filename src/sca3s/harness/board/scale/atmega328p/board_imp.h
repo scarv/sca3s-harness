@@ -8,6 +8,9 @@
 #ifndef __BOARD_IMP_H
 #define __BOARD_IMP_H
 
+#include <stdbool.h>
+#include <stdint.h>
+
 #include <scale/scale.h>
 
 #endif
