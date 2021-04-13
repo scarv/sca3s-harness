@@ -10,16 +10,13 @@ open_hw_manager
 
 connect_hw_server -url localhost:3121
 refresh_hw_server
-current_hw_target [get_hw_targets]
+current_hw_target [get_hw_targets -nocase -regexp .*/[lindex $argv 0]]
 open_hw_target
 
 current_hw_device [lindex [get_hw_devices] 0]
 refresh_hw_device -update_hw_probes false [lindex [get_hw_devices] 0]
 
-set bfpath [lindex $argv 0]
-puts $bfpath
-set_property PROGRAM.FILE $bfpath [lindex [get_hw_devices] 0]
-
+set_property PROGRAM.FILE [lindex $argv 1] [lindex [get_hw_devices] 0]
 program_hw_devices [lindex [get_hw_devices] 0]
 refresh_hw_device [lindex [get_hw_devices] 0]
 
