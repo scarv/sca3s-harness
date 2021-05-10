@@ -1,0 +1,32 @@
+/* Copyright (C) 2018 SCARV project <info@scarv.org>
+ *
+ * Use of this source code is restricted per the MIT license, a copy of which 
+ * can be found at https://opensource.org/licenses/MIT (or should be included 
+ * as LICENSE.txt within the associated archive or repository).
+ */
+
+#ifndef __KERNEL_IMP_H_HARNESS
+#define __KERNEL_IMP_H_HARNESS
+
+#include   "util.h"
+#include "kernel.h"
+
+// ============================================================================
+
+/** @brief      Initial value of data buffer that houses x (the  input to   r = f( x )).
+  */
+
+#if !defined( KERNEL_INITOF_X )
+#define KERNEL_INITOF_X
+#endif
+
+/** @brief      Initial value of data buffer that houses r (the output from r = f( x )).
+  */
+
+#if !defined( KERNEL_INITOF_R )
+#define KERNEL_INITOF_R
+#endif
+
+// ============================================================================
+
+#endif
