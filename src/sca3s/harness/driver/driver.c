@@ -166,10 +166,10 @@ DRIVER_COMMAND(driver_kernel_data    ) {
     bool f = false;
 
     for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
-      if     ( ( req[ 0 ][ 0 ] == '<' ) && ( ( spec->type == KERNEL_DATA_TYPE_O ) || ( spec->type == KERNEL_DATA_TYPE_IO ) ) ) {
+      if     ( ( req[ 0 ][ 0 ] == '>' ) && ( ( spec->type == KERNEL_DATA_TYPE_I ) || ( spec->type == KERNEL_DATA_TYPE_IO ) ) ) {
         if( f ) { strcat( ack, "," ); } strcat( ack, spec->id ); f = true;
       }
-      else if( ( req[ 0 ][ 0 ] == '>' ) && ( ( spec->type == KERNEL_DATA_TYPE_I ) || ( spec->type == KERNEL_DATA_TYPE_IO ) ) ) {
+      else if( ( req[ 0 ][ 0 ] == '<' ) && ( ( spec->type == KERNEL_DATA_TYPE_O ) || ( spec->type == KERNEL_DATA_TYPE_IO ) ) ) {
         if( f ) { strcat( ack, "," ); } strcat( ack, spec->id ); f = true;
       }
     }
