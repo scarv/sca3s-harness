@@ -28,11 +28,11 @@
 #pragma message( "?kernel_id"     " = "     KERNEL_ID          )
 
 #if   ( KERNEL_MODEOF == KERNEL_MODEOF_ENC )
-#pragma message( "?kernel_data <" " = "     "r,k,m"            )
-#pragma message( "?kernel_data >" " = "         "c"            )
+#pragma message( "?kernel_data >" " = "     "r,k,m"            )
+#pragma message( "?kernel_data <" " = "         "c"            )
 #elif ( KERNEL_MODEOF == KERNEL_MODEOF_DEC )
-#pragma message( "?kernel_data <" " = "     "r,k,c"            )
-#pragma message( "?kernel_data >" " = "         "m"            )
+#pragma message( "?kernel_data >" " = "     "r,k,c"            )
+#pragma message( "?kernel_data <" " = "         "m"            )
 #endif
 
 // ============================================================================
