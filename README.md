@@ -89,6 +89,19 @@ a harness within which target implementations are developed.*
 
 <!--- -------------------------------------------------------------------- --->
 
+## Questions?
+
+- read the
+  [wiki](https://github.com/scarv/sca3s-harness/wiki),
+- raise an
+  [issue](https://github.com/scarv/sca3s-harness/issues),
+- raise a
+  [pull request](https://github.com/scarv/sca3s-harness/pulls),
+- drop us an 
+  [email](mailto:sca3s@scarv.org).
+
+<!--- -------------------------------------------------------------------- --->
+
 ## Acknowledgements
 
 This work has been supported in part 
