@@ -20,39 +20,46 @@
 
 #define KERNEL_ID VERSION ":" KERNEL ":" __KERNEL_NAMEOF "/" __KERNEL_MODEOF
 
-#pragma message( "?data r"        " = " INT(KERNEL_SIZEOF_RND) )
-#pragma message( "?data k"        " = " INT(KERNEL_SIZEOF_KEY) )
-#pragma message( "?data m"        " = " INT(KERNEL_SIZEOF_BLK) )
-#pragma message( "?data c"        " = " INT(KERNEL_SIZEOF_BLK) )
+#pragma message( "?data tsc"    " = "     "0"                )
+#pragma message( "?data r"      " = " INT(KERNEL_SIZEOF_RND) )
+#pragma message( "?data k"      " = " INT(KERNEL_SIZEOF_KEY) )
+#pragma message( "?data m"      " = " INT(KERNEL_SIZEOF_BLK) )
+#pragma message( "?data c"      " = " INT(KERNEL_SIZEOF_BLK) )
 
-#pragma message( "?kernel_id"     " = "     KERNEL_ID          )
+#pragma message( "#data tsc"    " = "     "0"                )
+#pragma message( "#data r"      " = " INT(KERNEL_SIZEOF_RND) )
+#pragma message( "#data k"      " = " INT(KERNEL_SIZEOF_KEY) )
+#pragma message( "#data m"      " = " INT(KERNEL_SIZEOF_BLK) )
+#pragma message( "#data c"      " = " INT(KERNEL_SIZEOF_BLK) )
+
+#pragma message( "?kernel_id"   " = "     KERNEL_ID          )
 
 #if   ( KERNEL_MODEOF == KERNEL_MODEOF_ENC )
-#pragma message( "?kernel_data >" " = "     "r,k,m"            )
-#pragma message( "?kernel_data <" " = "         "c"            )
+#pragma message( ">kernel_data" " = "     "r,k,m"            )
+#pragma message( "<kernel_data" " = "         "c"            )
 #elif ( KERNEL_MODEOF == KERNEL_MODEOF_DEC )
-#pragma message( "?kernel_data >" " = "     "r,k,c"            )
-#pragma message( "?kernel_data <" " = "         "m"            )
+#pragma message( ">kernel_data" " = "     "r,k,c"            )
+#pragma message( "<kernel_data" " = "         "m"            )
 #endif
 
 // ============================================================================
 
-/** @brief      A                data buffer that houses the (externally supplied) randomness.
+/** @brief      A                 data buffer that houses the (externally supplied) randomness.
   */
 
 uint8_t r[ KERNEL_SIZEOF_RND ] = { KERNEL_INITOF_R };
 
-/** @brief      A                data buffer that houses the cipher key.
+/** @brief      A                 data buffer that houses the cipher key.
   */
 
 uint8_t k[ KERNEL_SIZEOF_KEY ] = { KERNEL_INITOF_K };
 
-/** @brief      A                data buffer that houses the  plaintext.
+/** @brief      A                 data buffer that houses the  plaintext.
   */
 
 uint8_t m[ KERNEL_SIZEOF_BLK ] = { KERNEL_INITOF_M };
 
-/** @brief      A                data buffer that houses the ciphertext.
+/** @brief      A                 data buffer that houses the ciphertext.
   */
 
 uint8_t c[ KERNEL_SIZEOF_BLK ] = { KERNEL_INITOF_C };
@@ -84,16 +91,18 @@ bool kernel_epilogue();
   */
 
 kernel_data_spec_t kernel_data_spec[] = {
-  { .id =  "r", .ptr =    r, .size = SIZEOF( r ), .type = KERNEL_DATA_TYPE_I },
-  { .id =  "k", .ptr =    k, .size = SIZEOF( k ), .type = KERNEL_DATA_TYPE_I },
+  { .id = "tsc", .data = ( uint8_t* )( &kernel_tsc ), .used = ( uint8_t* )( NULL ), .size = SIZEOF( kernel_tsc ), .type = KERNEL_DATA_TYPE_O    },
+
+  { .id =   "r", .data = ( uint8_t* )(           r ), .used = ( uint8_t* )( NULL ), .size = SIZEOF(          r ), .type = KERNEL_DATA_TYPE_I    },
+  { .id =   "k", .data = ( uint8_t* )(           k ), .used = ( uint8_t* )( NULL ), .size = SIZEOF(          k ), .type = KERNEL_DATA_TYPE_I    },
 #if   ( KERNEL_MODEOF == KERNEL_MODEOF_ENC )
-  { .id =  "m", .ptr =    m, .size = SIZEOF( m ), .type = KERNEL_DATA_TYPE_I },
-  { .id =  "c", .ptr =    c, .size = SIZEOF( c ), .type = KERNEL_DATA_TYPE_O },
+  { .id =   "m", .data = ( uint8_t* )(           m ), .used = ( uint8_t* )( NULL ), .size = SIZEOF(          m ), .type = KERNEL_DATA_TYPE_I    },
+  { .id =   "c", .data = ( uint8_t* )(           c ), .used = ( uint8_t* )( NULL ), .size = SIZEOF(          c ), .type = KERNEL_DATA_TYPE_O    },
 #elif ( KERNEL_MODEOF == KERNEL_MODEOF_DEC )
-  { .id =  "m", .ptr =    m, .size = SIZEOF( m ), .type = KERNEL_DATA_TYPE_O },
-  { .id =  "c", .ptr =    c, .size = SIZEOF( c ), .type = KERNEL_DATA_TYPE_I },
+  { .id =   "m", .data = ( uint8_t* )(           m ), .used = ( uint8_t* )( NULL ), .size = SIZEOF(          m ), .type = KERNEL_DATA_TYPE_O    },
+  { .id =   "c", .data = ( uint8_t* )(           c ), .used = ( uint8_t* )( NULL ), .size = SIZEOF(          c ), .type = KERNEL_DATA_TYPE_I    },
 #endif
-  { .id = NULL, .ptr = NULL, .size =           0, .type =                  0 }
+  { .id =  NULL, .data = ( uint8_t* )(        NULL ), .used = ( uint8_t* )( NULL ), .size =       (          0 ), .type = KERNEL_DATA_TYPE_NONE }
 };
 
 /** @brief      A specification of the

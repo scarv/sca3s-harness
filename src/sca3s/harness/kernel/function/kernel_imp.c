@@ -28,7 +28,21 @@ bool kernel_prologue() {
   *
   * @return     a Boolean flag indicating success (\c true) or failure (\c false)
   *
-  * @note       Execution of this function is excluded from the trigger period.
+  * @note       Execution of this function is included in   the trigger period.
+  * @note       The  inputs are:
+  *             \c x of length \c n_x bytes (upto a maximum of \c KERNEL_SIZEOF_X).
+  *             The outputs are:
+  *             \c r of length \c n_r bytes (upto a maximum of \c KERNEL_SIZEOF_R).
+  *             As such, the function should
+  *             consume and process \c n_x bytes in \c x, 
+  *             then 
+  *             set \c n_r to reflect the number of bytes produced in \c r.
+  * @note       The variable length input and output behaviour outlined above
+  *             cannot be supported in non-interactive cases.  In such cases,
+  *             the inputs and outputs are assumed to be maximum length: 
+  *             \c x is assumed to have length \c KERNEL_SIZEOF_X,
+  *             and
+  *             \c r is assumed to have length \c KERNEL_SIZEOF_R.
   */
 
 bool kernel() {

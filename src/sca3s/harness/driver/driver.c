@@ -19,19 +19,9 @@ char     driver_req[ 64 ];
 
 char     driver_ack[ 64 ];
 
-/** @brief      A temporary TSC value, sampled before a given operation.
-  */
-
-uint64_t driver_tsc_init;
-
-/** @brief      A temporary TSC value, sampled after  a given operation.
-  */
-
-uint64_t driver_tsc_fini;
-
 /** @brief      Service a request of the form
   *             \verbatim ?data <id> \endverbatim
-  *             i.e., query the size (in bytes) of an identified data buffer.
+  *             i.e., query the allocated size (in bytes) of an identified data buffer.
   *
   * @param[out] ack the acknowledgement string
   * @param[in]  req an array of strings capturing arguments of the request
@@ -40,22 +30,84 @@ uint64_t driver_tsc_fini;
   * @return     a Boolean flag indicating success (\c true) or failure (\c false)
   *
   * @note       An entry for the buffer identifier should be locatable within 
-  *             \c kernel_data_spec; a special-case \c tsc identifies the TSC.
+  *             \c kernel_data_spec
   */
 
 DRIVER_COMMAND(driver_data_sizeof    ) {
   if( n == 1 ) {
-    if( 0 == strcmp( "tsc", req[ 0 ] ) ) {
-          uint32_t x = SIZEOF( uint64_t );
+    for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
+      if( 0 == strcmp( spec->id, req[ 0 ] ) ) {
+        uint8_t t =                                            ( spec->size );
 
-          return bytestostr( ack, ( uint8_t* )( &x ), SIZEOF( x ) ) == SIZEOF( x );
+        return bytestostr( ack, ( uint8_t* )( &t ), SIZEOF( t ) ) == SIZEOF( t );
+      }
     }
-    else {
-      for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
-        if( 0 == strcmp( spec->id, req[ 0 ] ) ) {
-          uint32_t x = spec->size;
+  }
 
-          return bytestostr( ack, ( uint8_t* )( &x ), SIZEOF( x ) ) == SIZEOF( x );
+  return false;
+}
+
+/** @brief      Service a request of the form
+  *             \verbatim #data <id> \endverbatim
+  *             i.e., query the used      size (in bytes) of an identified data buffer.
+  *
+  * @param[out] ack the acknowledgement string
+  * @param[in]  req an array of strings capturing arguments of the request
+  * @param[in]    n the length of the argument array \c req
+  *
+  * @return     a Boolean flag indicating success (\c true) or failure (\c false)
+  *
+  * @note       An entry for the buffer identifier should be locatable within 
+  *             \c kernel_data_spec
+  */
+
+DRIVER_COMMAND(driver_data_usedof    ) {
+  if( n == 1 ) {
+    for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
+      if( 0 == strcmp( spec->id, req[ 0 ] ) ) {
+        uint8_t t = ( spec->used != NULL ) ? ( *spec->used ) : ( spec->size );
+
+        return bytestostr( ack, ( uint8_t* )( &t ), SIZEOF( t ) ) == SIZEOF( t );
+      }
+    }
+  }
+
+  return false;
+}
+
+/** @brief      Service a request of the form
+  *             \verbatim >data <id> <octet string> \endverbatim
+  *             i.e., write an octet string into an identified data buffer.
+  *
+  * @param[out] ack the acknowledgement string
+  * @param[in]  req an array of strings capturing arguments of the request
+  * @param[in]    n the length of the argument array \c req
+  *
+  * @return     a Boolean flag indicating success (\c true) or failure (\c false)
+  *
+  * @note       An entry for the buffer identifier should be locatable within 
+  *             \c kernel_data_spec
+  */
+
+DRIVER_COMMAND(driver_data_wr         ) {
+  if( n == 2 ) {
+    for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
+      if( 0 == strcmp( spec->id, req[ 0 ] ) ) {
+        int t = strtobytes( spec->data,  spec->size, req[ 1 ] );
+
+        if( ( t >= 0 ) && ( t <= spec->size ) ) {
+          if( spec->used != NULL ) {
+            *spec->used = t;
+          }
+
+          return  true;
+        }
+        else {
+          if( spec->used != NULL ) {
+            *spec->used = 0;
+          }
+
+          return false;
         }
       }
     }
@@ -75,52 +127,27 @@ DRIVER_COMMAND(driver_data_sizeof    ) {
   * @return     a Boolean flag indicating success (\c true) or failure (\c false)
   *
   * @note       An entry for the buffer identifier should be locatable within 
-  *             \c kernel_data_spec; a special-case \c tsc identifies the TSC.
+  *             \c kernel_data_spec
   */
 
 DRIVER_COMMAND(driver_data_rd        ) {
   if( n == 1 ) {
-    if( 0 == strcmp( "tsc", req[ 0 ] ) ) {
-          uint64_t x = board_tsc_diff( driver_tsc_init, 
-                                       driver_tsc_fini );
+    for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
+      if( 0 == strcmp( spec->id, req[ 0 ] ) ) {
+        int t = 0;
 
-          return bytestostr( ack, ( uint8_t* )( &x ), SIZEOF( x ) ) == SIZEOF( x );
-    }
-    else {
-      for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
-        if( 0 == strcmp( spec->id, req[ 0 ] ) ) {
-          return bytestostr( ack, spec->ptr, spec->size           ) == spec->size;
+        if( spec->used != NULL ) {
+          t = bytestostr( ack, spec->data, *spec->used );
         }
-      }
-    }
-  }
+        else {
+          t = bytestostr( ack, spec->data,  spec->size );
+        }
 
-  return false;
-}
-
-/** @brief      Service a request of the form
-  *             \verbatim >data <id> <octet string> \endverbatim
-  *             i.e., write an octet string into an identified data buffer.
-  *
-  * @param[out] ack the acknowledgement string
-  * @param[in]  req an array of strings capturing arguments of the request
-  * @param[in]    n the length of the argument array \c req
-  *
-  * @return     a Boolean flag indicating success (\c true) or failure (\c false)
-  *
-  * @note       An entry for the buffer identifier should be locatable within 
-  *             \c kernel_data_spec; a special-case \c tsc identifies the TSC.
-  */
-
-DRIVER_COMMAND(driver_data_wr         ) {
-  if( n == 2 ) {
-    if( 0 == strcmp( "tsc", req[ 0 ] ) ) {
-
-    }
-    else {
-      for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
-        if( 0 == strcmp( spec->id, req[ 0 ] ) ) {
-          return strtobytes(      spec->ptr, spec->size, req[ 1 ] ) == spec->size;
+        if( ( t >= 0 ) && ( t <= spec->size ) ) {
+          return  true;
+        }
+        else {
+          return false;
         }
       }
     }
@@ -131,7 +158,7 @@ DRIVER_COMMAND(driver_data_wr         ) {
 
 /** @brief      Service a request of the form
   *             \verbatim ?kernel_id \endverbatim
-  *             i.e., ...
+  *             i.e., query the kernel identifier.
   *
   * @param[out] ack the acknowledgement string
   * @param[in]  req an array of strings capturing arguments of the request
@@ -149,10 +176,8 @@ DRIVER_COMMAND(driver_kernel_id      ) {
 }
 
 /** @brief      Service a request of the form
-  *             \verbatim ?kernel_data < \endverbatim
-  *             or
-  *             \verbatim ?kernel_data > \endverbatim
-  *             i.e., ...
+  *             \verbatim >kernel_data \endverbatim
+  *             i.e., query the kernel writable data.
   *
   * @param[out] ack the acknowledgement string
   * @param[in]  req an array of strings capturing arguments of the request
@@ -161,15 +186,39 @@ DRIVER_COMMAND(driver_kernel_id      ) {
   * @return     a Boolean flag indicating success (\c true) or failure (\c false)
   */
 
-DRIVER_COMMAND(driver_kernel_data    ) {
-  if( n == 1 ) {
+DRIVER_COMMAND(driver_kernel_data_wr ) {
+  if( n == 0 ) {
     bool f = false;
 
     for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
-      if     ( ( req[ 0 ][ 0 ] == '>' ) && ( ( spec->type == KERNEL_DATA_TYPE_I ) || ( spec->type == KERNEL_DATA_TYPE_IO ) ) ) {
+      if( ( spec->type == KERNEL_DATA_TYPE_I ) || ( spec->type == KERNEL_DATA_TYPE_IO ) ) {
         if( f ) { strcat( ack, "," ); } strcat( ack, spec->id ); f = true;
       }
-      else if( ( req[ 0 ][ 0 ] == '<' ) && ( ( spec->type == KERNEL_DATA_TYPE_O ) || ( spec->type == KERNEL_DATA_TYPE_IO ) ) ) {
+    }
+
+    return true;
+  }
+
+  return false;
+}
+
+/** @brief      Service a request of the form
+  *             \verbatim <kernel_data \endverbatim
+  *             i.e., query the kernel readable data.
+  *
+  * @param[out] ack the acknowledgement string
+  * @param[in]  req an array of strings capturing arguments of the request
+  * @param[in]    n the length of the argument array \c req
+  *
+  * @return     a Boolean flag indicating success (\c true) or failure (\c false)
+  */
+
+DRIVER_COMMAND(driver_kernel_data_rd ) {
+  if( n == 0 ) {
+    bool f = false;
+
+    for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
+      if( ( spec->type == KERNEL_DATA_TYPE_O ) || ( spec->type == KERNEL_DATA_TYPE_IO ) ) {
         if( f ) { strcat( ack, "," ); } strcat( ack, spec->id ); f = true;
       }
     }
@@ -348,17 +397,23 @@ int main( int argc, char* argv[] ) {
       if     ( 0 == strcmp( cp[ 0 ], "?data"            ) ) {
         f = driver_data_sizeof;
       }
-      else if( 0 == strcmp( cp[ 0 ], "<data"            ) ) {
-        f = driver_data_rd;
+      else if( 0 == strcmp( cp[ 0 ], "#data"            ) ) {
+        f = driver_data_usedof;
       }
       else if( 0 == strcmp( cp[ 0 ], ">data"            ) ) {
         f = driver_data_wr;
       }
+      else if( 0 == strcmp( cp[ 0 ], "<data"            ) ) {
+        f = driver_data_rd;
+      }
       else if( 0 == strcmp( cp[ 0 ], "?kernel_id"       ) ) {
         f = driver_kernel_id;
       }
-      else if( 0 == strcmp( cp[ 0 ], "?kernel_data"     ) ) {
-        f = driver_kernel_data;
+      else if( 0 == strcmp( cp[ 0 ], ">kernel_data"     ) ) {
+        f = driver_kernel_data_wr;
+      }
+      else if( 0 == strcmp( cp[ 0 ], "<kernel_data"     ) ) {
+        f = driver_kernel_data_rd;
       }
       else if( 0 == strcmp( cp[ 0 ], "!kernel_prologue" ) ) {
         f = driver_kernel_prologue;

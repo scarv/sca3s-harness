@@ -35,28 +35,28 @@
 
 // ----------------------------------------------------------------------------
 
-/** @brief      Initial value of data buffer that houses the (externally supplied) randomness.
+/** @brief      Initial value of  data buffer that houses the (externally supplied) randomness.
   */
 
 #if !defined( KERNEL_INITOF_R )
 #define KERNEL_INITOF_R
 #endif
 
-/** @brief      Initial value of data buffer that houses the cipher key.
+/** @brief      Initial value of  data buffer that houses the cipher key.
   */
 
 #if !defined( KERNEL_INITOF_K )
 #define KERNEL_INITOF_K
 #endif
 
-/** @brief      Initial value of data buffer that houses the  plaintext.
+/** @brief      Initial value of  data buffer that houses the  plaintext.
   */
 
 #if !defined( KERNEL_INITOF_M )
 #define KERNEL_INITOF_M
 #endif
 
-/** @brief      Initial value of data buffer that houses the ciphertext.
+/** @brief      Initial value of  data buffer that houses the ciphertext.
   */
 
 #if !defined( KERNEL_INITOF_C )
