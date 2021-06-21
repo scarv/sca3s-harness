@@ -20,7 +20,7 @@
 #pragma message( "?kernel_id"   " = "     KERNEL_ID        )
 
 #pragma message( ">kernel_data" " = "     "x"              )
-#pragma message( "<kernel_data" " = "     "r"              )
+#pragma message( "<kernel_data" " = " "tsc,r"              )
 
 // ============================================================================
 
