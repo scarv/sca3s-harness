@@ -11,26 +11,26 @@
   *             note the fixed upper-bound on length of such strings.
   */
 
-char     driver_req[ 64 ];
+char driver_req[ 64 ];
 
 /** @brief      A temporary buffer used to store acknowledgement strings;
   *             note the fixed upper-bound on length of such strings.
   */
 
-char     driver_ack[ 64 ];
+char driver_ack[ 64 ];
 
 /** @brief      Service a request of the form
   *             \verbatim ?data <id> \endverbatim
   *             i.e., query the allocated size (in bytes) of an identified data buffer.
   *
-  * @param[out] ack the acknowledgement string
-  * @param[in]  req an array of strings capturing arguments of the request
-  * @param[in]    n the length of the argument array \c req
+  * @param[out] ack the acknowledgement string.
+  * @param[in]  req an array of strings capturing arguments of the request.
+  * @param[in]    n the length of the argument array \c req.
   *
-  * @return     a Boolean flag indicating success (\c true) or failure (\c false)
+  * @return     A flag indicating failure (\c false) or success (\c true).
   *
   * @note       An entry for the buffer identifier should be locatable within 
-  *             \c kernel_data_spec
+  *             \c kernel_data_spec.
   */
 
 DRIVER_COMMAND(driver_data_sizeof    ) {
@@ -51,14 +51,14 @@ DRIVER_COMMAND(driver_data_sizeof    ) {
   *             \verbatim #data <id> \endverbatim
   *             i.e., query the used      size (in bytes) of an identified data buffer.
   *
-  * @param[out] ack the acknowledgement string
-  * @param[in]  req an array of strings capturing arguments of the request
-  * @param[in]    n the length of the argument array \c req
+  * @param[out] ack the acknowledgement string.
+  * @param[in]  req an array of strings capturing arguments of the request.
+  * @param[in]    n the length of the argument array \c req.
   *
-  * @return     a Boolean flag indicating success (\c true) or failure (\c false)
+  * @return     A flag indicating failure (\c false) or success (\c true).
   *
   * @note       An entry for the buffer identifier should be locatable within 
-  *             \c kernel_data_spec
+  *             \c kernel_data_spec.
   */
 
 DRIVER_COMMAND(driver_data_usedof    ) {
@@ -79,17 +79,17 @@ DRIVER_COMMAND(driver_data_usedof    ) {
   *             \verbatim >data <id> <octet string> \endverbatim
   *             i.e., write an octet string into an identified data buffer.
   *
-  * @param[out] ack the acknowledgement string
-  * @param[in]  req an array of strings capturing arguments of the request
-  * @param[in]    n the length of the argument array \c req
+  * @param[out] ack the acknowledgement string.
+  * @param[in]  req an array of strings capturing arguments of the request.
+  * @param[in]    n the length of the argument array \c req.
   *
-  * @return     a Boolean flag indicating success (\c true) or failure (\c false)
+  * @return     A flag indicating failure (\c false) or success (\c true).
   *
   * @note       An entry for the buffer identifier should be locatable within 
-  *             \c kernel_data_spec
+  *             \c kernel_data_spec.
   */
 
-DRIVER_COMMAND(driver_data_wr         ) {
+DRIVER_COMMAND(driver_data_wr        ) {
   if( n == 2 ) {
     for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
       if( 0 == strcmp( spec->id, req[ 0 ] ) ) {
@@ -120,14 +120,14 @@ DRIVER_COMMAND(driver_data_wr         ) {
   *             \verbatim <data <id> \endverbatim
   *             i.e., read  an octet string from an identified data buffer.
   *
-  * @param[out] ack the acknowledgement string
-  * @param[in]  req an array of strings capturing arguments of the request
-  * @param[in]    n the length of the argument array \c req
+  * @param[out] ack the acknowledgement string.
+  * @param[in]  req an array of strings capturing arguments of the request.
+  * @param[in]    n the length of the argument array \c req.
   *
-  * @return     a Boolean flag indicating success (\c true) or failure (\c false)
+  * @return     A flag indicating failure (\c false) or success (\c true).
   *
   * @note       An entry for the buffer identifier should be locatable within 
-  *             \c kernel_data_spec
+  *             \c kernel_data_spec.
   */
 
 DRIVER_COMMAND(driver_data_rd        ) {
@@ -160,11 +160,11 @@ DRIVER_COMMAND(driver_data_rd        ) {
   *             \verbatim ?kernel_id \endverbatim
   *             i.e., query the kernel identifier.
   *
-  * @param[out] ack the acknowledgement string
-  * @param[in]  req an array of strings capturing arguments of the request
-  * @param[in]    n the length of the argument array \c req
+  * @param[out] ack the acknowledgement string.
+  * @param[in]  req an array of strings capturing arguments of the request.
+  * @param[in]    n the length of the argument array \c req.
   *
-  * @return     a Boolean flag indicating success (\c true) or failure (\c false)
+  * @return     A flag indicating failure (\c false) or success (\c true).
   */
 
 DRIVER_COMMAND(driver_kernel_id      ) {
@@ -179,11 +179,11 @@ DRIVER_COMMAND(driver_kernel_id      ) {
   *             \verbatim >kernel_data \endverbatim
   *             i.e., query the kernel writable data.
   *
-  * @param[out] ack the acknowledgement string
-  * @param[in]  req an array of strings capturing arguments of the request
-  * @param[in]    n the length of the argument array \c req
+  * @param[out] ack the acknowledgement string.
+  * @param[in]  req an array of strings capturing arguments of the request.
+  * @param[in]    n the length of the argument array \c req.
   *
-  * @return     a Boolean flag indicating success (\c true) or failure (\c false)
+  * @return     A flag indicating failure (\c false) or success (\c true).
   */
 
 DRIVER_COMMAND(driver_kernel_data_wr ) {
@@ -206,11 +206,11 @@ DRIVER_COMMAND(driver_kernel_data_wr ) {
   *             \verbatim <kernel_data \endverbatim
   *             i.e., query the kernel readable data.
   *
-  * @param[out] ack the acknowledgement string
-  * @param[in]  req an array of strings capturing arguments of the request
-  * @param[in]    n the length of the argument array \c req
+  * @param[out] ack the acknowledgement string.
+  * @param[in]  req an array of strings capturing arguments of the request.
+  * @param[in]    n the length of the argument array \c req.
   *
-  * @return     a Boolean flag indicating success (\c true) or failure (\c false)
+  * @return     A flag indicating failure (\c false) or success (\c true).
   */
 
 DRIVER_COMMAND(driver_kernel_data_rd ) {
@@ -233,11 +233,11 @@ DRIVER_COMMAND(driver_kernel_data_rd ) {
   *             \verbatim !kernel_prologue \endverbatim
   *             i.e., execute the kernel prologue.
   *
-  * @param[out] ack the acknowledgement string
-  * @param[in]  req an array of strings capturing arguments of the request
-  * @param[in]    n the length of the argument array \c req
+  * @param[out] ack the acknowledgement string.
+  * @param[in]  req an array of strings capturing arguments of the request.
+  * @param[in]    n the length of the argument array \c req.
   *
-  * @return     a Boolean flag indicating success (\c true) or failure (\c false)
+  * @return     A flag indicating failure (\c false) or success (\c true).
   */
 
 DRIVER_COMMAND(driver_kernel_prologue) {
@@ -252,11 +252,11 @@ DRIVER_COMMAND(driver_kernel_prologue) {
   *             \verbatim !kernel \endverbatim
   *             i.e., execute the kernel.
   *
-  * @param[out] ack the acknowledgement string
-  * @param[in]  req an array of strings capturing arguments of the request
-  * @param[in]    n the length of the argument array \c req
+  * @param[out] ack the acknowledgement string.
+  * @param[in]  req an array of strings capturing arguments of the request.
+  * @param[in]    n the length of the argument array \c req.
   *
-  * @return     a Boolean flag indicating success (\c true) or failure (\c false)
+  * @return     A flag indicating failure (\c false) or success (\c true).
   */
 
 DRIVER_COMMAND(driver_kernel         ) {
@@ -271,11 +271,11 @@ DRIVER_COMMAND(driver_kernel         ) {
   *             \verbatim !kernel_epilogue \endverbatim
   *             i.e., execute the kernel epilogue.
   *
-  * @param[out] ack the acknowledgement string
-  * @param[in]  req an array of strings capturing arguments of the request
-  * @param[in]    n the length of the argument array \c req
+  * @param[out] ack the acknowledgement string.
+  * @param[in]  req an array of strings capturing arguments of the request.
+  * @param[in]    n the length of the argument array \c req.
   *
-  * @return     a Boolean flag indicating success (\c true) or failure (\c false)
+  * @return     A flag indicating failure (\c false) or success (\c true).
   */
 
 DRIVER_COMMAND(driver_kernel_epilogue) {
@@ -292,11 +292,11 @@ DRIVER_COMMAND(driver_kernel_epilogue) {
   *             more accurate use of TSC values, in the sense that any fixed 
   *             overhead can be corrected for.
   *
-  * @param[out] ack the acknowledgement string
-  * @param[in]  req an array of strings capturing arguments of the request
-  * @param[in]    n the length of the argument array \c req
+  * @param[out] ack the acknowledgement string.
+  * @param[in]  req an array of strings capturing arguments of the request.
+  * @param[in]    n the length of the argument array \c req.
   *
-  * @return     a Boolean flag indicating success (\c true) or failure (\c false)
+  * @return     A flag indicating failure (\c false) or success (\c true).
   */
 
 DRIVER_COMMAND(driver_nop            ) {
@@ -311,7 +311,7 @@ DRIVER_COMMAND(driver_nop            ) {
   *             respecting an EOL sematics based on use of CR only (i.e., no 
   *             associated LF).
   *
-  * @param[out] x a string capturing the line read
+  * @param[out] x a string capturing the line read.
   *
   * @return     the string \c x.
   */
@@ -338,7 +338,7 @@ char* driver_rdln( char* x ) {
   *             respecting an EOL sematics based on use of CR only (i.e., no 
   *             associated LF).
   *
-  * @param[in]  x a string capturing the line written
+  * @param[in]  x a string capturing the line written.
   *
   * @return     the string \c x.
   */

@@ -22,7 +22,7 @@ typedef bool (*driver_command_t)( char* ack, char* req[], int n );
   }                                                                \
                                                                    \
   uint64_t kernel_tsc_init = board_tsc();                          \
-  bool r = f;                                                      \
+  kernel_status_t r = f;                                           \
   uint64_t kernel_tsc_fini = board_tsc();                          \
                                                                    \
   if( x ) {                                                        \
@@ -31,7 +31,7 @@ typedef bool (*driver_command_t)( char* ack, char* req[], int n );
                                                                    \
   kernel_tsc = board_tsc_diff( kernel_tsc_init, kernel_tsc_fini ); \
                                                                    \
-  return r;                                                        \
+  return true;                                                     \
 }
 
 #endif

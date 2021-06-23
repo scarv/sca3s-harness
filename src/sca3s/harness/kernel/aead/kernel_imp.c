@@ -12,21 +12,29 @@
 
 // ============================================================================
 
-/** @brief      Execute the kernel prologue, i.e.,
-  *             any  pre-execution steps such as   allocation of memory.
+/** @brief      Execute the kernel prologue,
+  *             e.g., any  pre-execution steps such as   allocation of memory.
   *
-  * @return     a Boolean flag indicating success (\c true) or failure (\c false).
+  * @return     An instance of \c kernel_status_t, 
+  *             e.g., a status code such as 
+  *             \c KERNEL_STATUS_FAILURE to indicate failure
+  *             or 
+  *             \c KERNEL_STATUS_SUCCESS to indicate success.
   *
   * @note       Execution of this function is excluded from the trigger period.
   */
 
-bool kernel_prologue() {
-  return true;
+kernel_status_t kernel_prologue() {
+  return KERNEL_STATUS_SUCCESS;
 }
 
 /** @brief      Execute the kernel itself.
   *
-  * @return     a Boolean flag indicating success (\c true) or failure (\c false).
+  * @return     An instance of \c kernel_status_t, 
+  *             e.g., a status code such as 
+  *             \c KERNEL_STATUS_FAILURE to indicate failure
+  *             or 
+  *             \c KERNEL_STATUS_SUCCESS to indicate success.
   *
   * @note       Execution of this function is included in   the trigger period.
   *
@@ -39,14 +47,14 @@ bool kernel_prologue() {
   *             or
   *             \c c of length \c n_c bytes (upto a maximum of \c KERNEL_SIZEOF_C)
   *             depending on the kernel mode.
-
+  *
   * @note       The kernel output is:
   *             either
   *             \c c of length \c n_c bytes (upto a maximum of \c KERNEL_SIZEOF_C)
   *             or
   *             \c m of length \c n_m bytes (upto a maximum of \c KERNEL_SIZEOF_M)
   *             depending on the kernel mode.
-
+  *
   * @note       The variable-length output
   *             requires that the kernel set
   *             either
@@ -66,20 +74,24 @@ bool kernel_prologue() {
   *             \c c is assumed to have length \c KERNEL_SIZEOF_C bytes.
   */
 
-bool kernel() {
-  return true;
+kernel_status_t kernel() {
+  return KERNEL_STATUS_SUCCESS;
 }
 
-/** @brief      Execute the kernel epilogue, i.e.,
-  *             any post-execution steps such as deallocation of memory.
+/** @brief      Execute the kernel epilogue,
+  *             e.g., any post-execution steps such as deallocation of memory.
   *
-  * @return     a Boolean flag indicating success (\c true) or failure (\c false).
+  * @return     An instance of \c kernel_status_t, 
+  *             e.g., a status code such as 
+  *             \c KERNEL_STATUS_FAILURE to indicate failure
+  *             or 
+  *             \c KERNEL_STATUS_SUCCESS to indicate success.
   *
   * @note       Execution of this function is excluded from the trigger period.
   */
 
-bool kernel_epilogue() {
-  return true;
+kernel_status_t kernel_epilogue() {
+  return KERNEL_STATUS_SUCCESS;
 }
 
 // ============================================================================

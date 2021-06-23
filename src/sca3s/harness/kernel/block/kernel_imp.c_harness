@@ -71,9 +71,9 @@ void kernel_id( char* x ) {
   strcpy( x, KERNEL_ID );
 }
 
-bool kernel_prologue();
-bool kernel();
-bool kernel_epilogue();
+kernel_status_t kernel_prologue();
+kernel_status_t kernel();
+kernel_status_t kernel_epilogue();
 
 /** @brief      A specification of the
   *             registers
