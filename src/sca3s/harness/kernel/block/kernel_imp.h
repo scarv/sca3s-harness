@@ -30,13 +30,6 @@
 #define KERNEL_MODEOF   ( KERNEL_MODEOF_ENC )
 #endif
 
-/** @brief      Number of allocated bytes in register that contains (externally supplied) randomness.
-  */
-
-#if !defined( KERNEL_SIZEOF_R )
-#define KERNEL_SIZEOF_R (  0 )
-#endif
-
 /** @brief      Number of allocated bytes in register that contains cipher key.
   */
 

@@ -35,13 +35,6 @@
 
 // ----------------------------------------------------------------------------
 
-/** @brief      Initial value of register that contains (externally supplied) randomness.
-  */
-
-#if !defined( KERNEL_INITOF_R )
-#define KERNEL_INITOF_R
-#endif
-
 /** @brief      Initial value of register that contains cipher key.
   */
 

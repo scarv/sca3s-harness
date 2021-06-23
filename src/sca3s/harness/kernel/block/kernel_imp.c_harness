@@ -21,13 +21,11 @@
 #define KERNEL_ID VERSION ":" KERNEL ":" __KERNEL_NAMEOF "/" __KERNEL_MODEOF
 
 #pragma message( "?data tsc"    " = "     "0"              )
-#pragma message( "?data r"      " = " INT(KERNEL_SIZEOF_R) )
 #pragma message( "?data k"      " = " INT(KERNEL_SIZEOF_K) )
 #pragma message( "?data m"      " = " INT(KERNEL_SIZEOF_M) )
 #pragma message( "?data c"      " = " INT(KERNEL_SIZEOF_C) )
 
 #pragma message( "#data tsc"    " = "     "0"              )
-#pragma message( "#data r"      " = " INT(KERNEL_SIZEOF_R) )
 #pragma message( "#data k"      " = " INT(KERNEL_SIZEOF_K) )
 #pragma message( "#data m"      " = " INT(KERNEL_SIZEOF_M) )
 #pragma message( "#data c"      " = " INT(KERNEL_SIZEOF_C) )
@@ -43,11 +41,6 @@
 #endif
 
 // ============================================================================
-
-/** @brief      A register that contains (externally supplied) randomness.
-  */
-
-uint8_t r[ KERNEL_SIZEOF_R ] = { KERNEL_INITOF_R };
 
 /** @brief      A register that contains cipher key.
   */
@@ -93,7 +86,6 @@ bool kernel_epilogue();
 kernel_data_spec_t kernel_data_spec[] = {
   { .id = "tsc", .data = ( uint8_t* )( &kernel_tsc ), .used = ( uint8_t* )( NULL ), .size = SIZEOF( kernel_tsc ), .type = KERNEL_DATA_TYPE_O    },
 
-  { .id =   "r", .data = ( uint8_t* )(           r ), .used = ( uint8_t* )( NULL ), .size = SIZEOF(          r ), .type = KERNEL_DATA_TYPE_I    },
   { .id =   "k", .data = ( uint8_t* )(           k ), .used = ( uint8_t* )( NULL ), .size = SIZEOF(          k ), .type = KERNEL_DATA_TYPE_I    },
 #if   ( KERNEL_MODEOF == KERNEL_MODEOF_ENC )
   { .id =   "m", .data = ( uint8_t* )(           m ), .used = ( uint8_t* )( NULL ), .size = SIZEOF(          m ), .type = KERNEL_DATA_TYPE_I    },

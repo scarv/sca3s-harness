@@ -30,7 +30,6 @@ bool kernel_prologue() {
   *
   * @note       Execution of this function is included in   the trigger period.
   * @note       The  inputs are:
-  *             \c r of length \c KERNEL_SIZEOF_R bytes,
   *             \c k of length \c KERNEL_SIZEOF_K bytes,
   *             and
   *             \c m of length \c KERNEL_SIZEOF_M bytes
@@ -38,9 +37,9 @@ bool kernel_prologue() {
   *             \c c of length \c KERNEL_SIZEOF_C bytes
   *             depending on the mode.
   *             The outputs are:
-  *             \c m of length \c KERNEL_SIZEOF_M bytes
-  *             or 
   *             \c c of length \c KERNEL_SIZEOF_C bytes
+  *             or 
+  *             \c m of length \c KERNEL_SIZEOF_M bytes
   *             depending on the mode.
   */
 
