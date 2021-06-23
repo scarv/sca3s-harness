@@ -18,11 +18,6 @@
 
 #define KERNEL_NAMEOF_GENERIC ( 0 )
 
-/** @brief      A symbolic identifier for AES        kernel name.
-  */
-
-#define KERNEL_NAMEOF_AES     ( 1 )
-
 /** @brief      A symbolic identifier for encryption kernel mode.
   */
 
@@ -40,6 +35,13 @@
 
 #if !defined( KERNEL_INITOF_K )
 #define KERNEL_INITOF_K
+#endif
+
+/** @brief      Initial value of register that contains associated data.
+  */
+
+#if !defined( KERNEL_INITOF_A )
+#define KERNEL_INITOF_A
 #endif
 
 /** @brief      Initial value of register that contains  plaintext data.

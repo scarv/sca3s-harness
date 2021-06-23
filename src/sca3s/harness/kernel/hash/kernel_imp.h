@@ -11,16 +11,16 @@
 // ============================================================================
 
 /** @brief      The kernel name, e.g.,
-  *             1) KERNEL_NAMEOF_GENERIC,   for generic hash function,
-  *             2) KERNEL_NAMEOF_SHA_1,     for SHA-1   hash function,
-  *             3) KERNEL_NAMEOF_SHA_2_224, for SHA-224 hash function,
-  *             4) KERNEL_NAMEOF_SHA_2_256, for SHA-256 hash function,
-  *             5) KERNEL_NAMEOF_SHA_2_384, for SHA-384 hash function,
-  *             6) KERNEL_NAMEOF_SHA_2_512, for SHA-512 hash function,
+  *             1) KERNEL_NAMEOF_GENERIC   for generic
+  *             2) KERNEL_NAMEOF_SHA_1     for SHA-1  
+  *             3) KERNEL_NAMEOF_SHA_2_224 for SHA-224
+  *             4) KERNEL_NAMEOF_SHA_2_256 for SHA-256
+  *             5) KERNEL_NAMEOF_SHA_2_384 for SHA-384
+  *             6) KERNEL_NAMEOF_SHA_2_512 for SHA-512
   *             7) ...
   */
 
-#if !defined( KERNEL_NAMEOF     )
+#if !defined( KERNEL_NAMEOF   )
 #define KERNEL_NAMEOF   ( KERNEL_NAMEOF_GENERIC )
 #endif
 
@@ -31,7 +31,7 @@
 #define KERNEL_SIZEOF_M ( 4 )
 #endif
 
-/** @brief      Number of allocated bytes in register that contains digest.
+/** @brief      Number of allocated bytes in register that contains  digest.
   */
 
 #if !defined( KERNEL_SIZEOF_D )

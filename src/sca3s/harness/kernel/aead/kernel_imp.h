@@ -12,11 +12,10 @@
 
 /** @brief      The kernel name, e.g., 
   *             1) KERNEL_NAMEOF_GENERIC for generic
-  *             2) KERNEL_NAMEOF_AES     for AES    
-  *             3) ...
+  *             2) ...
   */
 
-#if !defined( KERNEL_NAMEOF     )
+#if !defined( KERNEL_NAMEOF   )
 #define KERNEL_NAMEOF   ( KERNEL_NAMEOF_GENERIC )
 #endif
 
@@ -26,7 +25,7 @@
   *             2) KERNEL_MODEOF_DEC for decryption
   */
 
-#if !defined( KERNEL_MODEOF     )
+#if !defined( KERNEL_MODEOF   )
 #define KERNEL_MODEOF   ( KERNEL_MODEOF_ENC )
 #endif
 
@@ -35,6 +34,13 @@
 
 #if !defined( KERNEL_SIZEOF_K )
 #define KERNEL_SIZEOF_K ( 16 )
+#endif
+
+/** @brief      Number of allocated bytes in register that contains associated data.
+  */
+
+#if !defined( KERNEL_SIZEOF_A )
+#define KERNEL_SIZEOF_A ( 16 )
 #endif
 
 /** @brief      Number of allocated bytes in register that contains  plaintext data.

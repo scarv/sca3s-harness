@@ -9,8 +9,6 @@
 
 #if   ( KERNEL_NAMEOF == KERNEL_NAMEOF_GENERIC )
 #define __KERNEL_NAMEOF "generic"
-#elif ( KERNEL_NAMEOF == KERNEL_NAMEOF_AES     )
-#define __KERNEL_NAMEOF "aes"
 #endif
 
 #if   ( KERNEL_MODEOF == KERNEL_MODEOF_ENC     )
@@ -23,21 +21,23 @@
 
 #pragma message( "?data tsc"    " = "     "0"              )
 #pragma message( "?data k"      " = " INT(KERNEL_SIZEOF_K) )
+#pragma message( "?data a"      " = " INT(KERNEL_SIZEOF_A) )
 #pragma message( "?data m"      " = " INT(KERNEL_SIZEOF_M) )
 #pragma message( "?data c"      " = " INT(KERNEL_SIZEOF_C) )
 
 #pragma message( "#data tsc"    " = "     "0"              )
 #pragma message( "#data k"      " = " INT(KERNEL_SIZEOF_K) )
+#pragma message( "#data a"      " = " INT(KERNEL_SIZEOF_A) )
 #pragma message( "#data m"      " = " INT(KERNEL_SIZEOF_M) )
 #pragma message( "#data c"      " = " INT(KERNEL_SIZEOF_C) )
 
 #pragma message( "?kernel_id"   " = "     KERNEL_ID        )
 
 #if   ( KERNEL_MODEOF == KERNEL_MODEOF_ENC )
-#pragma message( ">kernel_data" " = "     "k,m"            )
+#pragma message( ">kernel_data" " = "     "k,a,m"          )
 #pragma message( "<kernel_data" " = " "tsc,c"              )
 #elif ( KERNEL_MODEOF == KERNEL_MODEOF_DEC )
-#pragma message( ">kernel_data" " = "     "k,c"            )
+#pragma message( ">kernel_data" " = "     "k,a,c"          )
 #pragma message( "<kernel_data" " = " "tsc,m"              )
 #endif
 
@@ -48,6 +48,11 @@
 
 uint8_t k[ KERNEL_SIZEOF_K ] = { KERNEL_INITOF_K };
 
+/** @brief      A register that contains associated data.
+  */
+
+uint8_t a[ KERNEL_SIZEOF_A ] = { KERNEL_INITOF_A };
+
 /** @brief      A register that contains  plaintext data.
   */
 
@@ -57,6 +62,26 @@ uint8_t m[ KERNEL_SIZEOF_M ] = { KERNEL_INITOF_M };
   */
 
 uint8_t c[ KERNEL_SIZEOF_C ] = { KERNEL_INITOF_C };
+
+/** @brief      Number of used bytes in register that contains cipher key.
+  */
+
+uint8_t n_k = 0;
+
+/** @brief      Number of used bytes in register that contains associated data.
+  */
+
+uint8_t n_a = 0;
+
+/** @brief      Number of used bytes in register that contains  plaintext data.
+  */
+
+uint8_t n_m = 0;
+
+/** @brief      Number of used bytes in register that contains ciphertext data.
+  */
+
+uint8_t n_c = 0;
 
 /** @brief      Generate a kernel identifier string.
   *
@@ -88,13 +113,15 @@ kernel_data_spec_t kernel_data_spec[] = {
 // kernel-agnostic
   { .id = "tsc", .data = ( uint8_t* )( &kernel_tsc ), .used = ( uint8_t* )( NULL ), .size = SIZEOF( kernel_tsc ), .type = KERNEL_DATA_TYPE_O    },
 // kernel-specific
-  { .id =   "k", .data = ( uint8_t* )(           k ), .used = ( uint8_t* )( NULL ), .size = SIZEOF(          k ), .type = KERNEL_DATA_TYPE_I    },
+  { .id =   "k", .data = ( uint8_t* )(           k ), .used = ( uint8_t* )( &n_k ), .size = SIZEOF(          k ), .type = KERNEL_DATA_TYPE_I    },
 #if   ( KERNEL_MODEOF == KERNEL_MODEOF_ENC )
-  { .id =   "m", .data = ( uint8_t* )(           m ), .used = ( uint8_t* )( NULL ), .size = SIZEOF(          m ), .type = KERNEL_DATA_TYPE_I    },
-  { .id =   "c", .data = ( uint8_t* )(           c ), .used = ( uint8_t* )( NULL ), .size = SIZEOF(          c ), .type = KERNEL_DATA_TYPE_O    },
+  { .id =   "a", .data = ( uint8_t* )(           a ), .used = ( uint8_t* )( &n_a ), .size = SIZEOF(          a ), .type = KERNEL_DATA_TYPE_I    },
+  { .id =   "m", .data = ( uint8_t* )(           m ), .used = ( uint8_t* )( &n_m ), .size = SIZEOF(          m ), .type = KERNEL_DATA_TYPE_I    },
+  { .id =   "c", .data = ( uint8_t* )(           c ), .used = ( uint8_t* )( &n_c ), .size = SIZEOF(          c ), .type = KERNEL_DATA_TYPE_O    },
 #elif ( KERNEL_MODEOF == KERNEL_MODEOF_DEC )
-  { .id =   "c", .data = ( uint8_t* )(           c ), .used = ( uint8_t* )( NULL ), .size = SIZEOF(          c ), .type = KERNEL_DATA_TYPE_I    },
-  { .id =   "m", .data = ( uint8_t* )(           m ), .used = ( uint8_t* )( NULL ), .size = SIZEOF(          m ), .type = KERNEL_DATA_TYPE_O    },
+  { .id =   "a", .data = ( uint8_t* )(           a ), .used = ( uint8_t* )( &n_k ), .size = SIZEOF(          a ), .type = KERNEL_DATA_TYPE_I    },
+  { .id =   "c", .data = ( uint8_t* )(           c ), .used = ( uint8_t* )( &n_c ), .size = SIZEOF(          c ), .type = KERNEL_DATA_TYPE_I    },
+  { .id =   "m", .data = ( uint8_t* )(           m ), .used = ( uint8_t* )( &n_m ), .size = SIZEOF(          m ), .type = KERNEL_DATA_TYPE_O    },
 #endif
 // terminator
   { .id =  NULL, .data = ( uint8_t* )(        NULL ), .used = ( uint8_t* )( NULL ), .size =       (          0 ), .type = KERNEL_DATA_TYPE_NONE }

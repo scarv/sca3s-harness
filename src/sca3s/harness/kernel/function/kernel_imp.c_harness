@@ -71,11 +71,12 @@ bool kernel_epilogue();
   */
 
 kernel_data_spec_t kernel_data_spec[] = {
+// kernel-agnostic
   { .id = "tsc", .data = ( uint8_t* )( &kernel_tsc ), .used = ( uint8_t* )( NULL ), .size = SIZEOF( kernel_tsc ), .type = KERNEL_DATA_TYPE_O    },
-
+// kernel-specific
   { .id =   "x", .data = ( uint8_t* )(           x ), .used = ( uint8_t* )( &n_x ), .size = SIZEOF(          x ), .type = KERNEL_DATA_TYPE_I    },
   { .id =   "r", .data = ( uint8_t* )(           r ), .used = ( uint8_t* )( &n_r ), .size = SIZEOF(          r ), .type = KERNEL_DATA_TYPE_O    },
-
+// terminator
   { .id =  NULL, .data = ( uint8_t* )(        NULL ), .used = ( uint8_t* )( NULL ), .size =       (          0 ), .type = KERNEL_DATA_TYPE_NONE }
 };
 

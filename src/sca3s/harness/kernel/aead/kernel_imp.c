@@ -31,22 +31,39 @@ bool kernel_prologue() {
   * @note       Execution of this function is included in   the trigger period.
   *
   * @note       The kernel  input is:
-  *             \c x of length \c n_x bytes (upto a maximum of \c KERNEL_SIZEOF_X).
-  *
+  *             \c k of length \c n_k bytes (upto a maximum of \c KERNEL_SIZEOF_K),
+  *             \c a of length \c n_a bytes (upto a maximum of \c KERNEL_SIZEOF_A),
+  *             and 
+  *             either
+  *             \c m of length \c n_m bytes (upto a maximum of \c KERNEL_SIZEOF_M)
+  *             or
+  *             \c c of length \c n_c bytes (upto a maximum of \c KERNEL_SIZEOF_C)
+  *             depending on the kernel mode.
+
   * @note       The kernel output is:
-  *             \c r of length \c n_r bytes (upto a maximum of \c KERNEL_SIZEOF_R).
-  *
+  *             either
+  *             \c c of length \c n_c bytes (upto a maximum of \c KERNEL_SIZEOF_C)
+  *             or
+  *             \c m of length \c n_m bytes (upto a maximum of \c KERNEL_SIZEOF_M)
+  *             depending on the kernel mode.
+
   * @note       The variable-length output
   *             requires that the kernel set
-  *             \c n_r (to reflect the number of bytes produced in \c r).
+  *             either
+  *             \c n_c (to reflect the number of bytes produced in \c c)
+  *             or
+  *             \c n_m (to reflect the number of bytes produced in \c m)
+  *             depending on the kernel mode.
   *
   * @note       The variable-length output and input
   *             cannot be supported in non-interactive cases: in such cases
-  *             the outputs and inputs are assumed to be of maximum length,
+  *             the outputs and inputs are assumed to be of maximum length, 
   *             i.e.,
-  *             \c x is assumed to have length \c KERNEL_SIZEOF_X bytes,
+  *             \c k is assumed to have length \c KERNEL_SIZEOF_K bytes,
+  *             \c a is assumed to have length \c KERNEL_SIZEOF_A bytes,
+  *             \c m is assumed to have length \c KERNEL_SIZEOF_M bytes,
   *             and
-  *             \c r is assumed to have length \c KERNEL_SIZEOF_R bytes.
+  *             \c c is assumed to have length \c KERNEL_SIZEOF_C bytes.
   */
 
 bool kernel() {

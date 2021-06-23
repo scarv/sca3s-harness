@@ -15,7 +15,7 @@
 /** @brief      Execute the kernel prologue, i.e.,
   *             any  pre-execution steps such as   allocation of memory.
   *
-  * @return     a Boolean flag indicating success (\c true) or failure (\c false)
+  * @return     a Boolean flag indicating success (\c true) or failure (\c false).
   *
   * @note       Execution of this function is excluded from the trigger period.
   */
@@ -26,21 +26,25 @@ bool kernel_prologue() {
 
 /** @brief      Execute the kernel itself.
   *
-  * @return     a Boolean flag indicating success (\c true) or failure (\c false)
+  * @return     a Boolean flag indicating success (\c true) or failure (\c false).
   *
   * @note       Execution of this function is included in   the trigger period.
-  * @note       The  inputs are:
+  *
+  * @note       The kernel  input is:
   *             \c k of length \c KERNEL_SIZEOF_K bytes,
   *             and
+  *             either
   *             \c m of length \c KERNEL_SIZEOF_M bytes
   *             or 
   *             \c c of length \c KERNEL_SIZEOF_C bytes
-  *             depending on the mode.
-  *             The outputs are:
+  *             depending on the kernel mode.
+  *
+  * @note       The kernel output is:
+  *             either
   *             \c c of length \c KERNEL_SIZEOF_C bytes
   *             or 
   *             \c m of length \c KERNEL_SIZEOF_M bytes
-  *             depending on the mode.
+  *             depending on the kernel mode.
   */
 
 bool kernel() {
@@ -50,7 +54,7 @@ bool kernel() {
 /** @brief      Execute the kernel epilogue, i.e.,
   *             any post-execution steps such as deallocation of memory.
   *
-  * @return     a Boolean flag indicating success (\c true) or failure (\c false)
+  * @return     a Boolean flag indicating success (\c true) or failure (\c false).
   *
   * @note       Execution of this function is excluded from the trigger period.
   */

@@ -13,32 +13,32 @@
 
 // ============================================================================
 
-/** @brief      A symbolic identifier for generic hash function.
+/** @brief      A symbolic identifier for generic kernel name.
   */
 
 #define KERNEL_NAMEOF_GENERIC   ( 0 )
 
-/** @brief      A symbolic identifier for SHA-1   hash function.
+/** @brief      A symbolic identifier for SHA-1   kernel name.
   */
 
 #define KERNEL_NAMEOF_SHA_1     ( 1 )
 
-/** @brief      A symbolic identifier for SHA-224 hash function.
+/** @brief      A symbolic identifier for SHA-224 kernel name.
   */
 
 #define KERNEL_NAMEOF_SHA_2_224 ( 2 )
 
-/** @brief      A symbolic identifier for SHA-256 hash function.
+/** @brief      A symbolic identifier for SHA-256 kernel name.
   */
 
 #define KERNEL_NAMEOF_SHA_2_256 ( 3 )
 
-/** @brief      A symbolic identifier for SHA-384 hash function.
+/** @brief      A symbolic identifier for SHA-384 kernel name.
   */
 
 #define KERNEL_NAMEOF_SHA_2_384 ( 4 )
 
-/** @brief      A symbolic identifier for SHA-512 hash function.
+/** @brief      A symbolic identifier for SHA-512 kernel name.
   */
 
 #define KERNEL_NAMEOF_SHA_2_512 ( 5 )
@@ -52,7 +52,7 @@
 #define KERNEL_INITOF_M
 #endif
 
-/** @brief      Initial value of register that contains digest.
+/** @brief      Initial value of register that contains  digest.
   */
 
 #if !defined( KERNEL_INITOF_D )

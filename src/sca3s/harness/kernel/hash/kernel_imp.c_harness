@@ -43,17 +43,17 @@
 
 uint8_t m[ KERNEL_SIZEOF_M ] = { KERNEL_INITOF_M };
 
-/** @brief      A register that contains digest.
+/** @brief      A register that contains  digest.
   */
 
-uint8_t d[ KERNEL_SIZEOF_D ] = { KERNEL_INITOF_R };
+uint8_t d[ KERNEL_SIZEOF_D ] = { KERNEL_INITOF_D };
 
 /** @brief      Number of used bytes in register that contains message.
   */
 
 uint8_t n_m = 0;
 
-/** @brief      Number of used bytes in register that contains digest.
+/** @brief      Number of used bytes in register that contains  digest.
   */
 
 uint8_t n_d = 0;
@@ -85,11 +85,12 @@ bool kernel_epilogue();
   */
 
 kernel_data_spec_t kernel_data_spec[] = {
+// kernel-agnostic
   { .id = "tsc", .data = ( uint8_t* )( &kernel_tsc ), .used = ( uint8_t* )( NULL ), .size = SIZEOF( kernel_tsc ), .type = KERNEL_DATA_TYPE_O    },
-
+// kernel-specific
   { .id =   "m", .data = ( uint8_t* )(           m ), .used = ( uint8_t* )( &n_m ), .size = SIZEOF(          m ), .type = KERNEL_DATA_TYPE_I    },
   { .id =   "d", .data = ( uint8_t* )(           d ), .used = ( uint8_t* )( &n_d ), .size = SIZEOF(          d ), .type = KERNEL_DATA_TYPE_O    },
-
+// terminator
   { .id =  NULL, .data = ( uint8_t* )(        NULL ), .used = ( uint8_t* )( NULL ), .size =       (          0 ), .type = KERNEL_DATA_TYPE_NONE }
 };
 
