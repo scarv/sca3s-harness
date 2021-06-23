@@ -20,35 +20,42 @@
 #define KERNEL_NAMEOF     ( KERNEL_NAMEOF_GENERIC )
 #endif
 
-/** @brief      The kernel type, i.e., either
+/** @brief      The kernel mode, i.e., either
   *             1) KERNEL_MODEOF_ENC for encryption operation,
   *                or
   *             2) KERNEL_MODEOF_DEC for decryption operation.
   */
 
 #if !defined( KERNEL_MODEOF     )
-#define KERNEL_MODEOF     ( KERNEL_MODEOF_ENC )
+#define KERNEL_MODEOF   ( KERNEL_MODEOF_ENC )
 #endif
 
-/** @brief      Number of bytes in the (externally supplied) randomness.
+/** @brief      Number of allocated bytes in register that contains (externally supplied) randomness.
   */
 
-#if !defined( KERNEL_SIZEOF_RND )
-#define KERNEL_SIZEOF_RND (  0 )
+#if !defined( KERNEL_SIZEOF_R )
+#define KERNEL_SIZEOF_R (  0 )
 #endif
 
-/** @brief      Number of bytes in the cipher key.
+/** @brief      Number of allocated bytes in register that contains cipher key.
   */
 
-#if !defined( KERNEL_SIZEOF_KEY )
-#define KERNEL_SIZEOF_KEY ( 16 )
+#if !defined( KERNEL_SIZEOF_K )
+#define KERNEL_SIZEOF_K ( 16 )
 #endif
 
-/** @brief      Number of bytes in the plaintext or ciphertext block.
+/** @brief      Number of allocated bytes in register that contains  plaintext block.
   */
 
-#if !defined( KERNEL_SIZEOF_BLK )
-#define KERNEL_SIZEOF_BLK ( 16 )
+#if !defined( KERNEL_SIZEOF_M )
+#define KERNEL_SIZEOF_M ( 16 )
+#endif
+
+/** @brief      Number of allocated bytes in register that contains ciphertext block.
+  */
+
+#if !defined( KERNEL_SIZEOF_C )
+#define KERNEL_SIZEOF_C ( 16 )
 #endif
 
 // ============================================================================

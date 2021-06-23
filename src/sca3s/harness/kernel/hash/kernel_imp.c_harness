@@ -7,42 +7,56 @@
 
 // ============================================================================
 
-#define KERNEL_ID VERSION ":" KERNEL
+#if   ( KERNEL_NAMEOF == KERNEL_NAMEOF_GENERIC   )
+#define __KERNEL_NAMEOF "generic"
+#elif ( KERNEL_NAMEOF == KERNEL_NAMEOF_SHA_1     )
+#define __KERNEL_NAMEOF  "sha_1"
+#elif ( KERNEL_NAMEOF == KERNEL_NAMEOF_SHA_2_224 )
+#define __KERNEL_NAMEOF  "sha_2_224"
+#elif ( KERNEL_NAMEOF == KERNEL_NAMEOF_SHA_2_256 )
+#define __KERNEL_NAMEOF  "sha_2_256"
+#elif ( KERNEL_NAMEOF == KERNEL_NAMEOF_SHA_2_384 )
+#define __KERNEL_NAMEOF  "sha_2_384"
+#elif ( KERNEL_NAMEOF == KERNEL_NAMEOF_SHA_2_512 )
+#define __KERNEL_NAMEOF  "sha_2_512"
+#endif
+
+#define KERNEL_ID VERSION ":" KERNEL ":" __KERNEL_NAMEOF
 
 #pragma message( "?data tsc"    " = "     "0"              )
-#pragma message( "?data x"      " = " INT(KERNEL_SIZEOF_X) )
-#pragma message( "?data r"      " = " INT(KERNEL_SIZEOF_R) )
+#pragma message( "?data m"      " = " INT(KERNEL_SIZEOF_M) )
+#pragma message( "?data d"      " = " INT(KERNEL_SIZEOF_D) )
 
 #pragma message( "#data tsc"    " = "     "0"              )
-#pragma message( "#data x"      " = " INT(KERNEL_SIZEOF_X) )
-#pragma message( "#data r"      " = " INT(KERNEL_SIZEOF_R) )
+#pragma message( "#data m"      " = " INT(KERNEL_SIZEOF_M) )
+#pragma message( "#data d"      " = " INT(KERNEL_SIZEOF_D) )
 
 #pragma message( "?kernel_id"   " = "     KERNEL_ID        )
 
-#pragma message( ">kernel_data" " = "     "x"              )
-#pragma message( "<kernel_data" " = " "tsc,r"              )
+#pragma message( ">kernel_data" " = "     "m"              )
+#pragma message( "<kernel_data" " = " "tsc,d"              )
 
 // ============================================================================
 
-/** @brief      A register that contains x (the  input to   r = f( x )).
+/** @brief      A register that contains message.
   */
 
-uint8_t x[ KERNEL_SIZEOF_X ] = { KERNEL_INITOF_X };
+uint8_t m[ KERNEL_SIZEOF_M ] = { KERNEL_INITOF_M };
 
-/** @brief      A register that contains r (the output from r = f( x )).
+/** @brief      A register that contains digest.
   */
 
-uint8_t r[ KERNEL_SIZEOF_R ] = { KERNEL_INITOF_R };
+uint8_t d[ KERNEL_SIZEOF_D ] = { KERNEL_INITOF_R };
 
-/** @brief      Number of used bytes in register that contains x (the  input to   r = f( x )).
+/** @brief      Number of used bytes in register that contains message.
   */
 
-uint8_t n_x = 0;
+uint8_t n_m = 0;
 
-/** @brief      Number of used bytes in register that contains r (the output from r = f( x )).
+/** @brief      Number of used bytes in register that contains digest.
   */
 
-uint8_t n_r = 0;
+uint8_t n_d = 0;
 
 /** @brief      Generate a kernel identifier string.
   *
@@ -73,8 +87,8 @@ bool kernel_epilogue();
 kernel_data_spec_t kernel_data_spec[] = {
   { .id = "tsc", .data = ( uint8_t* )( &kernel_tsc ), .used = ( uint8_t* )( NULL ), .size = SIZEOF( kernel_tsc ), .type = KERNEL_DATA_TYPE_O    },
 
-  { .id =   "x", .data = ( uint8_t* )(           x ), .used = ( uint8_t* )( &n_x ), .size = SIZEOF(          x ), .type = KERNEL_DATA_TYPE_I    },
-  { .id =   "r", .data = ( uint8_t* )(           r ), .used = ( uint8_t* )( &n_r ), .size = SIZEOF(          r ), .type = KERNEL_DATA_TYPE_O    },
+  { .id =   "m", .data = ( uint8_t* )(           m ), .used = ( uint8_t* )( &n_m ), .size = SIZEOF(          m ), .type = KERNEL_DATA_TYPE_I    },
+  { .id =   "d", .data = ( uint8_t* )(           d ), .used = ( uint8_t* )( &n_d ), .size = SIZEOF(          d ), .type = KERNEL_DATA_TYPE_O    },
 
   { .id =  NULL, .data = ( uint8_t* )(        NULL ), .used = ( uint8_t* )( NULL ), .size =       (          0 ), .type = KERNEL_DATA_TYPE_NONE }
 };

@@ -1,0 +1,64 @@
+/* Copyright (C) 2018 SCARV project <info@scarv.org>
+ *
+ * Use of this source code is restricted per the MIT license, a copy of which 
+ * can be found at https://opensource.org/licenses/MIT (or should be included 
+ * as LICENSE.txt within the associated archive or repository).
+ */
+
+#ifndef __KERNEL_IMP_H_HARNESS
+#define __KERNEL_IMP_H_HARNESS
+
+#include   "util.h"
+#include "kernel.h"
+
+// ============================================================================
+
+/** @brief      A symbolic identifier for generic hash function.
+  */
+
+#define KERNEL_NAMEOF_GENERIC   ( 0 )
+
+/** @brief      A symbolic identifier for SHA-1   hash function.
+  */
+
+#define KERNEL_NAMEOF_SHA_1     ( 1 )
+
+/** @brief      A symbolic identifier for SHA-224 hash function.
+  */
+
+#define KERNEL_NAMEOF_SHA_2_224 ( 2 )
+
+/** @brief      A symbolic identifier for SHA-256 hash function.
+  */
+
+#define KERNEL_NAMEOF_SHA_2_256 ( 3 )
+
+/** @brief      A symbolic identifier for SHA-384 hash function.
+  */
+
+#define KERNEL_NAMEOF_SHA_2_384 ( 4 )
+
+/** @brief      A symbolic identifier for SHA-512 hash function.
+  */
+
+#define KERNEL_NAMEOF_SHA_2_512 ( 5 )
+
+// ----------------------------------------------------------------------------
+
+/** @brief      Initial value of register that contains message.
+  */
+
+#if !defined( KERNEL_INITOF_M )
+#define KERNEL_INITOF_M
+#endif
+
+/** @brief      Initial value of register that contains digest.
+  */
+
+#if !defined( KERNEL_INITOF_D )
+#define KERNEL_INITOF_D
+#endif
+
+// ============================================================================
+
+#endif

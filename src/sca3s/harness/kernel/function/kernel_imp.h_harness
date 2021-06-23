@@ -13,14 +13,14 @@
 
 // ============================================================================
 
-/** @brief      Initial value of  data buffer that houses x (the  input to   r = f( x )).
+/** @brief      Initial value of register that contains x (the  input to   r = f( x )).
   */
 
 #if !defined( KERNEL_INITOF_X )
 #define KERNEL_INITOF_X
 #endif
 
-/** @brief      Initial value of  data buffer that houses r (the output from r = f( x )).
+/** @brief      Initial value of register that contains r (the output from r = f( x )).
   */
 
 #if !defined( KERNEL_INITOF_R )

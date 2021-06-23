@@ -10,59 +10,59 @@
 #if   ( KERNEL_NAMEOF == KERNEL_NAMEOF_GENERIC )
 #define __KERNEL_NAMEOF "generic"
 #elif ( KERNEL_NAMEOF == KERNEL_NAMEOF_AES     )
-#define __KERNEL_NAMEOF     "aes"
+#define __KERNEL_NAMEOF "aes"
 #endif
 #if   ( KERNEL_MODEOF == KERNEL_MODEOF_ENC     )
-#define __KERNEL_MODEOF     "enc"
+#define __KERNEL_MODEOF "enc"
 #elif ( KERNEL_MODEOF == KERNEL_MODEOF_DEC     )
-#define __KERNEL_MODEOF     "dec"
+#define __KERNEL_MODEOF "dec"
 #endif
 
 #define KERNEL_ID VERSION ":" KERNEL ":" __KERNEL_NAMEOF "/" __KERNEL_MODEOF
 
-#pragma message( "?data tsc"    " = "     "0"                )
-#pragma message( "?data r"      " = " INT(KERNEL_SIZEOF_RND) )
-#pragma message( "?data k"      " = " INT(KERNEL_SIZEOF_KEY) )
-#pragma message( "?data m"      " = " INT(KERNEL_SIZEOF_BLK) )
-#pragma message( "?data c"      " = " INT(KERNEL_SIZEOF_BLK) )
+#pragma message( "?data tsc"    " = "     "0"              )
+#pragma message( "?data r"      " = " INT(KERNEL_SIZEOF_R) )
+#pragma message( "?data k"      " = " INT(KERNEL_SIZEOF_K) )
+#pragma message( "?data m"      " = " INT(KERNEL_SIZEOF_M) )
+#pragma message( "?data c"      " = " INT(KERNEL_SIZEOF_C) )
 
-#pragma message( "#data tsc"    " = "     "0"                )
-#pragma message( "#data r"      " = " INT(KERNEL_SIZEOF_RND) )
-#pragma message( "#data k"      " = " INT(KERNEL_SIZEOF_KEY) )
-#pragma message( "#data m"      " = " INT(KERNEL_SIZEOF_BLK) )
-#pragma message( "#data c"      " = " INT(KERNEL_SIZEOF_BLK) )
+#pragma message( "#data tsc"    " = "     "0"              )
+#pragma message( "#data r"      " = " INT(KERNEL_SIZEOF_R) )
+#pragma message( "#data k"      " = " INT(KERNEL_SIZEOF_K) )
+#pragma message( "#data m"      " = " INT(KERNEL_SIZEOF_M) )
+#pragma message( "#data c"      " = " INT(KERNEL_SIZEOF_C) )
 
-#pragma message( "?kernel_id"   " = "     KERNEL_ID          )
+#pragma message( "?kernel_id"   " = "     KERNEL_ID        )
 
 #if   ( KERNEL_MODEOF == KERNEL_MODEOF_ENC )
-#pragma message( ">kernel_data" " = "     "r,k,m"            )
-#pragma message( "<kernel_data" " = " "tsc,c"                )
+#pragma message( ">kernel_data" " = "     "r,k,m"          )
+#pragma message( "<kernel_data" " = " "tsc,c"              )
 #elif ( KERNEL_MODEOF == KERNEL_MODEOF_DEC )
-#pragma message( ">kernel_data" " = "     "r,k,c"            )
-#pragma message( "<kernel_data" " = " "tsc,m"                )
+#pragma message( ">kernel_data" " = "     "r,k,c"          )
+#pragma message( "<kernel_data" " = " "tsc,m"              )
 #endif
 
 // ============================================================================
 
-/** @brief      A                 data buffer that houses the (externally supplied) randomness.
+/** @brief      A register that contains (externally supplied) randomness.
   */
 
-uint8_t r[ KERNEL_SIZEOF_RND ] = { KERNEL_INITOF_R };
+uint8_t r[ KERNEL_SIZEOF_R ] = { KERNEL_INITOF_R };
 
-/** @brief      A                 data buffer that houses the cipher key.
+/** @brief      A register that contains cipher key.
   */
 
-uint8_t k[ KERNEL_SIZEOF_KEY ] = { KERNEL_INITOF_K };
+uint8_t k[ KERNEL_SIZEOF_K ] = { KERNEL_INITOF_K };
 
-/** @brief      A                 data buffer that houses the  plaintext.
+/** @brief      A register that contains  plaintext block.
   */
 
-uint8_t m[ KERNEL_SIZEOF_BLK ] = { KERNEL_INITOF_M };
+uint8_t m[ KERNEL_SIZEOF_M ] = { KERNEL_INITOF_M };
 
-/** @brief      A                 data buffer that houses the ciphertext.
+/** @brief      A register that contains ciphertext block.
   */
 
-uint8_t c[ KERNEL_SIZEOF_BLK ] = { KERNEL_INITOF_C };
+uint8_t c[ KERNEL_SIZEOF_C ] = { KERNEL_INITOF_C };
 
 /** @brief      Generate a kernel identifier string.
   *
@@ -82,7 +82,7 @@ bool kernel();
 bool kernel_epilogue();
 
 /** @brief      A specification of the
-  *             data buffers
+  *             registers
   *             accessible within the kernel.
   *
   * @note       By setting \c .id equal to \c NULL, the entry will act as a
