@@ -30,6 +30,16 @@
 #define SIZEOF(x) ( sizeof(x)     )
 #define BITSOF(x) ( sizeof(x) * 8 )
 
+#define SIZEOF_UINT8  (  1 )
+#define SIZEOF_UINT16 (  2 )
+#define SIZEOF_UINT32 (  4 )
+#define SIZEOF_UINT64 (  8 )
+
+#define BITSOF_UINT8  (  8 )
+#define BITSOF_UINT16 ( 16 )
+#define BITSOF_UINT32 ( 32 )
+#define BITSOF_UINT64 ( 64 )
+
 extern int  xtoi( char x );
 extern char itox( int  x );
 

@@ -23,18 +23,18 @@
 
 #define KERNEL_ID VERSION ":" KERNEL ":" __KERNEL_NAMEOF
 
-#pragma message( "?data tsc"    " = "     "0"              )
-#pragma message( "?data m"      " = " INT(KERNEL_SIZEOF_M) )
-#pragma message( "?data d"      " = " INT(KERNEL_SIZEOF_D) )
+#pragma message( "?data tsc"    " = " INT(       SIZEOF_UINT64) )
+#pragma message( "?data m"      " = " INT(KERNEL_SIZEOF_M     ) )
+#pragma message( "?data d"      " = " INT(KERNEL_SIZEOF_D     ) )
 
-#pragma message( "#data tsc"    " = "     "0"              )
-#pragma message( "#data m"      " = " INT(KERNEL_SIZEOF_M) )
-#pragma message( "#data d"      " = " INT(KERNEL_SIZEOF_D) )
+#pragma message( "#data tsc"    " = " INT(       SIZEOF_UINT64) )
+#pragma message( "#data m"      " = " INT(KERNEL_SIZEOF_M     ) )
+#pragma message( "#data d"      " = " INT(KERNEL_SIZEOF_D     ) )
 
-#pragma message( "?kernel_id"   " = "     KERNEL_ID        )
+#pragma message( "?kernel_id"   " = "     KERNEL_ID             )
 
-#pragma message( ">kernel_data" " = "     "m"              )
-#pragma message( "<kernel_data" " = " "tsc,d"              )
+#pragma message( ">kernel_data" " = "     "m"                   )
+#pragma message( "<kernel_data" " = " "tsc,d"                   )
 
 // ============================================================================
 

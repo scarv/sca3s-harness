@@ -19,26 +19,26 @@
 
 #define KERNEL_ID VERSION ":" KERNEL ":" __KERNEL_NAMEOF "/" __KERNEL_MODEOF
 
-#pragma message( "?data tsc"    " = "     "0"              )
-#pragma message( "?data k"      " = " INT(KERNEL_SIZEOF_K) )
-#pragma message( "?data a"      " = " INT(KERNEL_SIZEOF_A) )
-#pragma message( "?data m"      " = " INT(KERNEL_SIZEOF_M) )
-#pragma message( "?data c"      " = " INT(KERNEL_SIZEOF_C) )
+#pragma message( "?data tsc"    " = " INT(       SIZEOF_UINT64) )
+#pragma message( "?data k"      " = " INT(KERNEL_SIZEOF_K     ) )
+#pragma message( "?data a"      " = " INT(KERNEL_SIZEOF_A     ) )
+#pragma message( "?data m"      " = " INT(KERNEL_SIZEOF_M     ) )
+#pragma message( "?data c"      " = " INT(KERNEL_SIZEOF_C     ) )
 
-#pragma message( "#data tsc"    " = "     "0"              )
-#pragma message( "#data k"      " = " INT(KERNEL_SIZEOF_K) )
-#pragma message( "#data a"      " = " INT(KERNEL_SIZEOF_A) )
-#pragma message( "#data m"      " = " INT(KERNEL_SIZEOF_M) )
-#pragma message( "#data c"      " = " INT(KERNEL_SIZEOF_C) )
+#pragma message( "#data tsc"    " = " INT(       SIZEOF_UINT64) )
+#pragma message( "#data k"      " = " INT(KERNEL_SIZEOF_K     ) )
+#pragma message( "#data a"      " = " INT(KERNEL_SIZEOF_A     ) )
+#pragma message( "#data m"      " = " INT(KERNEL_SIZEOF_M     ) )
+#pragma message( "#data c"      " = " INT(KERNEL_SIZEOF_C     ) )
 
-#pragma message( "?kernel_id"   " = "     KERNEL_ID        )
+#pragma message( "?kernel_id"   " = "     KERNEL_ID             )
 
 #if   ( KERNEL_MODEOF == KERNEL_MODEOF_ENC )
-#pragma message( ">kernel_data" " = "     "k,a,m"          )
-#pragma message( "<kernel_data" " = " "tsc,c"              )
+#pragma message( ">kernel_data" " = "     "k,a,m"               )
+#pragma message( "<kernel_data" " = " "tsc,c"                   )
 #elif ( KERNEL_MODEOF == KERNEL_MODEOF_DEC )
-#pragma message( ">kernel_data" " = "     "k,a,c"          )
-#pragma message( "<kernel_data" " = " "tsc,m"              )
+#pragma message( ">kernel_data" " = "     "k,a,c"               )
+#pragma message( "<kernel_data" " = " "tsc,m"                   )
 #endif
 
 // ============================================================================
