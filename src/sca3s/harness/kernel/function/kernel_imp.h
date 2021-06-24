@@ -10,18 +10,25 @@
 
 // ============================================================================
 
-/** @brief      Number of allocated bytes in register that contains x (the  input to   r = f( x )).
+/** @brief      Number of allocated bytes in register that contains the externally supplied randomness.
+  */
+
+#if !defined( KERNEL_SIZEOF_ESR )
+#define KERNEL_SIZEOF_ESR (  0 )
+#endif
+
+/** @brief      Number of allocated bytes in register that contains the  input to   r = f( x ).
   */
 
 #if !defined( KERNEL_SIZEOF_X )
-#define KERNEL_SIZEOF_X ( 4 )
+#define KERNEL_SIZEOF_X   (  4 )
 #endif
 
-/** @brief      Number of allocated bytes in register that contains r (the output from r = f( x )).
+/** @brief      Number of allocated bytes in register that contains the output from r = f( x ).
   */
 
 #if !defined( KERNEL_SIZEOF_R )
-#define KERNEL_SIZEOF_R ( 4 )
+#define KERNEL_SIZEOF_R   (  4 )
 #endif
 
 // ============================================================================

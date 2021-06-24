@@ -20,22 +20,31 @@
   *             7) ...
   */
 
-#if !defined( KERNEL_NAMEOF   )
-#define KERNEL_NAMEOF   ( KERNEL_NAMEOF_GENERIC )
+#if !defined( KERNEL_NAMEOF     )
+#define KERNEL_NAMEOF     ( KERNEL_NAMEOF_GENERIC )
 #endif
 
-/** @brief      Number of allocated bytes in register that contains message.
+// ----------------------------------------------------------------------------
+
+/** @brief      Number of allocated bytes in register that contains the externally supplied randomness.
   */
 
-#if !defined( KERNEL_SIZEOF_M )
-#define KERNEL_SIZEOF_M ( 4 )
+#if !defined( KERNEL_SIZEOF_ESR )
+#define KERNEL_SIZEOF_ESR (  0 )
 #endif
 
-/** @brief      Number of allocated bytes in register that contains  digest.
+/** @brief      Number of allocated bytes in register that contains the message.
   */
 
-#if !defined( KERNEL_SIZEOF_D )
-#define KERNEL_SIZEOF_D ( 4 )
+#if !defined( KERNEL_SIZEOF_M   )
+#define KERNEL_SIZEOF_M   (  4 )
+#endif
+
+/** @brief      Number of allocated bytes in register that contains the  digest.
+  */
+
+#if !defined( KERNEL_SIZEOF_D   )
+#define KERNEL_SIZEOF_D   (  4 )
 #endif
 
 // ============================================================================

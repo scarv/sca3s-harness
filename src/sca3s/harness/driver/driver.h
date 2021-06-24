@@ -16,22 +16,22 @@ typedef bool (*driver_command_t)( char* ack, char* req[], int n );
 
 #define DRIVER_COMMAND(  f) bool f( char* ack, char* req[], int n )
 
-#define DRIVER_EXECUTE(x,f) {                                      \
-  if( x ) {                                                        \
-    board_trigger_wr(  true );                                     \
-  }                                                                \
-                                                                   \
-  uint64_t kernel_tsc_init = board_tsc();                          \
-  kernel_status_t r = f;                                           \
-  uint64_t kernel_tsc_fini = board_tsc();                          \
-                                                                   \
-  if( x ) {                                                        \
-    board_trigger_wr( false );                                     \
-  }                                                                \
-                                                                   \
-  kernel_tsc = board_tsc_diff( kernel_tsc_init, kernel_tsc_fini ); \
-                                                                   \
-  return true;                                                     \
+#define DRIVER_EXECUTE(x,f) {                                     \
+  if( x ) {                                                       \
+    board_trigger_wr(  true );                                    \
+  }                                                               \
+                                                                  \
+  uint64_t board_tsc_init = board_tsc();                          \
+  *driver_fec = f;                                                \
+  uint64_t board_tsc_fini = board_tsc();                          \
+                                                                  \
+  if( x ) {                                                       \
+    board_trigger_wr( false );                                    \
+  }                                                               \
+                                                                  \
+  *driver_fcc = board_tsc_diff( board_tsc_init, board_tsc_fini ); \
+                                                                  \
+  return true;                                                    \
 }
 
 #endif

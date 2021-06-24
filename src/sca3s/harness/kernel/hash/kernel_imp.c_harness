@@ -23,40 +23,63 @@
 
 #define KERNEL_ID VERSION ":" KERNEL ":" __KERNEL_NAMEOF
 
-#pragma message( "?data tsc"    " = " INT(       SIZEOF_UINT64) )
-#pragma message( "?data m"      " = " INT(KERNEL_SIZEOF_M     ) )
-#pragma message( "?data d"      " = " INT(KERNEL_SIZEOF_D     ) )
+#pragma message( "?data fec"    " = " INT(       SIZEOF_FEC) )
+#pragma message( "?data fcc"    " = " INT(       SIZEOF_FCC) )
+#pragma message( "?data esr"    " = " INT(KERNEL_SIZEOF_ESR) )
+#pragma message( "?data m"      " = " INT(KERNEL_SIZEOF_M  ) )
+#pragma message( "?data d"      " = " INT(KERNEL_SIZEOF_D  ) )
 
-#pragma message( "#data tsc"    " = " INT(       SIZEOF_UINT64) )
-#pragma message( "#data m"      " = " INT(KERNEL_SIZEOF_M     ) )
-#pragma message( "#data d"      " = " INT(KERNEL_SIZEOF_D     ) )
+#pragma message( "#data fec"    " = " INT(       SIZEOF_FEC) )
+#pragma message( "#data fcc"    " = " INT(       SIZEOF_FCC) )
+#pragma message( "#data esr"    " = " INT(KERNEL_SIZEOF_ESR) )
+#pragma message( "#data m"      " = " INT(KERNEL_SIZEOF_M  ) )
+#pragma message( "#data d"      " = " INT(KERNEL_SIZEOF_D  ) )
 
-#pragma message( "?kernel_id"   " = "     KERNEL_ID             )
+#pragma message( "?kernel_id"   " = "     KERNEL_ID          )
 
-#pragma message( ">kernel_data" " = "     "m"                   )
-#pragma message( "<kernel_data" " = " "tsc,d"                   )
+#pragma message( ">kernel_data" " = "     "esr" "," "m"      )
+#pragma message( "<kernel_data" " = " "fec,fcc" "," "d"      )
 
 // ============================================================================
 
-/** @brief      A register that contains message.
+/** @brief      A register that contains the externally supplied randomness.
   */
 
-uint8_t m[ KERNEL_SIZEOF_M ] = { KERNEL_INITOF_M };
+uint8_t esr[ KERNEL_SIZEOF_ESR ] = { KERNEL_INITOF_ESR };
 
-/** @brief      A register that contains  digest.
+/** @brief      A register that contains the function exit code.
   */
 
-uint8_t d[ KERNEL_SIZEOF_D ] = { KERNEL_INITOF_D };
+kernel_fec_t fec = KERNEL_FEC_SUCCESS;
 
-/** @brief      Number of used bytes in register that contains message.
+/** @brief      A register that contains the function cycle count.
+  */
+
+kernel_fcc_t fcc = 0;
+
+/** @brief      A register that contains the message.
+  */
+
+uint8_t   m[ KERNEL_SIZEOF_M   ] = { KERNEL_INITOF_M   };
+
+/** @brief      A register that contains the  digest.
+  */
+
+uint8_t   d[ KERNEL_SIZEOF_D   ] = { KERNEL_INITOF_D   };
+
+// ----------------------------------------------------------------------------
+
+/** @brief      Number of used bytes in register that contains the message.
   */
 
 uint8_t n_m = 0;
 
-/** @brief      Number of used bytes in register that contains  digest.
+/** @brief      Number of used bytes in register that contains the  digest.
   */
 
 uint8_t n_d = 0;
+
+// ----------------------------------------------------------------------------
 
 /** @brief      Generate a kernel identifier string.
   *
@@ -71,9 +94,23 @@ void kernel_id( char* x ) {
   strcpy( x, KERNEL_ID );
 }
 
-kernel_status_t kernel_prologue();
-kernel_status_t kernel();
-kernel_status_t kernel_epilogue();
+/** @brief      Execute a NOP.
+  *
+  * @return     an instance of \c kernel_fec_t, 
+  *             e.g.,
+  *             \c KERNEL_FEC_FAILURE to indicate failure
+  *             or 
+  *             \c KERNEL_FEC_SUCCESS to indicate success;
+  *             this is captured in \c fec, the function exit code register.
+  */
+
+kernel_fec_t kernel_nop() {
+  return KERNEL_FEC_SUCCESS;
+}
+
+kernel_fec_t kernel_prologue();
+kernel_fec_t kernel();
+kernel_fec_t kernel_epilogue();
 
 /** @brief      A specification of the
   *             registers
@@ -86,12 +123,14 @@ kernel_status_t kernel_epilogue();
 
 kernel_data_spec_t kernel_data_spec[] = {
 // kernel-agnostic
-  { .id = "tsc", .data = ( uint8_t* )( &kernel_tsc ), .used = ( uint8_t* )( NULL ), .size = SIZEOF( kernel_tsc ), .type = KERNEL_DATA_TYPE_O    },
+  { .id = "esr", .data = ( uint8_t* )(  esr ), .used = ( uint8_t* )( NULL ), .size = KERNEL_SIZEOF_ESR, .type = KERNEL_DATA_TYPE_I    },
+  { .id = "fec", .data = ( uint8_t* )( &fec ), .used = ( uint8_t* )( NULL ), .size =        SIZEOF_FEC, .type = KERNEL_DATA_TYPE_O    },
+  { .id = "fcc", .data = ( uint8_t* )( &fcc ), .used = ( uint8_t* )( NULL ), .size =        SIZEOF_FCC, .type = KERNEL_DATA_TYPE_O    },
 // kernel-specific
-  { .id =   "m", .data = ( uint8_t* )(           m ), .used = ( uint8_t* )( &n_m ), .size = SIZEOF(          m ), .type = KERNEL_DATA_TYPE_I    },
-  { .id =   "d", .data = ( uint8_t* )(           d ), .used = ( uint8_t* )( &n_d ), .size = SIZEOF(          d ), .type = KERNEL_DATA_TYPE_O    },
+  { .id =   "m", .data = ( uint8_t* )(    m ), .used = ( uint8_t* )( &n_m ), .size = KERNEL_SIZEOF_M,   .type = KERNEL_DATA_TYPE_I    },
+  { .id =   "d", .data = ( uint8_t* )(    d ), .used = ( uint8_t* )( &n_d ), .size = KERNEL_SIZEOF_D,   .type = KERNEL_DATA_TYPE_O    },
 // terminator
-  { .id =  NULL, .data = ( uint8_t* )(        NULL ), .used = ( uint8_t* )( NULL ), .size =       (          0 ), .type = KERNEL_DATA_TYPE_NONE }
+  { .id =  NULL, .data = ( uint8_t* )( NULL ), .used = ( uint8_t* )( NULL ), .size = 0,                 .type = KERNEL_DATA_TYPE_NONE }
 };
 
 /** @brief      A specification of the
@@ -104,7 +143,9 @@ kernel_func_spec_t kernel_func_spec   = {
 
   .kernel_prologue = kernel_prologue,
   .kernel          = kernel,
-  .kernel_epilogue = kernel_epilogue
+  .kernel_epilogue = kernel_epilogue,
+
+  .kernel_nop      = kernel_nop
 };
 
 // ============================================================================

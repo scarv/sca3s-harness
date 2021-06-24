@@ -11,23 +11,37 @@
   *             note the fixed upper-bound on length of such strings.
   */
 
-char driver_req[ 64 ];
+char          driver_req[ 64 ];
 
 /** @brief      A temporary buffer used to store acknowledgement strings;
   *             note the fixed upper-bound on length of such strings.
   */
 
-char driver_ack[ 64 ];
+char          driver_ack[ 64 ];
+
+/** @brief      A pointer to the function exit code, 
+  *             which is pre-initialised to avoid having to search for and
+  *             so locate it during execution of the driver.
+  */
+
+kernel_fec_t* driver_fec = NULL;
+
+/** @brief      A pointer to the function cycle count,
+  *             which is pre-initialised to avoid having to search for and
+  *             so locate it during execution of the driver.
+  */
+
+kernel_fcc_t* driver_fcc = NULL;
 
 /** @brief      Service a request of the form
   *             \verbatim ?data <id> \endverbatim
   *             i.e., query the allocated size (in bytes) of an identified data buffer.
   *
-  * @param[out] ack the acknowledgement string.
-  * @param[in]  req an array of strings capturing arguments of the request.
-  * @param[in]    n the length of the argument array \c req.
+  * @param[out] \c ack the acknowledgement string.
+  * @param[in]  \c req an array of strings capturing arguments of the request.
+  * @param[in]  \c   n the length of the argument array \c req.
   *
-  * @return     A flag indicating failure (\c false) or success (\c true).
+  * @return     a flag indicating failure (\c false) or success (\c true).
   *
   * @note       An entry for the buffer identifier should be locatable within 
   *             \c kernel_data_spec.
@@ -51,11 +65,11 @@ DRIVER_COMMAND(driver_data_sizeof    ) {
   *             \verbatim #data <id> \endverbatim
   *             i.e., query the used      size (in bytes) of an identified data buffer.
   *
-  * @param[out] ack the acknowledgement string.
-  * @param[in]  req an array of strings capturing arguments of the request.
-  * @param[in]    n the length of the argument array \c req.
+  * @param[out] \c ack the acknowledgement string.
+  * @param[in]  \c req an array of strings capturing arguments of the request.
+  * @param[in]  \c   n the length of the argument array \c req.
   *
-  * @return     A flag indicating failure (\c false) or success (\c true).
+  * @return     a flag indicating failure (\c false) or success (\c true).
   *
   * @note       An entry for the buffer identifier should be locatable within 
   *             \c kernel_data_spec.
@@ -79,11 +93,11 @@ DRIVER_COMMAND(driver_data_usedof    ) {
   *             \verbatim >data <id> <octet string> \endverbatim
   *             i.e., write an octet string into an identified data buffer.
   *
-  * @param[out] ack the acknowledgement string.
-  * @param[in]  req an array of strings capturing arguments of the request.
-  * @param[in]    n the length of the argument array \c req.
+  * @param[out] \c ack the acknowledgement string.
+  * @param[in]  \c req an array of strings capturing arguments of the request.
+  * @param[in]  \c   n the length of the argument array \c req.
   *
-  * @return     A flag indicating failure (\c false) or success (\c true).
+  * @return     a flag indicating failure (\c false) or success (\c true).
   *
   * @note       An entry for the buffer identifier should be locatable within 
   *             \c kernel_data_spec.
@@ -120,11 +134,11 @@ DRIVER_COMMAND(driver_data_wr        ) {
   *             \verbatim <data <id> \endverbatim
   *             i.e., read  an octet string from an identified data buffer.
   *
-  * @param[out] ack the acknowledgement string.
-  * @param[in]  req an array of strings capturing arguments of the request.
-  * @param[in]    n the length of the argument array \c req.
+  * @param[out] \c ack the acknowledgement string.
+  * @param[in]  \c req an array of strings capturing arguments of the request.
+  * @param[in]  \c   n the length of the argument array \c req.
   *
-  * @return     A flag indicating failure (\c false) or success (\c true).
+  * @return     a flag indicating failure (\c false) or success (\c true).
   *
   * @note       An entry for the buffer identifier should be locatable within 
   *             \c kernel_data_spec.
@@ -160,11 +174,11 @@ DRIVER_COMMAND(driver_data_rd        ) {
   *             \verbatim ?kernel_id \endverbatim
   *             i.e., query the kernel identifier.
   *
-  * @param[out] ack the acknowledgement string.
-  * @param[in]  req an array of strings capturing arguments of the request.
-  * @param[in]    n the length of the argument array \c req.
+  * @param[out] \c ack the acknowledgement string.
+  * @param[in]  \c req an array of strings capturing arguments of the request.
+  * @param[in]  \c   n the length of the argument array \c req.
   *
-  * @return     A flag indicating failure (\c false) or success (\c true).
+  * @return     a flag indicating failure (\c false) or success (\c true).
   */
 
 DRIVER_COMMAND(driver_kernel_id      ) {
@@ -179,11 +193,11 @@ DRIVER_COMMAND(driver_kernel_id      ) {
   *             \verbatim >kernel_data \endverbatim
   *             i.e., query the kernel writable data.
   *
-  * @param[out] ack the acknowledgement string.
-  * @param[in]  req an array of strings capturing arguments of the request.
-  * @param[in]    n the length of the argument array \c req.
+  * @param[out] \c ack the acknowledgement string.
+  * @param[in]  \c req an array of strings capturing arguments of the request.
+  * @param[in]  \c   n the length of the argument array \c req.
   *
-  * @return     A flag indicating failure (\c false) or success (\c true).
+  * @return     a flag indicating failure (\c false) or success (\c true).
   */
 
 DRIVER_COMMAND(driver_kernel_data_wr ) {
@@ -206,11 +220,11 @@ DRIVER_COMMAND(driver_kernel_data_wr ) {
   *             \verbatim <kernel_data \endverbatim
   *             i.e., query the kernel readable data.
   *
-  * @param[out] ack the acknowledgement string.
-  * @param[in]  req an array of strings capturing arguments of the request.
-  * @param[in]    n the length of the argument array \c req.
+  * @param[out] \c ack the acknowledgement string.
+  * @param[in]  \c req an array of strings capturing arguments of the request.
+  * @param[in]  \c   n the length of the argument array \c req.
   *
-  * @return     A flag indicating failure (\c false) or success (\c true).
+  * @return     a flag indicating failure (\c false) or success (\c true).
   */
 
 DRIVER_COMMAND(driver_kernel_data_rd ) {
@@ -233,11 +247,11 @@ DRIVER_COMMAND(driver_kernel_data_rd ) {
   *             \verbatim !kernel_prologue \endverbatim
   *             i.e., execute the kernel prologue.
   *
-  * @param[out] ack the acknowledgement string.
-  * @param[in]  req an array of strings capturing arguments of the request.
-  * @param[in]    n the length of the argument array \c req.
+  * @param[out] \c ack the acknowledgement string.
+  * @param[in]  \c req an array of strings capturing arguments of the request.
+  * @param[in]  \c   n the length of the argument array \c req.
   *
-  * @return     A flag indicating failure (\c false) or success (\c true).
+  * @return     a flag indicating failure (\c false) or success (\c true).
   */
 
 DRIVER_COMMAND(driver_kernel_prologue) {
@@ -252,11 +266,11 @@ DRIVER_COMMAND(driver_kernel_prologue) {
   *             \verbatim !kernel \endverbatim
   *             i.e., execute the kernel.
   *
-  * @param[out] ack the acknowledgement string.
-  * @param[in]  req an array of strings capturing arguments of the request.
-  * @param[in]    n the length of the argument array \c req.
+  * @param[out] \c ack the acknowledgement string.
+  * @param[in]  \c req an array of strings capturing arguments of the request.
+  * @param[in]  \c   n the length of the argument array \c req.
   *
-  * @return     A flag indicating failure (\c false) or success (\c true).
+  * @return     a flag indicating failure (\c false) or success (\c true).
   */
 
 DRIVER_COMMAND(driver_kernel         ) {
@@ -271,11 +285,11 @@ DRIVER_COMMAND(driver_kernel         ) {
   *             \verbatim !kernel_epilogue \endverbatim
   *             i.e., execute the kernel epilogue.
   *
-  * @param[out] ack the acknowledgement string.
-  * @param[in]  req an array of strings capturing arguments of the request.
-  * @param[in]    n the length of the argument array \c req.
+  * @param[out] \c ack the acknowledgement string.
+  * @param[in]  \c req an array of strings capturing arguments of the request.
+  * @param[in]  \c   n the length of the argument array \c req.
   *
-  * @return     A flag indicating failure (\c false) or success (\c true).
+  * @return     a flag indicating failure (\c false) or success (\c true).
   */
 
 DRIVER_COMMAND(driver_kernel_epilogue) {
@@ -287,21 +301,21 @@ DRIVER_COMMAND(driver_kernel_epilogue) {
 }
 
 /** @brief      Service a request of the form
-  *             \verbatim !nop \endverbatim
+  *             \verbatim !kernel_nop \endverbatim
   *             i.e., execute a NOP (or empty, null) operation: this supports
-  *             more accurate use of TSC values, in the sense that any fixed 
-  *             overhead can be corrected for.
+  *             more accurate use of the time-stamp counter, in the sense any 
+  *             fixed overhead can be corrected for.
   *
-  * @param[out] ack the acknowledgement string.
-  * @param[in]  req an array of strings capturing arguments of the request.
-  * @param[in]    n the length of the argument array \c req.
+  * @param[out] \c ack the acknowledgement string.
+  * @param[in]  \c req an array of strings capturing arguments of the request.
+  * @param[in]  \c   n the length of the argument array \c req.
   *
-  * @return     A flag indicating failure (\c false) or success (\c true).
+  * @return     a flag indicating failure (\c false) or success (\c true).
   */
 
-DRIVER_COMMAND(driver_nop            ) {
+DRIVER_COMMAND(driver_kernel_nop     ) {
   if( n == 0 ) {
-    DRIVER_EXECUTE( false, true                               );
+    DRIVER_EXECUTE( false, kernel_func_spec.kernel_nop()      );
   }
 
   return false;
@@ -311,7 +325,7 @@ DRIVER_COMMAND(driver_nop            ) {
   *             respecting an EOL sematics based on use of CR only (i.e., no 
   *             associated LF).
   *
-  * @param[out] x a string capturing the line read.
+  * @param[out] \c x a string capturing the line read.
   *
   * @return     the string \c x.
   */
@@ -338,7 +352,7 @@ char* driver_rdln( char* x ) {
   *             respecting an EOL sematics based on use of CR only (i.e., no 
   *             associated LF).
   *
-  * @param[in]  x a string capturing the line written.
+  * @param[in]  \c x a string capturing the line written.
   *
   * @return     the string \c x.
   */
@@ -361,18 +375,42 @@ char* driver_wrln( char* x ) {
   return x;
 }
 
+/** @brief      Execute the driver, in either
+  *             1) non-interactive mode,
+  *                meaning all inputs and outputs are  statically defined
+  *                (i.e.,              via the pre-processor),
+  *                or
+  *             1)     interactive mode
+  *                meaning all inputs and outputs are dynamically defined
+  *                (i.e., communicated via the          UART).
+  *
+  * @param[in]  \c argc the number of command line arguments
+  * @param[in]  \c argv the           command line arguments
+  *
+  * @return     an exit code.
+  */
+
 int main( int argc, char* argv[] ) {
   if( !board_init() ) {
     return -1;
   }
 
-  #if defined( DRIVER_NONINTERACTIVE )
+  for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
+    if     ( 0 == strcmp( spec->id, "fec" ) ) {
+      driver_fec = ( kernel_fec_t* )( spec->data );
+    }
+    else if( 0 == strcmp( spec->id, "fcc" ) ) {
+      driver_fcc = ( kernel_fcc_t* )( spec->data );
+    }
+  }
+
+#if defined( DRIVER_NONINTERACTIVE )
   kernel_func_spec.kernel_prologue();
   board_trigger_wr(  true );
   kernel_func_spec.kernel();
   board_trigger_wr( false );
   kernel_func_spec.kernel_epilogue();
-  #else
+#else
   while( true ) {
     char* cp[ 10 ] = { NULL }; int cn = 0;
 
@@ -424,8 +462,8 @@ int main( int argc, char* argv[] ) {
       else if( 0 == strcmp( cp[ 0 ], "!kernel_epilogue" ) ) {
         f = driver_kernel_epilogue;
       }
-      else if( 0 == strcmp( cp[ 0 ], "!nop"             ) ) {
-        f = driver_nop;
+      else if( 0 == strcmp( cp[ 0 ], "!kernel_nop"      ) ) {
+        f = driver_kernel_nop;
       }
 
       if( f != NULL ) {
@@ -441,7 +479,7 @@ int main( int argc, char* argv[] ) {
       }
     }
   }
-  #endif
+#endif
 
   return 0;
 }

@@ -6,5 +6,3 @@
  */
 
 #include "kernel.h"
-
-uint64_t kernel_tsc = 0;

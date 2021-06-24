@@ -15,26 +15,28 @@
 /** @brief      Execute the kernel prologue,
   *             e.g., any  pre-execution steps such as   allocation of memory.
   *
-  * @return     An instance of \c kernel_status_t, 
-  *             e.g., a status code such as 
-  *             \c KERNEL_STATUS_FAILURE to indicate failure
+  * @return     an instance of \c kernel_fec_t, 
+  *             e.g.,
+  *             \c KERNEL_FEC_FAILURE to indicate failure
   *             or 
-  *             \c KERNEL_STATUS_SUCCESS to indicate success.
+  *             \c KERNEL_FEC_SUCCESS to indicate success;
+  *             this is captured in \c fec, the function exit code register.
   *
   * @note       Execution of this function is excluded from the trigger period.
   */
 
-kernel_status_t kernel_prologue() {
-  return KERNEL_STATUS_SUCCESS;
+kernel_fec_t kernel_prologue() {
+  return KERNEL_FEC_SUCCESS;
 }
 
 /** @brief      Execute the kernel itself.
   *
-  * @return     An instance of \c kernel_status_t, 
-  *             e.g., a status code such as 
-  *             \c KERNEL_STATUS_FAILURE to indicate failure
+  * @return     an instance of \c kernel_fec_t, 
+  *             e.g.,
+  *             \c KERNEL_FEC_FAILURE to indicate failure
   *             or 
-  *             \c KERNEL_STATUS_SUCCESS to indicate success.
+  *             \c KERNEL_FEC_SUCCESS to indicate success;
+  *             this is captured in \c fec, the function exit code register.
   *
   * @note       Execution of this function is included in   the trigger period.
   *
@@ -57,24 +59,25 @@ kernel_status_t kernel_prologue() {
   *             \c d is assumed to have length \c KERNEL_SIZEOF_D bytes.
   */
 
-kernel_status_t kernel() {
-  return KERNEL_STATUS_SUCCESS;
+kernel_fec_t kernel() {
+  return KERNEL_FEC_SUCCESS;
 }
 
 /** @brief      Execute the kernel epilogue,
   *             e.g., any post-execution steps such as deallocation of memory.
   *
-  * @return     An instance of \c kernel_status_t, 
-  *             e.g., a status code such as 
-  *             \c KERNEL_STATUS_FAILURE to indicate failure
+  * @return     an instance of \c kernel_fec_t, 
+  *             e.g.,
+  *             \c KERNEL_FEC_FAILURE to indicate failure
   *             or 
-  *             \c KERNEL_STATUS_SUCCESS to indicate success.
+  *             \c KERNEL_FEC_SUCCESS to indicate success;
+  *             this is captured in \c fec, the function exit code register.
   *
   * @note       Execution of this function is excluded from the trigger period.
   */
 
-kernel_status_t kernel_epilogue() {
-  return KERNEL_STATUS_SUCCESS;
+kernel_fec_t kernel_epilogue() {
+  return KERNEL_FEC_SUCCESS;
 }
 
 // ============================================================================

@@ -13,46 +13,53 @@
 
 // ============================================================================
 
-/** @brief      A symbolic identifier for generic    kernel name.
+/** @brief      A symbolic identifier for the generic    kernel name.
   */
 
 #define KERNEL_NAMEOF_GENERIC ( 0 )
 
-/** @brief      A symbolic identifier for AES        kernel name.
+/** @brief      A symbolic identifier for the AES        kernel name.
   */
 
 #define KERNEL_NAMEOF_AES     ( 1 )
 
-/** @brief      A symbolic identifier for encryption kernel mode.
+/** @brief      A symbolic identifier for the encryption kernel mode.
   */
 
 #define KERNEL_MODEOF_ENC     ( 0 )
 
-/** @brief      A symbolic identifier for decryption kernel mode.
+/** @brief      A symbolic identifier for the decryption kernel mode.
   */
 
 #define KERNEL_MODEOF_DEC     ( 1 )
 
 // ----------------------------------------------------------------------------
 
-/** @brief      Initial value of register that contains cipher key.
+/** @brief      Initial value of register that contains the externally supplied randomness.
   */
 
-#if !defined( KERNEL_INITOF_K )
+#if !defined( KERNEL_INITOF_ESR )
+#define KERNEL_INITOF_ESR
+#endif
+
+/** @brief      Initial value of register that contains the cipher key.
+  */
+
+#if !defined( KERNEL_INITOF_K   )
 #define KERNEL_INITOF_K
 #endif
 
-/** @brief      Initial value of register that contains  plaintext data.
+/** @brief      Initial value of register that contains the  plaintext data.
   */
 
-#if !defined( KERNEL_INITOF_M )
+#if !defined( KERNEL_INITOF_M   )
 #define KERNEL_INITOF_M
 #endif
 
-/** @brief      Initial value of register that contains ciphertext data.
+/** @brief      Initial value of register that contains the ciphertext data.
   */
 
-#if !defined( KERNEL_INITOF_C )
+#if !defined( KERNEL_INITOF_C   )
 #define KERNEL_INITOF_C
 #endif
 
