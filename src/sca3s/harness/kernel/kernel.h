@@ -10,6 +10,8 @@
 
 #include "util.h"
 
+// ============================================================================
+
 typedef uint8_t  kernel_fec_t;
 
 #define KERNEL_FEC_FAILURE ( 0 )
@@ -19,6 +21,8 @@ typedef uint64_t kernel_fcc_t;
 
 #define SIZEOF_FEC SIZEOF_UINT8
 #define SIZEOF_FCC SIZEOF_UINT64
+
+// ----------------------------------------------------------------------------
 
 typedef enum   {
   KERNEL_DATA_TYPE_NONE, KERNEL_DATA_TYPE_I, KERNEL_DATA_TYPE_O, KERNEL_DATA_TYPE_IO
@@ -40,5 +44,7 @@ typedef struct {
 
 extern kernel_data_spec_t kernel_data_spec[];
 extern kernel_func_spec_t kernel_func_spec;
+
+// ============================================================================
 
 #endif

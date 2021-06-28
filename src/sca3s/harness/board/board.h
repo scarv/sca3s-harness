@@ -10,59 +10,82 @@
 
 #include "util.h"
 
-/** @brief Initialise the board.
+// ============================================================================
+
+/** @brief      Initialise the board.
   *
-  * @return       a flag indicating success (true) or failure (false) of the initialisation process
+  * @return       a flag indicating failure (\c false) or success (\c true).
   */
 
-extern bool     board_init();
+extern bool          board_init();
 
-/** @brief Read  the trigger signal.
+// ----------------------------------------------------------------------------
+
+/** @brief      Write the trigger signal.
   *
-  * @return       the byte    read
+  * @param[in]  x the value to write.
   */
 
-extern bool     board_trigger_rd(        );
+extern void          board_trigger_wr( bool x );
 
-/** @brief Write the trigger signal.
+/** @brief      Read  the trigger signal.
   *
-  * @param[in]  x the byte    read
+  * @return       the value     read.
   */
 
-extern void     board_trigger_wr( bool x );
+extern bool          board_trigger_rd();
 
-/** @brief Read  a byte from the UART, 
-  *        blocking until successful.
+// ----------------------------------------------------------------------------
+
+/** @brief      Write a byte to   the UART, 
+  *             blocking until successful.
   *
-  * @return       the byte    read
+  * @param[in]  x the value to write.
   */
 
-extern uint8_t  board_uart_rd(           );
+extern void          board_uart_wr( uint8_t x );
 
-/** @brief Write a byte to   the UART, 
-  *        blocking until successful.
+/** @brief      Read  a byte from the UART, 
+  *             blocking until successful.
   *
-  * @param[in]  x the byte to write
+  * @return       the value     read.
   */
 
-extern void     board_uart_wr( uint8_t x );
+extern uint8_t       board_uart_rd();
 
-/** @brief Sample the TimeStamp Counter (TSC).
-  *
-  * @return       a TSC value
+// ----------------------------------------------------------------------------
+
+/** @brief      A type to represent cycle counter values.
   */
 
-extern uint64_t board_tsc();
+typedef uint64_t board_cycle_t;
 
-/** @brief Compute the difference between two TSC values, allowing to
-  *        abstract detail (e.g., an ascending or descending mode) of
-  *        the TSC supported by a specific board.
+/** @brief      Write to   the cycle counter.
+  *
+  * @param[in]  \c x the value to write.
+  */
+
+extern void          board_cycle_wr( board_cycle_t x );
+
+/** @brief      Read  from the cycle counter.
+  *
+  * @return          the value     read.
+  */
+
+extern board_cycle_t board_cycle_rd();
+
+/** @brief      Compute the difference between two cycle counter values, and
+  *             so allow details (e.g., ascending or descending mode) of the 
+  *             cycle counter supported by a specific board to be abstracted.
   * 
-  * @param[in]  x a TSC value sampled *before* execution of kernel
-  * @param[in]  y a TSC value sampled *after*  execution of kernel
-  * @return       the (absolute) difference between x and y
+  * @param[in]  \c x the cycle counter value sampled *before* execution of kernel.
+  * @param[in]  \c y the cycle counter value sampled *after*  execution of kernel.
+  *
+  * @return     the (absolute) difference between \c x and \c y.
   */
 
-extern uint64_t board_tsc_diff( uint64_t x, uint64_t y );
+extern board_cycle_t board_cycle_diff( board_cycle_t x, board_cycle_t y );
+
+// ============================================================================
 
 #endif

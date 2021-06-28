@@ -13,4 +13,6 @@
 
 #include <scale/scale.h>
 
+#include <board.h>
+
 #endif

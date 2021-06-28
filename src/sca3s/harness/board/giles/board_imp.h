@@ -13,4 +13,6 @@
 
 #include <bsp.h>
 
+#include <board.h>
+
 #endif

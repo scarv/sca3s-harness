@@ -6,7 +6,7 @@
 
 # =============================================================================
 
-    GCC_PREFIX  = riscv64-unknown-elf-
+    GCC_PREFIX  = riscv32-unknown-elf-
 
     GCC_PATHS  += -I ${DEPS}/scarv-soc/work/bsp/include
     GCC_PATHS  += -L ${DEPS}/scarv-soc/work/bsp/lib

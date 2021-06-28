@@ -7,6 +7,8 @@
 
 #include "driver.h" 
 
+// ============================================================================
+
 /** @brief      A temporary buffer used to store request         strings;
   *             note the fixed upper-bound on length of such strings.
   */
@@ -18,6 +20,8 @@ char          driver_req[ 64 ];
   */
 
 char          driver_ack[ 64 ];
+
+// ----------------------------------------------------------------------------
 
 /** @brief      A pointer to the function exit code, 
   *             which is pre-initialised to avoid having to search for and
@@ -32,6 +36,8 @@ kernel_fec_t* driver_fec = NULL;
   */
 
 kernel_fcc_t* driver_fcc = NULL;
+
+// ============================================================================
 
 /** @brief      Service a request of the form
   *             \verbatim ?data <id> \endverbatim
@@ -61,6 +67,8 @@ DRIVER_COMMAND(driver_data_sizeof    ) {
   return false;
 }
 
+// ----------------------------------------------------------------------------
+
 /** @brief      Service a request of the form
   *             \verbatim #data <id> \endverbatim
   *             i.e., query the used      size (in bytes) of an identified data buffer.
@@ -88,6 +96,8 @@ DRIVER_COMMAND(driver_data_usedof    ) {
 
   return false;
 }
+
+// ----------------------------------------------------------------------------
 
 /** @brief      Service a request of the form
   *             \verbatim >data <id> <octet string> \endverbatim
@@ -130,6 +140,8 @@ DRIVER_COMMAND(driver_data_wr        ) {
   return false;
 }
 
+// ----------------------------------------------------------------------------
+
 /** @brief      Service a request of the form
   *             \verbatim <data <id> \endverbatim
   *             i.e., read  an octet string from an identified data buffer.
@@ -170,6 +182,8 @@ DRIVER_COMMAND(driver_data_rd        ) {
   return false;
 }
 
+// ----------------------------------------------------------------------------
+
 /** @brief      Service a request of the form
   *             \verbatim ?kernel_id \endverbatim
   *             i.e., query the kernel identifier.
@@ -188,6 +202,8 @@ DRIVER_COMMAND(driver_kernel_id      ) {
 
   return false;
 }
+
+// ----------------------------------------------------------------------------
 
 /** @brief      Service a request of the form
   *             \verbatim >kernel_data \endverbatim
@@ -216,6 +232,8 @@ DRIVER_COMMAND(driver_kernel_data_wr ) {
   return false;
 }
 
+// ----------------------------------------------------------------------------
+
 /** @brief      Service a request of the form
   *             \verbatim <kernel_data \endverbatim
   *             i.e., query the kernel readable data.
@@ -243,6 +261,8 @@ DRIVER_COMMAND(driver_kernel_data_rd ) {
   return false;
 }
 
+// ----------------------------------------------------------------------------
+
 /** @brief      Service a request of the form
   *             \verbatim !kernel_prologue \endverbatim
   *             i.e., execute the kernel prologue.
@@ -261,6 +281,8 @@ DRIVER_COMMAND(driver_kernel_prologue) {
 
   return false;
 }
+
+// ----------------------------------------------------------------------------
 
 /** @brief      Service a request of the form
   *             \verbatim !kernel \endverbatim
@@ -281,6 +303,8 @@ DRIVER_COMMAND(driver_kernel         ) {
   return false;
 }
 
+// ----------------------------------------------------------------------------
+
 /** @brief      Service a request of the form
   *             \verbatim !kernel_epilogue \endverbatim
   *             i.e., execute the kernel epilogue.
@@ -299,6 +323,8 @@ DRIVER_COMMAND(driver_kernel_epilogue) {
 
   return false;
 }
+
+// ----------------------------------------------------------------------------
 
 /** @brief      Service a request of the form
   *             \verbatim !kernel_nop \endverbatim
@@ -320,6 +346,8 @@ DRIVER_COMMAND(driver_kernel_nop     ) {
 
   return false;
 }
+
+// ============================================================================
 
 /** @brief      Read  a line from the UART,
   *             respecting an EOL sematics based on use of CR only (i.e., no 
@@ -348,6 +376,8 @@ char* driver_rdln( char* x ) {
   return x;
 }
 
+// ----------------------------------------------------------------------------
+
 /** @brief      Write a line to   the UART, 
   *             respecting an EOL sematics based on use of CR only (i.e., no 
   *             associated LF).
@@ -374,6 +404,8 @@ char* driver_wrln( char* x ) {
 
   return x;
 }
+
+// ============================================================================
 
 /** @brief      Execute the driver, in either
   *             1) non-interactive mode,
@@ -483,3 +515,5 @@ int main( int argc, char* argv[] ) {
 
   return 0;
 }
+
+// ============================================================================

@@ -13,4 +13,6 @@
 
 #include "stm32f4_hal.h"
 
+#include <board.h>
+
 #endif

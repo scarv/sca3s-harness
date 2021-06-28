@@ -12,6 +12,8 @@
 #include "kernel.h"
 #include  "board.h"
 
+// ============================================================================
+
 typedef bool (*driver_command_t)( char* ack, char* req[], int n );
 
 #define DRIVER_COMMAND(  f) bool f( char* ack, char* req[], int n )
@@ -21,17 +23,19 @@ typedef bool (*driver_command_t)( char* ack, char* req[], int n );
     board_trigger_wr(  true );                                    \
   }                                                               \
                                                                   \
-  uint64_t board_tsc_init = board_tsc();                          \
+  board_cycle_t board_cycle_x = board_cycle_rd();                 \
   *driver_fec = f;                                                \
-  uint64_t board_tsc_fini = board_tsc();                          \
+  board_cycle_t board_cycle_y = board_cycle_rd();                 \
                                                                   \
   if( x ) {                                                       \
     board_trigger_wr( false );                                    \
   }                                                               \
                                                                   \
-  *driver_fcc = board_tsc_diff( board_tsc_init, board_tsc_fini ); \
+  *driver_fcc = board_cycle_diff( board_cycle_x, board_cycle_y ); \
                                                                   \
   return true;                                                    \
 }
+
+// ============================================================================
 
 #endif

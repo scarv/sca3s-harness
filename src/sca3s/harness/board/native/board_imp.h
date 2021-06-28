@@ -10,7 +10,8 @@
 
 #include <stdbool.h>
 #include <stdint.h>
-
 #include <stdio.h>
+
+#include <board.h>
 
 #endif

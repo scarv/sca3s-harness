@@ -13,4 +13,6 @@
 
 #include "scarvsoc.h"
 
+#include <board.h>
+
 #endif

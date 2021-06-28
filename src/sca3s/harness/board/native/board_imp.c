@@ -7,33 +7,25 @@
 
 #include "board_imp.h"
 
-bool     board_init() {
+// ============================================================================
+
+bool board_init() {
   return  true;
 }
 
-bool     board_trigger_rd(        ) {
+// ----------------------------------------------------------------------------
+
+void board_trigger_wr( bool x ) {
+
+}
+
+bool board_trigger_rd() {
   return false;
 }
 
-void     board_trigger_wr( bool x ) {
+// ----------------------------------------------------------------------------
 
-}
-
-uint8_t  board_uart_rd(           ) {
-  int t = getc( stdin );
-
-  if     ( t == '\x0A' ) {
-    return '\x0D';
-  }
-  else if( t == '\x0D' ) {
-    return '\x0D';
-  }
-  else {
-    return t;
-  }
-}
-
-void     board_uart_wr( uint8_t x ) {
+void    board_uart_wr( uint8_t x ) {
   if     ( x == '\x0A' ) {
     putc( '\x0D', stdout );
     putc( '\x0A', stdout );
@@ -47,10 +39,32 @@ void     board_uart_wr( uint8_t x ) {
   }
 }
 
-uint64_t board_tsc() {
+uint8_t board_uart_rd() {
+  int t = getc( stdin );
+
+  if     ( t == '\x0A' ) {
+    return '\x0D';
+  }
+  else if( t == '\x0D' ) {
+    return '\x0D';
+  }
+  else {
+    return t;
+  }
+}
+
+// ----------------------------------------------------------------------------
+
+void          board_cycle_wr( board_cycle_t x ) {
+
+}
+
+board_cycle_t board_cycle_rd() {
   return 0;
 }
 
-uint64_t board_tsc_diff( uint64_t x, uint64_t y ) {
+board_cycle_t board_cycle_diff( board_cycle_t x, board_cycle_t y ) {
   return 0;
 }
+
+// ============================================================================

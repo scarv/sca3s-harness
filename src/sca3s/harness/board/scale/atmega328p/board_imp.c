@@ -7,7 +7,9 @@
 
 #include "board_imp.h"
 
-bool     board_init() {
+// ============================================================================
+
+bool board_init() {
   scale_conf_t scale_conf = {
     .clock_type        = SCALE_CLOCK_TYPE_EXT,
     .clock_freq_source = SCALE_CLOCK_FREQ_16MHZ,
@@ -19,27 +21,37 @@ bool     board_init() {
   return scale_init( &scale_conf );
 }
 
-bool     board_trigger_rd(        ) {
-  return scale_gpio_rd( SCALE_GPIO_PIN_TRG    );
-}
+// ----------------------------------------------------------------------------
 
-void     board_trigger_wr( bool x ) {
+void board_trigger_wr( bool x ) {
          scale_gpio_wr( SCALE_GPIO_PIN_TRG, x );
 }
 
-uint8_t  board_uart_rd(           ) {
-  return scale_uart_rd( SCALE_UART_MODE_BLOCKING    );
+bool board_trigger_rd(        ) {
+  return scale_gpio_rd( SCALE_GPIO_PIN_TRG    );
 }
 
-void     board_uart_wr( uint8_t x ) {
+// ----------------------------------------------------------------------------
+
+void    board_uart_wr( uint8_t x ) {
          scale_uart_wr( SCALE_UART_MODE_BLOCKING, x );
 }
 
-uint64_t board_tsc() {
-  return ( uint64_t )( scale_tsc() );
+uint8_t board_uart_rd(           ) {
+  return scale_uart_rd( SCALE_UART_MODE_BLOCKING    );
 }
 
-uint64_t board_tsc_diff( uint64_t x, uint64_t y ) {
+// ----------------------------------------------------------------------------
+
+void          board_cycle_wr( board_cycle_t x ) {
+
+}
+
+board_cycle_t board_cycle_rd() {
+  return ( board_cycle_t )( scale_tsc() );
+}
+
+board_cycle_t board_cycle_diff( board_cycle_t x, board_cycle_t y ) {
   if( x >= y )  {
     return ( x - y );
   }
@@ -47,3 +59,5 @@ uint64_t board_tsc_diff( uint64_t x, uint64_t y ) {
     return ( y - x );
   }
 }
+
+// ============================================================================

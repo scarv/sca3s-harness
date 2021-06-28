@@ -7,19 +7,19 @@
 
 #include "board_imp.h"
 
+// ============================================================================
+
 extern void platform_init();
 
 bool     board_init() {
   platform_init(); init_uart(); trigger_setup();
 
-  return 1; 
+  return true; 
 }
 
-bool     board_trigger_rd(        ) {
-  return 0;
-}
+// ----------------------------------------------------------------------------
 
-void     board_trigger_wr( bool x ) {
+void board_trigger_wr( bool x ) {
   if( x ) {
     trigger_high();
   }
@@ -28,18 +28,32 @@ void     board_trigger_wr( bool x ) {
   }         
 }
 
-uint8_t  board_uart_rd(           ) {
-  return getch();
+bool board_trigger_rd() {
+  return false;
 }
 
-void     board_uart_wr( uint8_t x ) {
+// ----------------------------------------------------------------------------
+
+void    board_uart_wr( uint8_t x ) {
   putch( x );
 }
 
-uint64_t board_tsc() {
+uint8_t board_uart_rd() {
+  return getch();
+}
+
+// ----------------------------------------------------------------------------
+
+void          board_cycle_wr( board_cycle_t x ) {
+
+}
+
+board_cycle_t board_cycle_rd() {
   return 0;
 }
 
-uint64_t board_tsc_diff( uint64_t x, uint64_t y ) {
+board_cycle_t board_cycle_diff( board_cycle_t x, board_cycle_t y ) {
   return 0;
 }
+
+// ============================================================================
