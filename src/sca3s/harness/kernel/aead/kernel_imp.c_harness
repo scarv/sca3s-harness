@@ -12,8 +12,10 @@
 #endif
 
 #if   ( KERNEL_MODEOF == KERNEL_MODEOF_DEFAULT   )
-#define __KERNEL_MODEOF "default"
-#elif ( KERNEL_MODEOF == KERNEL_MODEOF_ENC       )
+#define   KERNEL_MODEOF  KERNEL_MODEOF_ENC
+#endif
+
+#if   ( KERNEL_MODEOF == KERNEL_MODEOF_ENC       )
 #define __KERNEL_MODEOF "enc"
 #elif ( KERNEL_MODEOF == KERNEL_MODEOF_DEC       )
 #define __KERNEL_MODEOF "dec"
