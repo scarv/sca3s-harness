@@ -7,7 +7,15 @@
 
 // ============================================================================
 
-#define KERNEL_ID VERSION ":" KERNEL
+#if   ( KERNEL_NAMEOF == KERNEL_NAMEOF_GENERIC   )
+#define __KERNEL_NAMEOF "generic"
+#endif
+
+#if   ( KERNEL_MODEOF == KERNEL_MODEOF_DEFAULT   )
+#define __KERNEL_MODEOF "default"
+#endif
+
+#define KERNEL_ID VERSION ":" KERNEL ":" __KERNEL_NAMEOF "/" __KERNEL_MODEOF
 
 #pragma message( "?data fec"    " = " INT(       SIZEOF_FEC) )
 #pragma message( "?data fcc"    " = " INT(       SIZEOF_FCC) )

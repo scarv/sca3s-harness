@@ -7,13 +7,15 @@
 
 // ============================================================================
 
-#if   ( KERNEL_NAMEOF == KERNEL_NAMEOF_GENERIC )
+#if   ( KERNEL_NAMEOF == KERNEL_NAMEOF_GENERIC   )
 #define __KERNEL_NAMEOF "generic"
 #endif
 
-#if   ( KERNEL_MODEOF == KERNEL_MODEOF_ENC     )
+#if   ( KERNEL_MODEOF == KERNEL_MODEOF_DEFAULT   )
+#define __KERNEL_MODEOF "default"
+#elif ( KERNEL_MODEOF == KERNEL_MODEOF_ENC       )
 #define __KERNEL_MODEOF "enc"
-#elif ( KERNEL_MODEOF == KERNEL_MODEOF_DEC     )
+#elif ( KERNEL_MODEOF == KERNEL_MODEOF_DEC       )
 #define __KERNEL_MODEOF "dec"
 #endif
 

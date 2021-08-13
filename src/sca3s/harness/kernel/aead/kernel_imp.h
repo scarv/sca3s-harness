@@ -11,22 +11,23 @@
 // ============================================================================
 
 /** @brief      The kernel name, e.g., 
-  *             1) KERNEL_NAMEOF_GENERIC for generic
-  *             2) ...
+  *             - KERNEL_NAMEOF_GENERIC   for generic
+  *             - ...
   */
 
 #if !defined( KERNEL_NAMEOF     )
 #define KERNEL_NAMEOF     ( KERNEL_NAMEOF_GENERIC )
 #endif
 
-/** @brief      The kernel mode, i.e., either
-  *             1) KERNEL_MODEOF_ENC for encryption
-  *                or
-  *             2) KERNEL_MODEOF_DEC for decryption
+/** @brief      The kernel mode, e.g.,
+  *             - KERNEL_MODEOF_DEFAULT   for default
+  *             - KERNEL_MODEOF_ENC       for encryption
+  *             - KERNEL_MODEOF_DEC       for decryption
+  *             - ...
   */
 
 #if !defined( KERNEL_MODEOF     )
-#define KERNEL_MODEOF     ( KERNEL_MODEOF_ENC     )
+#define KERNEL_MODEOF     ( KERNEL_MODEOF_DEFAULT )
 #endif
 
 // ----------------------------------------------------------------------------

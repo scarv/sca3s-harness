@@ -11,17 +11,26 @@
 // ============================================================================
 
 /** @brief      The kernel name, e.g.,
-  *             1) KERNEL_NAMEOF_GENERIC   for generic
-  *             2) KERNEL_NAMEOF_SHA_1     for SHA-1  
-  *             3) KERNEL_NAMEOF_SHA_2_224 for SHA-224
-  *             4) KERNEL_NAMEOF_SHA_2_256 for SHA-256
-  *             5) KERNEL_NAMEOF_SHA_2_384 for SHA-384
-  *             6) KERNEL_NAMEOF_SHA_2_512 for SHA-512
-  *             7) ...
+  *             - KERNEL_NAMEOF_GENERIC   for generic
+  *             - KERNEL_NAMEOF_SHA_1     for SHA-1  
+  *             - KERNEL_NAMEOF_SHA_2_224 for SHA-224
+  *             - KERNEL_NAMEOF_SHA_2_256 for SHA-256
+  *             - KERNEL_NAMEOF_SHA_2_384 for SHA-384
+  *             - KERNEL_NAMEOF_SHA_2_512 for SHA-512
+  *             - ...
   */
 
 #if !defined( KERNEL_NAMEOF     )
 #define KERNEL_NAMEOF     ( KERNEL_NAMEOF_GENERIC )
+#endif
+
+/** @brief      The kernel mode, e.g.,
+  *             - KERNEL_MODEOF_DEFAULT   for default
+  *             - ...
+  */
+
+#if !defined( KERNEL_MODEOF     )
+#define KERNEL_MODEOF     ( KERNEL_MODEOF_DEFAULT )
 #endif
 
 // ----------------------------------------------------------------------------

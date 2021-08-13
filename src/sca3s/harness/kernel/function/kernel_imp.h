@@ -10,6 +10,26 @@
 
 // ============================================================================
 
+/** @brief      The kernel name, e.g., 
+  *             - KERNEL_NAMEOF_GENERIC   for generic
+  *             - ...
+  */
+
+#if !defined( KERNEL_NAMEOF     )
+#define KERNEL_NAMEOF     ( KERNEL_NAMEOF_GENERIC )
+#endif
+
+/** @brief      The kernel mode, e.g.,
+  *             - KERNEL_MODEOF_DEFAULT   for default
+  *             - ...
+  */
+
+#if !defined( KERNEL_MODEOF     )
+#define KERNEL_MODEOF     ( KERNEL_MODEOF_DEFAULT )
+#endif
+
+// ----------------------------------------------------------------------------
+
 /** @brief      Number of allocated bytes in register that contains the externally supplied randomness.
   */
 
