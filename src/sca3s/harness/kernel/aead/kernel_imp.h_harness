@@ -49,6 +49,13 @@
 #define KERNEL_INITOF_K
 #endif
 
+/** @brief      Initial value of register that contains the nonce.
+  */
+
+#if !defined( KERNEL_INITOF_N   )
+#define KERNEL_INITOF_N
+#endif
+
 /** @brief      Initial value of register that contains the associated data.
   */
 

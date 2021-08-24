@@ -25,11 +25,14 @@ typedef uint64_t kernel_fcc_t;
 // ----------------------------------------------------------------------------
 
 typedef enum   {
-  KERNEL_DATA_TYPE_NONE, KERNEL_DATA_TYPE_I, KERNEL_DATA_TYPE_O, KERNEL_DATA_TYPE_IO
+  KERNEL_DATA_TYPE_I = 0x01, //  input            register
+  KERNEL_DATA_TYPE_O = 0x02, // output            register
+  KERNEL_DATA_TYPE_V = 0x04, // variable-size     register
+  KERNEL_DATA_TYPE_S = 0x08  // security-critical register
 } kernel_data_type_t;
 
 typedef struct {
-  char* id; uint8_t* data; uint8_t* used; uint8_t size; kernel_data_type_t type;
+  char* id; uint8_t* data; uint8_t size; uint8_t* used; kernel_data_type_t type;
 } kernel_data_spec_t;
 
 typedef struct {

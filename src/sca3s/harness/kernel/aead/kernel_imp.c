@@ -42,6 +42,7 @@ kernel_fec_t kernel_prologue() {
   *
   * @note       The kernel  input is:
   *             \c k of length \c n_k bytes (upto a maximum of \c KERNEL_SIZEOF_K),
+  *             \c n of length \c n_n bytes (upto a maximum of \c KERNEL_SIZEOF_N),
   *             \c a of length \c n_a bytes (upto a maximum of \c KERNEL_SIZEOF_A),
   *             and 
   *             either
@@ -70,6 +71,7 @@ kernel_fec_t kernel_prologue() {
   *             the outputs and inputs are assumed to be of maximum length, 
   *             i.e.,
   *             \c k is assumed to have length \c KERNEL_SIZEOF_K bytes,
+  *             \c n is assumed to have length \c KERNEL_SIZEOF_N bytes,
   *             \c a is assumed to have length \c KERNEL_SIZEOF_A bytes,
   *             \c m is assumed to have length \c KERNEL_SIZEOF_M bytes,
   *             and

@@ -46,6 +46,13 @@
 #define KERNEL_SIZEOF_K   ( 16 )
 #endif
 
+/** @brief      Number of allocated bytes in register that contains the nonce.
+  */
+
+#if !defined( KERNEL_SIZEOF_N   )
+#define KERNEL_SIZEOF_N   ( 16 )
+#endif
+
 /** @brief      Number of allocated bytes in register that contains the associated data.
   */
 

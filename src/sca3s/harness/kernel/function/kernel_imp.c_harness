@@ -17,22 +17,34 @@
 
 #define KERNEL_ID VERSION ":" KERNEL ":" __KERNEL_NAMEOF "/" __KERNEL_MODEOF
 
-#pragma message( "?data fec"    " = " INT(       SIZEOF_FEC) )
-#pragma message( "?data fcc"    " = " INT(       SIZEOF_FCC) )
-#pragma message( "?data esr"    " = " INT(KERNEL_SIZEOF_ESR) )
-#pragma message( "?data x"      " = " INT(KERNEL_SIZEOF_X   ) )
-#pragma message( "?data r"      " = " INT(KERNEL_SIZEOF_R   ) )
+// ----------------------------------------------------------------------------
 
-#pragma message( "#data fec"    " = " INT(       SIZEOF_FEC) )
-#pragma message( "#data fcc"    " = " INT(       SIZEOF_FCC) )
-#pragma message( "#data esr"    " = " INT(KERNEL_SIZEOF_ESR) )
-#pragma message( "#data x"      " = " INT(KERNEL_SIZEOF_X  ) )
-#pragma message( "#data r"      " = " INT(KERNEL_SIZEOF_R  ) )
+#pragma message( "?kernel"   " = "     KERNEL_ID           )
 
-#pragma message( "?kernel_id"   " = "     KERNEL_ID          )
+#if   ( KERNEL_MODEOF == KERNEL_MODEOF_DEFAULT   )
+#pragma message( ">kernel"   " = "     "esr" "," "x"       )
+#pragma message( "<kernel"   " = " "fec,fcc" "," "r"       )
+#endif
 
-#pragma message( ">kernel_data" " = "     "esr" "," "x"      )
-#pragma message( "<kernel_data" " = " "fec,fcc" "," "r"      )
+#pragma message( "?data fec" " = " "<"                     )
+#pragma message( "?data fcc" " = " "<"                     )
+#pragma message( "?data esr" " = " ">"                     )
+#if   ( KERNEL_MODEOF == KERNEL_MODEOF_DEFAULT   )
+#pragma message( "?data x"   " = " ">"                     )
+#pragma message( "?data r"   " = " "<"                     )
+#endif
+
+#pragma message( "|data fec" " = " INT(       SIZEOF_FEC)  )
+#pragma message( "|data fcc" " = " INT(       SIZEOF_FCC)  )
+#pragma message( "|data esr" " = " INT(KERNEL_SIZEOF_ESR)  )
+#pragma message( "|data x"   " = " INT(KERNEL_SIZEOF_X  )  )
+#pragma message( "|data r"   " = " INT(KERNEL_SIZEOF_R  )  )
+
+#pragma message( "#data fec" " = " INT(       SIZEOF_FEC)  )
+#pragma message( "#data fcc" " = " INT(       SIZEOF_FCC)  )
+#pragma message( "#data esr" " = " INT(KERNEL_SIZEOF_ESR)  )
+#pragma message( "#data x"   " = " INT(KERNEL_SIZEOF_X  )  )
+#pragma message( "#data r"   " = " INT(KERNEL_SIZEOF_R  )  )
 
 // ============================================================================
 
@@ -117,14 +129,16 @@ kernel_fec_t kernel_epilogue();
 
 kernel_data_spec_t kernel_data_spec[] = {
 // kernel-agnostic
-  { .id = "esr", .data = ( uint8_t* )(  esr ), .used = ( uint8_t* )( NULL ), .size = KERNEL_SIZEOF_ESR, .type = KERNEL_DATA_TYPE_I    },
-  { .id = "fec", .data = ( uint8_t* )( &fec ), .used = ( uint8_t* )( NULL ), .size =        SIZEOF_FEC, .type = KERNEL_DATA_TYPE_O    },
-  { .id = "fcc", .data = ( uint8_t* )( &fcc ), .used = ( uint8_t* )( NULL ), .size =        SIZEOF_FCC, .type = KERNEL_DATA_TYPE_O    },
+  { .id = "esr", .data = ( uint8_t* )(  esr ), .size = KERNEL_SIZEOF_ESR, .used = ( uint8_t* )( NULL ), .type = KERNEL_DATA_TYPE_I                      },
+  { .id = "fec", .data = ( uint8_t* )( &fec ), .size =        SIZEOF_FEC, .used = ( uint8_t* )( NULL ), .type = KERNEL_DATA_TYPE_O                      },
+  { .id = "fcc", .data = ( uint8_t* )( &fcc ), .size =        SIZEOF_FCC, .used = ( uint8_t* )( NULL ), .type = KERNEL_DATA_TYPE_O                      },
 // kernel-specific
-  { .id =   "x", .data = ( uint8_t* )(    x ), .used = ( uint8_t* )( &n_x ), .size = KERNEL_SIZEOF_X,   .type = KERNEL_DATA_TYPE_I    },
-  { .id =   "r", .data = ( uint8_t* )(    r ), .used = ( uint8_t* )( &n_r ), .size = KERNEL_SIZEOF_R,   .type = KERNEL_DATA_TYPE_O    },
+#if   ( KERNEL_MODEOF == KERNEL_MODEOF_DEFAULT   )
+  { .id =   "x", .data = ( uint8_t* )(    x ), .size = KERNEL_SIZEOF_X,   .used = ( uint8_t* )( &n_x ), .type = KERNEL_DATA_TYPE_I | KERNEL_DATA_TYPE_V },
+  { .id =   "r", .data = ( uint8_t* )(    r ), .size = KERNEL_SIZEOF_R,   .used = ( uint8_t* )( &n_r ), .type = KERNEL_DATA_TYPE_O | KERNEL_DATA_TYPE_V },
+#endif
 // terminator
-  { .id =  NULL, .data = ( uint8_t* )( NULL ), .used = ( uint8_t* )( NULL ), .size = 0,                 .type = KERNEL_DATA_TYPE_NONE }
+  { .id =  NULL, .data = ( uint8_t* )( NULL ), .size = 0,                 .used = ( uint8_t* )( NULL ), .type = 0                                       }
 };
 
 /** @brief      A specification of the

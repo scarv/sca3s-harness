@@ -40,7 +40,46 @@ kernel_fcc_t* driver_fcc = NULL;
 // ============================================================================
 
 /** @brief      Service a request of the form
-  *             \verbatim ?data <id> \endverbatim
+  *             \verbatim ?data ${REGISTER}          \endverbatim
+  *             i.e., query the allocated size (in bytes) of an identified data buffer.
+  *
+  * @param[out] \c ack the acknowledgement string.
+  * @param[in]  \c req an array of strings capturing arguments of the request.
+  * @param[in]  \c   n the length of the argument array \c req.
+  *
+  * @return     a flag indicating failure (\c false) or success (\c true).
+  *
+  * @note       An entry for the buffer identifier should be locatable within 
+  *             \c kernel_data_spec.
+  */
+
+DRIVER_COMMAND(driver_data_typeof    ) {
+  if( n == 1 ) {
+    for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
+      if( 0 == strcmp( spec->id, req[ 0 ] ) ) {
+        if( spec->type & KERNEL_DATA_TYPE_I ) {
+          strcat( ack, ">" );
+        }
+        if( spec->type & KERNEL_DATA_TYPE_O ) {
+          strcat( ack, "<" );
+        }
+        if( spec->type & KERNEL_DATA_TYPE_V ) {
+          strcat( ack, "#" );
+        }
+        if( spec->type & KERNEL_DATA_TYPE_S ) {
+          strcat( ack, "$" );
+        }
+      }
+    }
+  }
+
+  return true;
+}
+
+// ----------------------------------------------------------------------------
+
+/** @brief      Service a request of the form
+  *             \verbatim |data ${REGISTER}          \endverbatim
   *             i.e., query the allocated size (in bytes) of an identified data buffer.
   *
   * @param[out] \c ack the acknowledgement string.
@@ -70,7 +109,7 @@ DRIVER_COMMAND(driver_data_sizeof    ) {
 // ----------------------------------------------------------------------------
 
 /** @brief      Service a request of the form
-  *             \verbatim #data <id> \endverbatim
+  *             \verbatim #data ${REGISTER}          \endverbatim
   *             i.e., query the used      size (in bytes) of an identified data buffer.
   *
   * @param[out] \c ack the acknowledgement string.
@@ -100,7 +139,7 @@ DRIVER_COMMAND(driver_data_usedof    ) {
 // ----------------------------------------------------------------------------
 
 /** @brief      Service a request of the form
-  *             \verbatim >data <id> <octet string> \endverbatim
+  *             \verbatim >data ${REGISTER} ${VALUE} \endverbatim
   *             i.e., write an octet string into an identified data buffer.
   *
   * @param[out] \c ack the acknowledgement string.
@@ -143,7 +182,7 @@ DRIVER_COMMAND(driver_data_wr        ) {
 // ----------------------------------------------------------------------------
 
 /** @brief      Service a request of the form
-  *             \verbatim <data <id> \endverbatim
+  *             \verbatim <data ${REGISTER}          \endverbatim
   *             i.e., read  an octet string from an identified data buffer.
   *
   * @param[out] \c ack the acknowledgement string.
@@ -185,7 +224,7 @@ DRIVER_COMMAND(driver_data_rd        ) {
 // ----------------------------------------------------------------------------
 
 /** @brief      Service a request of the form
-  *             \verbatim ?kernel_id \endverbatim
+  *             \verbatim ?kernel_id       \endverbatim
   *             i.e., query the kernel identifier.
   *
   * @param[out] \c ack the acknowledgement string.
@@ -206,7 +245,7 @@ DRIVER_COMMAND(driver_kernel_id      ) {
 // ----------------------------------------------------------------------------
 
 /** @brief      Service a request of the form
-  *             \verbatim >kernel_data \endverbatim
+  *             \verbatim >kernel_data     \endverbatim
   *             i.e., query the kernel writable data.
   *
   * @param[out] \c ack the acknowledgement string.
@@ -221,7 +260,7 @@ DRIVER_COMMAND(driver_kernel_data_wr ) {
     bool f = false;
 
     for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
-      if( ( spec->type == KERNEL_DATA_TYPE_I ) || ( spec->type == KERNEL_DATA_TYPE_IO ) ) {
+      if( spec->type & KERNEL_DATA_TYPE_I ) {
         if( f ) { strcat( ack, "," ); } strcat( ack, spec->id ); f = true;
       }
     }
@@ -235,7 +274,7 @@ DRIVER_COMMAND(driver_kernel_data_wr ) {
 // ----------------------------------------------------------------------------
 
 /** @brief      Service a request of the form
-  *             \verbatim <kernel_data \endverbatim
+  *             \verbatim <kernel_data     \endverbatim
   *             i.e., query the kernel readable data.
   *
   * @param[out] \c ack the acknowledgement string.
@@ -250,7 +289,7 @@ DRIVER_COMMAND(driver_kernel_data_rd ) {
     bool f = false;
 
     for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
-      if( ( spec->type == KERNEL_DATA_TYPE_O ) || ( spec->type == KERNEL_DATA_TYPE_IO ) ) {
+      if( spec->type & KERNEL_DATA_TYPE_O ) {
         if( f ) { strcat( ack, "," ); } strcat( ack, spec->id ); f = true;
       }
     }
@@ -285,7 +324,7 @@ DRIVER_COMMAND(driver_kernel_prologue) {
 // ----------------------------------------------------------------------------
 
 /** @brief      Service a request of the form
-  *             \verbatim !kernel \endverbatim
+  *             \verbatim !kernel          \endverbatim
   *             i.e., execute the kernel.
   *
   * @param[out] \c ack the acknowledgement string.
@@ -327,7 +366,7 @@ DRIVER_COMMAND(driver_kernel_epilogue) {
 // ----------------------------------------------------------------------------
 
 /** @brief      Service a request of the form
-  *             \verbatim !kernel_nop \endverbatim
+  *             \verbatim !kernel_nop      \endverbatim
   *             i.e., execute a NOP (or empty, null) operation: this supports
   *             more accurate use of the time-stamp counter, in the sense any 
   *             fixed overhead can be corrected for.
@@ -465,6 +504,9 @@ int main( int argc, char* argv[] ) {
       driver_command_t f = NULL;
 
       if     ( 0 == strcmp( cp[ 0 ], "?data"            ) ) {
+        f = driver_data_typeof;
+      }
+      else if( 0 == strcmp( cp[ 0 ], "|data"            ) ) {
         f = driver_data_sizeof;
       }
       else if( 0 == strcmp( cp[ 0 ], "#data"            ) ) {
@@ -476,13 +518,13 @@ int main( int argc, char* argv[] ) {
       else if( 0 == strcmp( cp[ 0 ], "<data"            ) ) {
         f = driver_data_rd;
       }
-      else if( 0 == strcmp( cp[ 0 ], "?kernel_id"       ) ) {
+      else if( 0 == strcmp( cp[ 0 ], "?kernel"          ) ) {
         f = driver_kernel_id;
       }
-      else if( 0 == strcmp( cp[ 0 ], ">kernel_data"     ) ) {
+      else if( 0 == strcmp( cp[ 0 ], ">kernel"          ) ) {
         f = driver_kernel_data_wr;
       }
-      else if( 0 == strcmp( cp[ 0 ], "<kernel_data"     ) ) {
+      else if( 0 == strcmp( cp[ 0 ], "<kernel"          ) ) {
         f = driver_kernel_data_rd;
       }
       else if( 0 == strcmp( cp[ 0 ], "!kernel_prologue" ) ) {
