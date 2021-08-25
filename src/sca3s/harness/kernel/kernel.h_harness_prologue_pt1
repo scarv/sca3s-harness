@@ -1,0 +1,36 @@
+/* Copyright (C) 2018 SCARV project <info@scarv.org>
+ *
+ * Use of this source code is restricted per the MIT license, a copy of which 
+ * can be found at https://opensource.org/licenses/MIT (or should be included 
+ * as LICENSE.txt within the associated archive or repository).
+ */
+
+#ifndef __KERNEL_PROLOGUE_H_HARNESS_STATIC
+#define __KERNEL_PROLOGUE_H_HARNESS_STATIC
+
+// ============================================================================
+
+#define __LOOP_0(N,...) 
+#define __LOOP_1(N,...) __LOOP_BODY(0)
+#define __LOOP_2(N,...) __LOOP_BODY(1) __LOOP_ ## 1(N,__VA_ARGS__)
+#define __LOOP_3(N,...) __LOOP_BODY(2) __LOOP_ ## 2(N,__VA_ARGS__)
+#define __LOOP_4(N,...) __LOOP_BODY(3) __LOOP_ ## 3(N,__VA_ARGS__)
+#define __LOOP_5(N,...) __LOOP_BODY(4) __LOOP_ ## 4(N,__VA_ARGS__)
+#define __LOOP_6(N,...) __LOOP_BODY(5) __LOOP_ ## 5(N,__VA_ARGS__)
+#define __LOOP_7(N,...) __LOOP_BODY(6) __LOOP_ ## 6(N,__VA_ARGS__)
+#define __LOOP_N(N,...)                __LOOP_ ## N(N,__VA_ARGS__)
+
+#define __LOOP(N,...) __LOOP_N(N,__VA_ARGS__)
+
+// ----------------------------------------------------------------------------
+
+#define KERNEL_DATA_TYPE_I ">"
+#define KERNEL_DATA_TYPE_O "<"
+#define KERNEL_DATA_TYPE_V "#"
+#define KERNEL_DATA_TYPE_S "$"
+
+#define CONS(x,y) x   y
+
+// ============================================================================
+
+#endif

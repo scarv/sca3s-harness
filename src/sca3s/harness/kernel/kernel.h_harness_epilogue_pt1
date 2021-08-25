@@ -1,0 +1,22 @@
+/* Copyright (C) 2018 SCARV project <info@scarv.org>
+ *
+ * Use of this source code is restricted per the MIT license, a copy of which 
+ * can be found at https://opensource.org/licenses/MIT (or should be included 
+ * as LICENSE.txt within the associated archive or repository).
+ */
+
+#ifndef __KERNEL_EPILOGUE_H_HARNESS_STATIC
+#define __KERNEL_EPILOGUE_H_HARNESS_STATIC
+
+// ============================================================================
+
+#undef  KERNEL_DATA_TYPE_I
+#undef  KERNEL_DATA_TYPE_O
+#undef  KERNEL_DATA_TYPE_V
+#undef  KERNEL_DATA_TYPE_S
+
+#undef  CONS
+
+// ============================================================================
+
+#endif

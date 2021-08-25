@@ -51,6 +51,15 @@
 #define KERNEL_SIZEOF_R   (  4 )
 #endif
 
+// ----------------------------------------------------------------------------
+
+#define KERNEL_ELEMOF_X   (  2 )
+#define KERNEL_ELEMOF_R   (  1 )
+
+#define KERNEL_TYPEOF_X0 CONS(KERNEL_DATA_TYPE_I,KERNEL_DATA_TYPE_V)
+#define KERNEL_TYPEOF_X1 CONS(KERNEL_DATA_TYPE_I,KERNEL_DATA_TYPE_S)
+#define KERNEL_TYPEOF_R0 CONS(KERNEL_DATA_TYPE_O,KERNEL_DATA_TYPE_V)
+
 // ============================================================================
 
 #endif
