@@ -69,11 +69,13 @@ DRIVER_COMMAND(driver_data_typeof    ) {
         if( spec->type & KERNEL_DATA_TYPE_S ) {
           strcat( ack, "$" );
         }
+
+        return true;
       }
     }
   }
 
-  return true;
+  return false;
 }
 
 // ----------------------------------------------------------------------------
