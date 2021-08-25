@@ -21,7 +21,7 @@
   */
 
 #if !defined( KERNEL_NAMEOF     )
-#define KERNEL_NAMEOF     ( KERNEL_NAMEOF_GENERIC )
+#define KERNEL_NAMEOF     KERNEL_NAMEOF_GENERIC
 #endif
 
 /** @brief      The kernel mode, e.g.,
@@ -30,7 +30,7 @@
   */
 
 #if !defined( KERNEL_MODEOF     )
-#define KERNEL_MODEOF     ( KERNEL_MODEOF_DEFAULT )
+#define KERNEL_MODEOF     KERNEL_MODEOF_DEFAULT
 #endif
 
 // ----------------------------------------------------------------------------
@@ -39,21 +39,21 @@
   */
 
 #if !defined( KERNEL_SIZEOF_ESR )
-#define KERNEL_SIZEOF_ESR (  0 )
+#define KERNEL_SIZEOF_ESR  0
 #endif
 
 /** @brief      Number of allocated bytes in register that contains the message.
   */
 
 #if !defined( KERNEL_SIZEOF_M   )
-#define KERNEL_SIZEOF_M   (  4 )
+#define KERNEL_SIZEOF_M    4
 #endif
 
 /** @brief      Number of allocated bytes in register that contains the  digest.
   */
 
 #if !defined( KERNEL_SIZEOF_D   )
-#define KERNEL_SIZEOF_D   (  4 )
+#define KERNEL_SIZEOF_D    4
 #endif
 
 // ============================================================================

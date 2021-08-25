@@ -20,15 +20,6 @@
 
 #define __KERNEL_ID       VERSION ":" KERNEL ":" __KERNEL_NAMEOF "/" __KERNEL_MODEOF
 
-#if   ( KERNEL_MODEOF == KERNEL_MODEOF_DEFAULT   )
-#define __LOOP_BODY(i) "," __KERNEL_NAMEOF_X(i)
-#define __KERNEL_LISTOF_I "esr"     __LOOP(KERNEL_ELEMOF_X)
-#undef  __LOOP_BODY
-#define __LOOP_BODY(i) "," __KERNEL_NAMEOF_R(i)
-#define __KERNEL_LISTOF_O "fec,fcc" __LOOP(KERNEL_ELEMOF_R))
-#undef  __LOOP_BODY
-#endif
-
 #define __KERNEL_NAMEOF_X(i) "x" # i
 #define __KERNEL_SIZEOF_X(i) KERNEL_SIZEOF_X
 #define __KERNEL_TYPEOF_X(i) KERNEL_TYPEOF_X ## i
@@ -39,8 +30,15 @@
 // ----------------------------------------------------------------------------
 
 #pragma message( "?kernel"   " = "     __KERNEL_ID          )
-#pragma message( ">kernel"   " = "     __KERNEL_LISTOF_I    )
-#pragma message( "<kernel"   " = "     __KERNEL_LISTOF_O    )
+
+#if   ( KERNEL_MODEOF == KERNEL_MODEOF_DEFAULT   )
+#define __LOOP_BODY(i) "," __KERNEL_NAMEOF_X(i)
+#pragma message( ">kernel"   " = " "esr"     __LOOP(KERNEL_ELEMOF_X) )
+#undef  __LOOP_BODY
+#define __LOOP_BODY(i) "," __KERNEL_NAMEOF_R(i)
+#pragma message( "<kernel"   " = " "fec,fcc" __LOOP(KERNEL_ELEMOF_R) )
+#undef  __LOOP_BODY
+#endif
 
 #pragma message( "?data fec" " = " "<"                      )
 #pragma message( "|data fec" " = " INT(         SIZEOF_FEC) )

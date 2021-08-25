@@ -16,12 +16,12 @@
 /** @brief      A symbolic identifier for the generic    kernel name.
   */
 
-#define KERNEL_NAMEOF_GENERIC   ( 0 )
+#define KERNEL_NAMEOF_GENERIC   0
 
 /** @brief      A symbolic identifier for the default    kernel mode.
   */
 
-#define KERNEL_MODEOF_DEFAULT   ( 0 )
+#define KERNEL_MODEOF_DEFAULT   0
 
 // ----------------------------------------------------------------------------
 

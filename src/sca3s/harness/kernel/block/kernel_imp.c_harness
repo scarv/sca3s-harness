@@ -27,31 +27,32 @@
 #define __KERNEL_ID       VERSION ":" KERNEL ":" __KERNEL_NAMEOF "/" __KERNEL_MODEOF
 
 #if   ( KERNEL_MODEOF == KERNEL_MODEOF_DEFAULT   )
-#define __KERNEL_LISTOF_I "esr"     "," "k,n,a,m"
-#define __KERNEL_LISTOF_O "fec,fcc" ","       "c"
+#define __KERNEL_LISTOF_I "esr"     "," "k,m"
+#define __KERNEL_LISTOF_O "fec,fcc" ","   "c"
 
 #define __KERNEL_TYPEOF_K CONS(KERNEL_DATA_TYPE_I,KERNEL_DATA_TYPE_S)
-#define __KERNEL_TYPEOF_M CONS(KERNEL_DATA_TYPE_I,KERNEL_DATA_TYPE_V)
-#define __KERNEL_TYPEOF_C CONS(KERNEL_DATA_TYPE_O,KERNEL_DATA_TYPE_V)
+#define __KERNEL_TYPEOF_M      KERNEL_DATA_TYPE_I
+#define __KERNEL_TYPEOF_C      KERNEL_DATA_TYPE_O
 #elif ( KERNEL_MODEOF == KERNEL_MODEOF_ENC       )
-#define __KERNEL_LISTOF_I "esr"     "," "k,n,a,m"
-#define __KERNEL_LISTOF_O "fec,fcc" ","       "c"
+#define __KERNEL_LISTOF_I "esr"     "," "k,m"
+#define __KERNEL_LISTOF_O "fec,fcc" ","   "c"
 
 #define __KERNEL_TYPEOF_K CONS(KERNEL_DATA_TYPE_I,KERNEL_DATA_TYPE_S)
-#define __KERNEL_TYPEOF_M CONS(KERNEL_DATA_TYPE_I,KERNEL_DATA_TYPE_V)
-#define __KERNEL_TYPEOF_C CONS(KERNEL_DATA_TYPE_O,KERNEL_DATA_TYPE_V)
+#define __KERNEL_TYPEOF_M      KERNEL_DATA_TYPE_I
+#define __KERNEL_TYPEOF_C      KERNEL_DATA_TYPE_O
 #elif ( KERNEL_MODEOF == KERNEL_MODEOF_DEC       )
-#define __KERNEL_LISTOF_I "esr"     "," "k,n,a,c"
-#define __KERNEL_LISTOF_O "fec,fcc" ","       "m"
+#define __KERNEL_LISTOF_I "esr"     "," "k,c"
+#define __KERNEL_LISTOF_O "fec,fcc" ","   "m"
 
 #define __KERNEL_TYPEOF_K CONS(KERNEL_DATA_TYPE_I,KERNEL_DATA_TYPE_S)
-#define __KERNEL_TYPEOF_M CONS(KERNEL_DATA_TYPE_O,KERNEL_DATA_TYPE_V)
-#define __KERNEL_TYPEOF_C CONS(KERNEL_DATA_TYPE_I,KERNEL_DATA_TYPE_V)
+#define __KERNEL_TYPEOF_M      KERNEL_DATA_TYPE_O
+#define __KERNEL_TYPEOF_C      KERNEL_DATA_TYPE_I
 #endif
 
 // ----------------------------------------------------------------------------
 
 #pragma message( "?kernel"   " = "     __KERNEL_ID          )
+
 #pragma message( ">kernel"   " = "     __KERNEL_LISTOF_I    )
 #pragma message( "<kernel"   " = "     __KERNEL_LISTOF_O    )
 

@@ -56,6 +56,7 @@
 // ----------------------------------------------------------------------------
 
 #pragma message( "?kernel"   " = "     __KERNEL_ID          )
+
 #pragma message( ">kernel"   " = "     __KERNEL_LISTOF_I    )
 #pragma message( "<kernel"   " = "     __KERNEL_LISTOF_O    )
 

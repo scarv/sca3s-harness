@@ -16,37 +16,37 @@
 /** @brief      A symbolic identifier for the generic    kernel name.
   */
 
-#define KERNEL_NAMEOF_GENERIC   ( 0 )
+#define KERNEL_NAMEOF_GENERIC   0
 
 /** @brief      A symbolic identifier for the SHA-1      kernel name.
   */
 
-#define KERNEL_NAMEOF_SHA_1     ( 1 )
+#define KERNEL_NAMEOF_SHA_1     1
 
 /** @brief      A symbolic identifier for the SHA-224    kernel name.
   */
 
-#define KERNEL_NAMEOF_SHA_2_224 ( 2 )
+#define KERNEL_NAMEOF_SHA_2_224 2
 
 /** @brief      A symbolic identifier for the SHA-256    kernel name.
   */
 
-#define KERNEL_NAMEOF_SHA_2_256 ( 3 )
+#define KERNEL_NAMEOF_SHA_2_256 3
 
 /** @brief      A symbolic identifier for the SHA-384    kernel name.
   */
 
-#define KERNEL_NAMEOF_SHA_2_384 ( 4 )
+#define KERNEL_NAMEOF_SHA_2_384 4
 
 /** @brief      A symbolic identifier for the SHA-512    kernel name.
   */
 
-#define KERNEL_NAMEOF_SHA_2_512 ( 5 )
+#define KERNEL_NAMEOF_SHA_2_512 5
 
 /** @brief      A symbolic identifier for the default    kernel mode.
   */
 
-#define KERNEL_MODEOF_DEFAULT   ( 0 )
+#define KERNEL_MODEOF_DEFAULT   0
 
 // ----------------------------------------------------------------------------
 
