@@ -25,21 +25,21 @@
 
 // ----------------------------------------------------------------------------
 
-/** @brief      Initial value of register that contains the externally supplied randomness.
+/** @brief      Initial value of the register    that contains the externally supplied randomness.
   */
 
 #if !defined( KERNEL_INITOF_ESR )
 #define KERNEL_INITOF_ESR
 #endif
 
-/** @brief      Initial value of register that contains the  input to   r = f( x ).
+/** @brief      Initial value of the register(s) that contains the  input to   r = f( x ).
   */
 
 #if !defined( KERNEL_INITOF_X   )
 #define KERNEL_INITOF_X
 #endif
 
-/** @brief      Initial value of register that contains the output from r = f( x ).
+/** @brief      Initial value of the register(s) that contains the output from r = f( x ).
   */
 
 #if !defined( KERNEL_INITOF_R   )

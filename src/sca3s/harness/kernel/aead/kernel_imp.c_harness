@@ -96,69 +96,69 @@
 
 // ----------------------------------------------------------------------------
 
-/** @brief      A register that contains the externally supplied randomness.
+/** @brief      The register    that contains the externally supplied randomness.
   */
 
 uint8_t esr[ KERNEL_SIZEOF_ESR ] = { KERNEL_INITOF_ESR };
 
-/** @brief      A register that contains the function exit code.
+/** @brief      The register    that contains the function exit code.
   */
 
 kernel_fec_t fec = KERNEL_FEC_SUCCESS;
 
-/** @brief      A register that contains the function cycle count.
+/** @brief      The register    that contains the function cycle count.
   */
 
 kernel_fcc_t fcc = 0;
 
-/** @brief      A register that contains the cipher key.
+/** @brief      The register    that contains the cipher key.
   */
 
 uint8_t   k[ KERNEL_SIZEOF_K   ] = { KERNEL_INITOF_K   };
 
-/** @brief      A register that contains the nonce.
+/** @brief      The register    that contains the nonce.
   */
 
 uint8_t   n[ KERNEL_SIZEOF_N   ] = { KERNEL_INITOF_N   };
 
-/** @brief      A register that contains the associated data.
+/** @brief      The register    that contains the associated data.
   */
 
 uint8_t   a[ KERNEL_SIZEOF_A   ] = { KERNEL_INITOF_A   };
 
-/** @brief      A register that contains the  plaintext data.
+/** @brief      The register    that contains the  plaintext data.
   */
 
 uint8_t   m[ KERNEL_SIZEOF_M   ] = { KERNEL_INITOF_M   };
 
-/** @brief      A register that contains the ciphertext data.
+/** @brief      The register    that contains the ciphertext data.
   */
 
 uint8_t   c[ KERNEL_SIZEOF_C   ] = { KERNEL_INITOF_C   };
 
 // ----------------------------------------------------------------------------
 
-/** @brief      Number of used bytes in register that contains the cipher key.
+/** @brief      Number of used      bytes in the register    that contains the cipher key.
   */
 
 uint8_t n_k = 0;
 
-/** @brief      Number of used bytes in register that contains the nonce.
+/** @brief      Number of used      bytes in the register    that contains the nonce.
   */
 
 uint8_t n_n = 0;
 
-/** @brief      Number of used bytes in register that contains the associated data.
+/** @brief      Number of used      bytes in the register    that contains the associated data.
   */
 
 uint8_t n_a = 0;
 
-/** @brief      Number of used bytes in register that contains the  plaintext data.
+/** @brief      Number of used      bytes in the register    that contains the  plaintext data.
   */
 
 uint8_t n_m = 0;
 
-/** @brief      Number of used bytes in register that contains the ciphertext data.
+/** @brief      Number of used      bytes in the register    that contains the ciphertext data.
   */
 
 uint8_t n_c = 0;

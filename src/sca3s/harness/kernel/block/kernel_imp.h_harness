@@ -40,28 +40,28 @@
 
 // ----------------------------------------------------------------------------
 
-/** @brief      Initial value of register that contains the externally supplied randomness.
+/** @brief      Initial value of the register    that contains the externally supplied randomness.
   */
 
 #if !defined( KERNEL_INITOF_ESR )
 #define KERNEL_INITOF_ESR
 #endif
 
-/** @brief      Initial value of register that contains the cipher key.
+/** @brief      Initial value of the register    that contains the cipher key.
   */
 
 #if !defined( KERNEL_INITOF_K   )
 #define KERNEL_INITOF_K
 #endif
 
-/** @brief      Initial value of register that contains the  plaintext data.
+/** @brief      Initial value of the register    that contains the  plaintext data.
   */
 
 #if !defined( KERNEL_INITOF_M   )
 #define KERNEL_INITOF_M
 #endif
 
-/** @brief      Initial value of register that contains the ciphertext data.
+/** @brief      Initial value of the register    that contains the ciphertext data.
   */
 
 #if !defined( KERNEL_INITOF_C   )

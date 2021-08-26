@@ -86,32 +86,32 @@
 
 // ----------------------------------------------------------------------------
 
-/** @brief      A register that contains the externally supplied randomness.
+/** @brief      The register that contains the externally supplied randomness.
   */
 
 uint8_t esr[ KERNEL_SIZEOF_ESR ] = { KERNEL_INITOF_ESR };
 
-/** @brief      A register that contains the function exit code.
+/** @brief      The register that contains the function exit code.
   */
 
 kernel_fec_t fec = KERNEL_FEC_SUCCESS;
 
-/** @brief      A register that contains the function cycle count.
+/** @brief      The register that contains the function cycle count.
   */
 
 kernel_fcc_t fcc = 0;
 
-/** @brief      A register that contains the cipher key.
+/** @brief      The register that contains the cipher key.
   */
 
 uint8_t   k[ KERNEL_SIZEOF_K   ] = { KERNEL_INITOF_K   };
 
-/** @brief      A register that contains the  plaintext data.
+/** @brief      The register that contains the  plaintext data.
   */
 
 uint8_t   m[ KERNEL_SIZEOF_M   ] = { KERNEL_INITOF_M   };
 
-/** @brief      A register that contains the ciphertext data.
+/** @brief      The register that contains the ciphertext data.
   */
 
 uint8_t   c[ KERNEL_SIZEOF_C   ] = { KERNEL_INITOF_C   };

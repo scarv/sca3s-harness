@@ -35,21 +35,21 @@
 
 // ----------------------------------------------------------------------------
 
-/** @brief      Number of allocated bytes in register that contains the externally supplied randomness.
+/** @brief      Number of allocated bytes in the register    that contains the externally supplied randomness.
   */
 
 #if !defined( KERNEL_SIZEOF_ESR )
 #define KERNEL_SIZEOF_ESR  0
 #endif
 
-/** @brief      Number of allocated bytes in register that contains the message.
+/** @brief      Number of allocated bytes in the register    that contains the message.
   */
 
 #if !defined( KERNEL_SIZEOF_M   )
 #define KERNEL_SIZEOF_M    4
 #endif
 
-/** @brief      Number of allocated bytes in register that contains the  digest.
+/** @brief      Number of allocated bytes in the register    that contains the  digest.
   */
 
 #if !defined( KERNEL_SIZEOF_D   )

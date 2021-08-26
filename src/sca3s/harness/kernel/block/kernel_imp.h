@@ -33,28 +33,28 @@
 
 // ----------------------------------------------------------------------------
 
-/** @brief      Number of allocated bytes in register that contains the externally supplied randomness.
+/** @brief      Number of allocated bytes in the register    that contains the externally supplied randomness.
   */
 
 #if !defined( KERNEL_SIZEOF_ESR )
 #define KERNEL_SIZEOF_ESR  0
 #endif
 
-/** @brief      Number of allocated bytes in register that contains the cipher key.
+/** @brief      Number of allocated bytes in the register    that contains the cipher key.
   */
 
 #if !defined( KERNEL_SIZEOF_K   )
 #define KERNEL_SIZEOF_K   16
 #endif
 
-/** @brief      Number of allocated bytes in register that contains the  plaintext data.
+/** @brief      Number of allocated bytes in the register    that contains the  plaintext data.
   */
 
 #if !defined( KERNEL_SIZEOF_M   )
 #define KERNEL_SIZEOF_M   16
 #endif
 
-/** @brief      Number of allocated bytes in register that contains the ciphertext data.
+/** @brief      Number of allocated bytes in the register    that contains the ciphertext data.
   */
 
 #if !defined( KERNEL_SIZEOF_C   )
