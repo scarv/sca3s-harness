@@ -41,22 +41,22 @@ kernel_fec_t kernel_prologue() {
   * @note       Execution of this function is included in   the trigger period.
   *
   * @note       The kernel  input is:
-  *             \c x of length \c n_x bytes (upto a maximum of \c KERNEL_SIZEOF_X).
+  *             \c x, each element \c x[ i ] within which is of length \c n_x bytes (upto a maximum of \c KERNEL_SIZEOF_X).
   *
   * @note       The kernel output is:
-  *             \c r of length \c n_r bytes (upto a maximum of \c KERNEL_SIZEOF_R).
+  *             \c r, each element \c r[ i ] within which is of length \c n_r bytes (upto a maximum of \c KERNEL_SIZEOF_R).
   *
   * @note       The variable-length output
   *             requires that the kernel set
-  *             \c n_r (to reflect the number of bytes produced in \c r).
+  *             \c n_r[ i ] (to reflect the number of bytes produced in \c r[ i ]).
   *
   * @note       The variable-length output and input
   *             cannot be supported in non-interactive cases: in such cases
   *             the outputs and inputs are assumed to be of maximum length,
   *             i.e.,
-  *             \c x is assumed to have length \c KERNEL_SIZEOF_X bytes,
+  *             \c x[ i ] is assumed to have length \c KERNEL_SIZEOF_X bytes,
   *             and
-  *             \c r is assumed to have length \c KERNEL_SIZEOF_R bytes.
+  *             \c r[ i ] is assumed to have length \c KERNEL_SIZEOF_R bytes.
   */
 
 kernel_fec_t kernel() {

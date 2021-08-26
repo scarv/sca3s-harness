@@ -14,8 +14,8 @@
 
 typedef uint8_t  kernel_fec_t;
 
-#define KERNEL_FEC_FAILURE ( 0 )
-#define KERNEL_FEC_SUCCESS ( 1 )
+#define KERNEL_FEC_FAILURE 0
+#define KERNEL_FEC_SUCCESS 1
 
 typedef uint64_t kernel_fcc_t;
 
