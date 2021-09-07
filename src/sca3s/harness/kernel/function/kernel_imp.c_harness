@@ -18,7 +18,7 @@
 #define __KERNEL_MODEOF   "default"
 #endif
 
-#define __KERNEL_ID       VERSION ":" KERNEL ":" __KERNEL_NAMEOF "/" __KERNEL_MODEOF
+#define __KERNEL_ID       VERSION ":" KERNEL ":" __KERNEL_NAMEOF ":" __KERNEL_MODEOF
 
 #define __KERNEL_NAMEOF_X(i) "x" # i
 #define __KERNEL_SIZEOF_X(i) KERNEL_SIZEOF_X
@@ -182,11 +182,7 @@ uint8_t n_r[ KERNEL_ELEMOF_R ] = {};
 
 /** @brief      Generate a kernel identifier string.
   *
-  * @param[out] x a (pointer to a) buffer into which the identifier string is copied
-  *
-  * @note       By convention, the identifier string constitutes a sequence 
-  *             of colon-separated fields; to allow the string to be parsed, 
-  *             the first two fields must be \c VERSION and \c KERNEL.
+  * @param[out] \c x a (pointer to a) buffer into which the identifier string is copied.
   */
 
 void kernel_id( char* x ) {
