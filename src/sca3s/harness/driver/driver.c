@@ -316,11 +316,23 @@ DRIVER_COMMAND(driver_kernel_data_rd ) {
   */
 
 DRIVER_COMMAND(driver_kernel_prologue) {
-  if( n == 0 ) {
+  int m = 0;
+
+  if     ( n == 0 ) {
+    m =     (      1   );
+  }
+  else if( n == 1 ) {
+    m = atoi( req[ 0 ] );
+  }
+  else {
+    return false;
+  }
+
+  for( int i = 0; i < m; i++ ) {
     DRIVER_EXECUTE( false, kernel_func_spec.kernel_prologue() );
   }
 
-  return false;
+  return true;
 }
 
 // ----------------------------------------------------------------------------
@@ -337,11 +349,23 @@ DRIVER_COMMAND(driver_kernel_prologue) {
   */
 
 DRIVER_COMMAND(driver_kernel         ) {
-  if( n == 0 ) {
+  int m = 0;
+
+  if     ( n == 0 ) {
+    m =     (      1   );
+  }
+  else if( n == 1 ) {
+    m = atoi( req[ 0 ] );
+  }
+  else {
+    return false;
+  }
+
+  for( int i = 0; i < m; i++ ) {
     DRIVER_EXECUTE(  true, kernel_func_spec.kernel()          );
   }
 
-  return false;
+  return true;
 }
 
 // ----------------------------------------------------------------------------
@@ -358,11 +382,23 @@ DRIVER_COMMAND(driver_kernel         ) {
   */
 
 DRIVER_COMMAND(driver_kernel_epilogue) {
-  if( n == 0 ) {
+  int m = 0;
+
+  if     ( n == 0 ) {
+    m =     (      1   );
+  }
+  else if( n == 1 ) {
+    m = atoi( req[ 0 ] );
+  }
+  else {
+    return false;
+  }
+
+  for( int i = 0; i < m; i++ ) {
     DRIVER_EXECUTE( false, kernel_func_spec.kernel_epilogue() );
   }
 
-  return false;
+  return true;
 }
 
 // ----------------------------------------------------------------------------
@@ -381,11 +417,23 @@ DRIVER_COMMAND(driver_kernel_epilogue) {
   */
 
 DRIVER_COMMAND(driver_kernel_nop     ) {
-  if( n == 0 ) {
+  int m = 0;
+
+  if     ( n == 0 ) {
+    m =     (      1   );
+  }
+  else if( n == 1 ) {
+    m = atoi( req[ 0 ] );
+  }
+  else {
+    return false;
+  }
+
+  for( int i = 0; i < m; i++ ) {
     DRIVER_EXECUTE( false, kernel_func_spec.kernel_nop()      );
   }
 
-  return false;
+  return true;
 }
 
 // ============================================================================
