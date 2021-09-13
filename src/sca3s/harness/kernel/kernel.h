@@ -42,7 +42,7 @@ typedef struct {
   kernel_fec_t (*kernel         )();
   kernel_fec_t (*kernel_epilogue)();
 
-  kernel_fec_t (*kernel_nop     )();
+  kernel_fec_t (*nop            )();
 } kernel_func_spec_t;
 
 extern kernel_data_spec_t kernel_data_spec[];

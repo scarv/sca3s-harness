@@ -404,7 +404,7 @@ DRIVER_COMMAND(driver_kernel_epilogue) {
 // ----------------------------------------------------------------------------
 
 /** @brief      Service a request of the form
-  *             \verbatim !kernel_nop      \endverbatim
+  *             \verbatim !nop             \endverbatim
   *             i.e., execute a NOP (or empty, null) operation: this supports
   *             more accurate use of the time-stamp counter, in the sense any 
   *             fixed overhead can be corrected for.
@@ -416,7 +416,7 @@ DRIVER_COMMAND(driver_kernel_epilogue) {
   * @return     a flag indicating failure (\c false) or success (\c true).
   */
 
-DRIVER_COMMAND(driver_kernel_nop     ) {
+DRIVER_COMMAND(driver_nop            ) {
   int m = 0;
 
   if     ( n == 0 ) {
@@ -430,7 +430,7 @@ DRIVER_COMMAND(driver_kernel_nop     ) {
   }
 
   for( int i = 0; i < m; i++ ) {
-    DRIVER_EXECUTE( false, kernel_func_spec.kernel_nop()      );
+    DRIVER_EXECUTE( false, kernel_func_spec.nop()             );
   }
 
   return true;
@@ -586,8 +586,8 @@ int main( int argc, char* argv[] ) {
       else if( 0 == strcmp( cp[ 0 ], "!kernel_epilogue" ) ) {
         f = driver_kernel_epilogue;
       }
-      else if( 0 == strcmp( cp[ 0 ], "!kernel_nop"      ) ) {
-        f = driver_kernel_nop;
+      else if( 0 == strcmp( cp[ 0 ], "!nop"             ) ) {
+        f = driver_nop;
       }
 
       if( f != NULL ) {

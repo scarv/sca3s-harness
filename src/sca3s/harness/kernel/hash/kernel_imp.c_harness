@@ -130,7 +130,7 @@ void kernel_id( char* x ) {
   *             this is captured in \c fec, the function exit code register.
   */
 
-kernel_fec_t kernel_nop() {
+kernel_fec_t nop() {
   return KERNEL_FEC_SUCCESS;
 }
 
