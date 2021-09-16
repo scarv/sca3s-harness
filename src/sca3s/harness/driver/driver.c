@@ -53,25 +53,27 @@ kernel_fcc_t* driver_fcc = NULL;
   *             \c kernel_data_spec.
   */
 
-DRIVER_COMMAND(driver_data_typeof    ) {
-  if( n == 1 ) {
-    for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
-      if( 0 == strcmp( spec->id, req[ 0 ] ) ) {
-        if( spec->type & KERNEL_DATA_TYPE_I ) {
-          strcat( ack, ">" );
-        }
-        if( spec->type & KERNEL_DATA_TYPE_O ) {
-          strcat( ack, "<" );
-        }
-        if( spec->type & KERNEL_DATA_TYPE_V ) {
-          strcat( ack, "#" );
-        }
-        if( spec->type & KERNEL_DATA_TYPE_S ) {
-          strcat( ack, "$" );
-        }
+DRIVER_COMMAND(driver_data_typeof   ) {
+  if( n != 1 ) {
+    return false;
+  }
 
-        return true;
+  for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
+    if( 0 == strcmp( spec->id, req[ 0 ] ) ) {
+      if( spec->type & KERNEL_DATA_TYPE_I ) {
+        strcat( ack, ">" );
       }
+      if( spec->type & KERNEL_DATA_TYPE_O ) {
+        strcat( ack, "<" );
+      }
+      if( spec->type & KERNEL_DATA_TYPE_V ) {
+        strcat( ack, "#" );
+      }
+      if( spec->type & KERNEL_DATA_TYPE_S ) {
+        strcat( ack, "$" );
+      }
+
+      return true;
     }
   }
 
@@ -94,14 +96,16 @@ DRIVER_COMMAND(driver_data_typeof    ) {
   *             \c kernel_data_spec.
   */
 
-DRIVER_COMMAND(driver_data_sizeof    ) {
-  if( n == 1 ) {
-    for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
-      if( 0 == strcmp( spec->id, req[ 0 ] ) ) {
-        uint8_t t =                                                         ( spec->size );
+DRIVER_COMMAND(driver_data_sizeof   ) {
+  if( n != 1 ) {
+    return false;
+  }
 
-        return bytestostr( ack, ( uint8_t* )( &t ), SIZEOF( t ) ) == SIZEOF( t );
-      }
+  for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
+    if( 0 == strcmp( spec->id, req[ 0 ] ) ) {
+      uint8_t t =                                                         ( spec->size );
+
+      return bytestostr( ack, ( uint8_t* )( &t ), SIZEOF( t ) ) == SIZEOF( t );
     }
   }
 
@@ -124,14 +128,16 @@ DRIVER_COMMAND(driver_data_sizeof    ) {
   *             \c kernel_data_spec.
   */
 
-DRIVER_COMMAND(driver_data_usedof    ) {
-  if( n == 1 ) {
-    for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
-      if( 0 == strcmp( spec->id, req[ 0 ] ) ) {
-        uint8_t t = ( spec->type & KERNEL_DATA_TYPE_V ) ? ( *spec->used ) : ( spec->size );
+DRIVER_COMMAND(driver_data_usedof   ) {
+  if( n != 1 ) {
+    return false;
+  }
 
-        return bytestostr( ack, ( uint8_t* )( &t ), SIZEOF( t ) ) == SIZEOF( t );
-      }
+  for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
+    if( 0 == strcmp( spec->id, req[ 0 ] ) ) {
+      uint8_t t = ( spec->type & KERNEL_DATA_TYPE_V ) ? ( *spec->used ) : ( spec->size );
+
+      return bytestostr( ack, ( uint8_t* )( &t ), SIZEOF( t ) ) == SIZEOF( t );
     }
   }
 
@@ -154,26 +160,28 @@ DRIVER_COMMAND(driver_data_usedof    ) {
   *             \c kernel_data_spec.
   */
 
-DRIVER_COMMAND(driver_data_wr        ) {
-  if( n == 2 ) {
-    for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
-      if( 0 == strcmp( spec->id, req[ 0 ] ) ) {
-        int t = strtobytes( spec->data,  spec->size, req[ 1 ] );
+DRIVER_COMMAND(driver_data_wr       ) {
+  if( n != 2 ) {
+    return false;
+  }
 
-        if( ( t >= 0 ) && ( t <= spec->size ) ) {
-          if( spec->type & KERNEL_DATA_TYPE_V ) {
-            *spec->used = t;
-          }
+  for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
+    if( 0 == strcmp( spec->id, req[ 0 ] ) ) {
+      int t = strtobytes( spec->data,  spec->size, req[ 1 ] );
 
-          return  true;
+      if( ( t >= 0 ) && ( t <= spec->size ) ) {
+        if( spec->type & KERNEL_DATA_TYPE_V ) {
+          *spec->used = t;
         }
-        else {
-          if( spec->type & KERNEL_DATA_TYPE_V ) {
-            *spec->used = 0;
-          }
 
-          return false;
+        return  true;
+      }
+      else {
+        if( spec->type & KERNEL_DATA_TYPE_V ) {
+          *spec->used = 0;
         }
+
+        return false;
       }
     }
   }
@@ -197,25 +205,27 @@ DRIVER_COMMAND(driver_data_wr        ) {
   *             \c kernel_data_spec.
   */
 
-DRIVER_COMMAND(driver_data_rd        ) {
-  if( n == 1 ) {
-    for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
-      if( 0 == strcmp( spec->id, req[ 0 ] ) ) {
-        int t = 0;
+DRIVER_COMMAND(driver_data_rd       ) {
+  if( n != 1 ) {
+    return false;
+  }
 
-        if( spec->type & KERNEL_DATA_TYPE_V ) {
-          t = bytestostr( ack, spec->data, *spec->used );
-        }
-        else {
-          t = bytestostr( ack, spec->data,  spec->size );
-        }
+  for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
+    if( 0 == strcmp( spec->id, req[ 0 ] ) ) {
+      int t = 0;
 
-        if( ( t >= 0 ) && ( t <= spec->size ) ) {
-          return  true;
-        }
-        else {
-          return false;
-        }
+      if( spec->type & KERNEL_DATA_TYPE_V ) {
+        t = bytestostr( ack, spec->data, *spec->used );
+      }
+      else {
+        t = bytestostr( ack, spec->data,  spec->size );
+      }
+
+      if( ( t >= 0 ) && ( t <= spec->size ) ) {
+        return  true;
+      }
+      else {
+        return false;
       }
     }
   }
@@ -236,12 +246,14 @@ DRIVER_COMMAND(driver_data_rd        ) {
   * @return     a flag indicating failure (\c false) or success (\c true).
   */
 
-DRIVER_COMMAND(driver_kernel_id      ) {
-  if( n == 0 ) {
-    kernel_func_spec.kernel_id( ack ); return true;
+DRIVER_COMMAND(driver_kernel_id     ) {
+  if( n != 0 ) {
+    return false;
   }
 
-  return false;
+  kernel_func_spec.kernel_id( ack );
+
+  return true;
 }
 
 // ----------------------------------------------------------------------------
@@ -257,20 +269,20 @@ DRIVER_COMMAND(driver_kernel_id      ) {
   * @return     a flag indicating failure (\c false) or success (\c true).
   */
 
-DRIVER_COMMAND(driver_kernel_data_wr ) {
-  if( n == 0 ) {
-    bool f = false;
-
-    for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
-      if( spec->type & KERNEL_DATA_TYPE_I ) {
-        if( f ) { strcat( ack, "," ); } strcat( ack, spec->id ); f = true;
-      }
-    }
-
-    return true;
+DRIVER_COMMAND(driver_kernel_data_wr) {
+  if( n != 0 ) {
+    return false;
   }
 
-  return false;
+  bool f = false;
+
+  for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
+    if( spec->type & KERNEL_DATA_TYPE_I ) {
+      if( f ) { strcat( ack, "," ); } strcat( ack, spec->id ); f = true;
+    }
+  }
+
+  return true;
 }
 
 // ----------------------------------------------------------------------------
@@ -286,50 +298,17 @@ DRIVER_COMMAND(driver_kernel_data_wr ) {
   * @return     a flag indicating failure (\c false) or success (\c true).
   */
 
-DRIVER_COMMAND(driver_kernel_data_rd ) {
-  if( n == 0 ) {
-    bool f = false;
-
-    for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
-      if( spec->type & KERNEL_DATA_TYPE_O ) {
-        if( f ) { strcat( ack, "," ); } strcat( ack, spec->id ); f = true;
-      }
-    }
-
-    return true;
-  }
-
-  return false;
-}
-
-// ----------------------------------------------------------------------------
-
-/** @brief      Service a request of the form
-  *             \verbatim !kernel_prologue \endverbatim
-  *             i.e., execute the kernel prologue.
-  *
-  * @param[out] \c ack the acknowledgement string.
-  * @param[in]  \c req an array of strings capturing arguments of the request.
-  * @param[in]  \c   n the length of the argument array \c req.
-  *
-  * @return     a flag indicating failure (\c false) or success (\c true).
-  */
-
-DRIVER_COMMAND(driver_kernel_prologue) {
-  int m = 0;
-
-  if     ( n == 0 ) {
-    m =     (      1   );
-  }
-  else if( n == 1 ) {
-    m = atoi( req[ 0 ] );
-  }
-  else {
+DRIVER_COMMAND(driver_kernel_data_rd) {
+  if( n != 0 ) {
     return false;
   }
 
-  for( int i = 0; i < m; i++ ) {
-    DRIVER_EXECUTE( false, kernel_func_spec.kernel_prologue() );
+  bool f = false;
+
+  for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
+    if( spec->type & KERNEL_DATA_TYPE_O ) {
+      if( f ) { strcat( ack, "," ); } strcat( ack, spec->id ); f = true;
+    }
   }
 
   return true;
@@ -348,7 +327,7 @@ DRIVER_COMMAND(driver_kernel_prologue) {
   * @return     a flag indicating failure (\c false) or success (\c true).
   */
 
-DRIVER_COMMAND(driver_kernel         ) {
+DRIVER_COMMAND(driver_kernel        ) {
   int m = 0;
 
   if     ( n == 0 ) {
@@ -362,40 +341,9 @@ DRIVER_COMMAND(driver_kernel         ) {
   }
 
   for( int i = 0; i < m; i++ ) {
-    DRIVER_EXECUTE(  true, kernel_func_spec.kernel()          );
-  }
-
-  return true;
-}
-
-// ----------------------------------------------------------------------------
-
-/** @brief      Service a request of the form
-  *             \verbatim !kernel_epilogue \endverbatim
-  *             i.e., execute the kernel epilogue.
-  *
-  * @param[out] \c ack the acknowledgement string.
-  * @param[in]  \c req an array of strings capturing arguments of the request.
-  * @param[in]  \c   n the length of the argument array \c req.
-  *
-  * @return     a flag indicating failure (\c false) or success (\c true).
-  */
-
-DRIVER_COMMAND(driver_kernel_epilogue) {
-  int m = 0;
-
-  if     ( n == 0 ) {
-    m =     (      1   );
-  }
-  else if( n == 1 ) {
-    m = atoi( req[ 0 ] );
-  }
-  else {
-    return false;
-  }
-
-  for( int i = 0; i < m; i++ ) {
-    DRIVER_EXECUTE( false, kernel_func_spec.kernel_epilogue() );
+                  ( kernel_func_spec.kernel_prologue() );
+    DRIVER_EXECUTE( kernel_func_spec.kernel()          );
+                  ( kernel_func_spec.kernel_epilogue() );
   }
 
   return true;
@@ -405,9 +353,9 @@ DRIVER_COMMAND(driver_kernel_epilogue) {
 
 /** @brief      Service a request of the form
   *             \verbatim !nop             \endverbatim
-  *             i.e., execute a NOP (or empty, null) operation: this supports
-  *             more accurate use of the time-stamp counter, in the sense any 
-  *             fixed overhead can be corrected for.
+  *             i.e., execute a NOP (or empty, null) operation:
+  *             a example use-case for this would be to correct for fixed
+  *             overheads wrt. the function cycle count register.
   *
   * @param[out] \c ack the acknowledgement string.
   * @param[in]  \c req an array of strings capturing arguments of the request.
@@ -416,7 +364,7 @@ DRIVER_COMMAND(driver_kernel_epilogue) {
   * @return     a flag indicating failure (\c false) or success (\c true).
   */
 
-DRIVER_COMMAND(driver_nop            ) {
+DRIVER_COMMAND(driver_nop           ) {
   int m = 0;
 
   if     ( n == 0 ) {
@@ -430,7 +378,7 @@ DRIVER_COMMAND(driver_nop            ) {
   }
 
   for( int i = 0; i < m; i++ ) {
-    DRIVER_EXECUTE( false, kernel_func_spec.nop()             );
+    DRIVER_EXECUTE( kernel_func_spec.nop()             );
   }
 
   return true;
@@ -553,40 +501,34 @@ int main( int argc, char* argv[] ) {
     if( cn > 0 ) {
       driver_command_t f = NULL;
 
-      if     ( 0 == strcmp( cp[ 0 ], "?data"            ) ) {
+      if     ( 0 == strcmp( cp[ 0 ], "?data"   ) ) {
         f = driver_data_typeof;
       }
-      else if( 0 == strcmp( cp[ 0 ], "|data"            ) ) {
+      else if( 0 == strcmp( cp[ 0 ], "|data"   ) ) {
         f = driver_data_sizeof;
       }
-      else if( 0 == strcmp( cp[ 0 ], "#data"            ) ) {
+      else if( 0 == strcmp( cp[ 0 ], "#data"   ) ) {
         f = driver_data_usedof;
       }
-      else if( 0 == strcmp( cp[ 0 ], ">data"            ) ) {
+      else if( 0 == strcmp( cp[ 0 ], ">data"   ) ) {
         f = driver_data_wr;
       }
-      else if( 0 == strcmp( cp[ 0 ], "<data"            ) ) {
+      else if( 0 == strcmp( cp[ 0 ], "<data"   ) ) {
         f = driver_data_rd;
       }
-      else if( 0 == strcmp( cp[ 0 ], "?kernel"          ) ) {
+      else if( 0 == strcmp( cp[ 0 ], "?kernel" ) ) {
         f = driver_kernel_id;
       }
-      else if( 0 == strcmp( cp[ 0 ], ">kernel"          ) ) {
+      else if( 0 == strcmp( cp[ 0 ], ">kernel" ) ) {
         f = driver_kernel_data_wr;
       }
-      else if( 0 == strcmp( cp[ 0 ], "<kernel"          ) ) {
+      else if( 0 == strcmp( cp[ 0 ], "<kernel" ) ) {
         f = driver_kernel_data_rd;
       }
-      else if( 0 == strcmp( cp[ 0 ], "!kernel_prologue" ) ) {
-        f = driver_kernel_prologue;
-      }
-      else if( 0 == strcmp( cp[ 0 ], "!kernel"          ) ) {
+      else if( 0 == strcmp( cp[ 0 ], "!kernel" ) ) {
         f = driver_kernel;
       }
-      else if( 0 == strcmp( cp[ 0 ], "!kernel_epilogue" ) ) {
-        f = driver_kernel_epilogue;
-      }
-      else if( 0 == strcmp( cp[ 0 ], "!nop"             ) ) {
+      else if( 0 == strcmp( cp[ 0 ], "!nop"    ) ) {
         f = driver_nop;
       }
 

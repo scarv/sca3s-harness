@@ -27,14 +27,14 @@ endef
 # =============================================================================
 
 ${REPO_HOME}/build/${BOARD}/%.o : %.c %.h
-	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${CONF} -c -o ${@} ${<} 2>&1 | tee ${REPO_HOME}/build/${BOARD}/${*}.log
+	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} -c -o ${@} ${<} 2>&1 | tee ${REPO_HOME}/build/${BOARD}/${*}.log
 ${REPO_HOME}/build/${BOARD}/%.o : %.s
-	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${CONF} -c -o ${@} ${<} 2>&1 | tee ${REPO_HOME}/build/${BOARD}/${*}.log
+	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} -c -o ${@} ${<} 2>&1 | tee ${REPO_HOME}/build/${BOARD}/${*}.log
 ${REPO_HOME}/build/${BOARD}/%.o : %.S
-	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${CONF} -c -o ${@} ${<} 2>&1 | tee ${REPO_HOME}/build/${BOARD}/${*}.log
+	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} -c -o ${@} ${<} 2>&1 | tee ${REPO_HOME}/build/${BOARD}/${*}.log
 
 ${REPO_HOME}/build/${BOARD}/%.elf ${REPO_HOME}/build/${BOARD}/%.map : ${OBJECTS}
-	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${CONF} -Wl,-Map="${REPO_HOME}/build/${BOARD}/${*}.map" -o ${REPO_HOME}/build/${BOARD}/${*}.elf ${^} ${GCC_LIBS}
+	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} -Wl,-Map="${REPO_HOME}/build/${BOARD}/${*}.map" -o ${REPO_HOME}/build/${BOARD}/${*}.elf ${^} ${GCC_LIBS}
 ${REPO_HOME}/build/${BOARD}/%.bin                                   : ${REPO_HOME}/build/${BOARD}/%.elf
 	@${GCC_PREFIX}objcopy ${OBJCOPY_FLAGS} --output-target="binary" ${<} ${@}
 ${REPO_HOME}/build/${BOARD}/%.hex                                   : ${REPO_HOME}/build/${BOARD}/%.elf

@@ -180,7 +180,7 @@ kernel_func_spec_t kernel_func_spec   = {
   .kernel          = kernel,
   .kernel_epilogue = kernel_epilogue,
 
-  .kernel_nop      = kernel_nop
+  .nop             = nop
 };
 
 // ----------------------------------------------------------------------------

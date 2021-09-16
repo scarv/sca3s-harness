@@ -15,19 +15,34 @@ endif
 
 # Set defaults for various required environment variables.
 
-export CONTEXT ?= docker
+export CONTEXT     ?= docker
 
-export BOARD   ?= giles
-export KERNEL  ?= block
-export CONF    ?=
+export BOARD       ?= giles
+export KERNEL      ?= block
+export CONF        ?=
 
-export DEPS    ?= ${REPO_HOME}/build/${BOARD}/deps
+export DEPS        ?= ${REPO_HOME}/build/${BOARD}/deps
+
+export COUNT_MAJOR ?= 1
+export COUNT_MINOR ?= 1
 
 # Include the Docker configuration: we need to specifically do this here, as
 # it supports a) the Docker build context outright, plus b) any Docker-based
 # targets within the native build context.
 
 include ${REPO_HOME}/src/sca3s/harness/board/${BOARD}/conf.mk_docker
+
+DOCKER_FLAGS += --env  DOCKER_GID="$(shell id --group)" 
+DOCKER_FLAGS += --env  DOCKER_UID="$(shell id --user)" 
+
+DOCKER_FLAGS += --env     CONTEXT="native" 
+
+DOCKER_FLAGS += --env       BOARD="${BOARD}" 
+DOCKER_FLAGS += --env      KERNEL="${KERNEL}" 
+DOCKER_FLAGS += --env        CONF="${CONF}" 
+
+DOCKER_FLAGS += --env COUNT_MAJOR="${COUNT_MAJOR}" 
+DOCKER_FLAGS += --env COUNT_MINOR="${COUNT_MINOR}"
 
 # =============================================================================
 
@@ -46,7 +61,7 @@ include ${REPO_HOME}/src/sca3s/harness/board/${BOARD}/conf.mk_docker
 
 ifeq "${CONTEXT}" "docker"
 %          :
-	@docker run --rm --volume "${REPO_HOME}:/mnt/scarv/sca3s/harness" --env DOCKER_GID="$(shell id --group)" --env DOCKER_UID="$(shell id --user)" --env CONTEXT="native" --env BOARD="${BOARD}" --env KERNEL="${KERNEL}" --env CONF="${CONF}" ${DOCKER_FLAGS} ${DOCKER_REPO}:${DOCKER_TAG} ${*}
+	@docker run --rm --volume "${REPO_HOME}:/mnt/scarv/sca3s/harness" ${DOCKER_FLAGS} ${DOCKER_REPO}:${DOCKER_TAG} ${*}
 endif
 
 # -----------------------------------------------------------------------------

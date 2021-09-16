@@ -16,24 +16,16 @@
 
 typedef bool (*driver_command_t)( char* ack, char* req[], int n );
 
-#define DRIVER_COMMAND(  f) bool f( char* ack, char* req[], int n )
+#define DRIVER_COMMAND(f) bool f( char* ack, char* req[], int n )
 
-#define DRIVER_EXECUTE(x,f) {                                     \
-  if( x ) {                                                       \
-    board_trigger_wr(  true );                                    \
-  }                                                               \
-                                                                  \
+#define DRIVER_EXECUTE(f) {                                       \
+  board_trigger_wr(  true );                                      \
   board_cycle_t board_cycle_x = board_cycle_rd();                 \
   *driver_fec = f;                                                \
   board_cycle_t board_cycle_y = board_cycle_rd();                 \
-                                                                  \
-  if( x ) {                                                       \
-    board_trigger_wr( false );                                    \
-  }                                                               \
+  board_trigger_wr( false );                                      \
                                                                   \
   *driver_fcc = board_cycle_diff( board_cycle_x, board_cycle_y ); \
-                                                                  \
-  return true;                                                    \
 }
 
 // ============================================================================

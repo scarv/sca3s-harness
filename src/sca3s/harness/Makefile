@@ -41,7 +41,7 @@ INCLUDES       +=            ${REPO_HOME}/src/sca3s/harness/driver
 include ${REPO_HOME}/src/sca3s/harness/board/${BOARD}/conf.mk_deps
 
     GCC_PATHS  +=
-    GCC_FLAGS  += -DBOARD='"${BOARD}"' -DKERNEL='"${KERNEL}"'
+    GCC_FLAGS  += -DBOARD='"${BOARD}"' -DKERNEL='"${KERNEL}"' -DCOUNT='"${COUNT}"' ${CONF}
     GCC_LIBS   +=
 
  OBJECTS       += $(addprefix ${REPO_HOME}/build/${BOARD}/, $(notdir $(patsubst %.c, %.o, $(filter %.c, ${SOURCES}))))
