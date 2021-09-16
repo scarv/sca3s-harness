@@ -15,6 +15,7 @@ INCLUDES       += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f4/Le
  SOURCES       += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f4/stm32f4_startup.S
  SOURCES       += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f4/stm32f4_hal.c 
  SOURCES       += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f4/stm32f4_hal_lowlevel.c 
+ SOURCES       += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f4/stm32f4xx_hal_rng.c 
 
 # -----------------------------------------------------------------------------
 
