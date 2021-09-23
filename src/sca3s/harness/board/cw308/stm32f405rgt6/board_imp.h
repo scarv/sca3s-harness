@@ -8,11 +8,8 @@
 #ifndef __BOARD_IMP_H
 #define __BOARD_IMP_H
 
-#include <stdint.h>
-#include <stdbool.h>
+#include "board.h"
 
-#include "stm32f4_hal.h"
-
-#include <board.h>
+#include "hal.h"
 
 #endif

@@ -16,6 +16,7 @@ RUN apt-get --assume-yes --quiet install g++ cmake libboost-all-dev
 
 RUN git clone https://github.com/sca-research/GILES.git ./GILES \
  && cd ./GILES \
+ && git checkout a2d541bedd4b52dc87595e5b8f9ccf7df51beaa8 \
  && git submodule update --init --recursive \
  && cmake . && cmake --build . && cmake --install . --prefix ${DEPS}/giles \
  && cd .. \

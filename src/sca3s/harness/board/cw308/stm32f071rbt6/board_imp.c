@@ -9,8 +9,6 @@
 
 // ============================================================================
 
-extern void platform_init();
-
 bool     board_init() {
   platform_init(); init_uart(); trigger_setup();
 

@@ -21,6 +21,7 @@ INCLUDES       += ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f4/Le
 
 deps-fetch :
 	@git clone https://github.com/newaetech/chipwhisperer.git ${DEPS}/chipwhisperer
+	@git -C ${DEPS}/chipwhisperer checkout 123e2fe44e91f969d22ac99c20626755bb423bf0
 
 deps-patch :
 

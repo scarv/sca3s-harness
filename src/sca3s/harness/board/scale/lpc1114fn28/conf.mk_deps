@@ -12,6 +12,7 @@
 
 deps-fetch :
 	@git clone https://github.com/danpage/scale-hw.git ${DEPS}/scale-hw
+	@git -C ${DEPS}/scale-hw checkout b6420f879dbe1ede61a5258388c06d6784d658c9 
 
 deps-patch :
 

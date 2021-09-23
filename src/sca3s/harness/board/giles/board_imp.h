@@ -8,11 +8,8 @@
 #ifndef __BOARD_IMP_H
 #define __BOARD_IMP_H
 
-#include <stdbool.h>
-#include <stdint.h>
+#include "board.h"
 
-#include <bsp.h>
-
-#include <board.h>
+#include "bsp.h"
 
 #endif

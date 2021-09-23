@@ -8,6 +8,10 @@
 #ifndef __BOARD_H
 #define __BOARD_H
 
+#include <stdint.h>
+#include <stdbool.h>
+#include <stdio.h>
+
 #include "util.h"
 
 // ============================================================================

@@ -8,6 +8,7 @@
 
 deps-fetch :
 	@git clone https://github.com/scarv/scarv-soc.git ${DEPS}/scarv-soc
+	@git -C ${DEPS}/scarv-soc checkout 6e1e8bae59a9b9dfa5aa0ef77568a20a99540e8f
 
 deps-patch :
 	@sed --in-place ${DEPS}/scarv-soc/Makefile --expression="s|riscv64|riscv32|g"

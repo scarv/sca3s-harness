@@ -8,11 +8,13 @@
 
     GCC_PREFIX  = arm-none-eabi-
 
+    GCC_PATHS  += -I ${DEPS}/chipwhisperer/hardware/victims/firmware/hal
     GCC_PATHS  += -I ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0
+    GCC_PATHS  += -L ${DEPS}/chipwhisperer/hardware/victims/firmware/hal
     GCC_PATHS  += -L ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0
-    GCC_FLAGS  += -mcpu="cortex-m0" -mthumb -mfloat-abi="soft" 
-    GCC_FLAGS  += -funsigned-char -funsigned-bitfields -fshort-enums -ffunction-sections -Wall -std="gnu99" -Os
-    GCC_FLAGS  += -DSTM32 -DSTM32F0 -DSTM32F071xB -DSTM32F071RBTX -DF_CPU="7372800UL"
+    GCC_FLAGS  += -mcpu="cortex-m0" -mthumb -mfloat-abi="soft"
+    GCC_FLAGS  += -funsigned-char -funsigned-bitfields -fshort-enums -ffunction-sections -Wall -std="gnu99" -Os 
+    GCC_FLAGS  += -DSTM32 -DSTM32F0 -DSTM32F071xB -DSTM32F071RBTX -DPLATFORM="CW308_STM32F0" -DF_CPU="7372800UL" -DHAL_TYPE="HAL_stm32f0" -DSS_VER="1"
     GCC_FLAGS  += -T ${DEPS}/chipwhisperer/hardware/victims/firmware/hal/stm32f0/LinkerScript.ld --specs="nano.specs" --specs="nosys.specs" 
     GCC_LIBS   += -lm 
 
