@@ -13,36 +13,36 @@ endif
 
 # =============================================================================
 
-# Set defaults for various required environment variables.
+export CONTEXT           ?= docker
 
-export CONTEXT     ?= docker
+export BOARD             ?= giles
+export KERNEL            ?= block
+export CONF              ?=
 
-export BOARD       ?= giles
-export KERNEL      ?= block
-export CONF        ?=
+export DEPS              ?= ${REPO_HOME}/build/${BOARD}/deps
 
-export DEPS        ?= ${REPO_HOME}/build/${BOARD}/deps
+# -----------------------------------------------------------------------------
 
-export COUNT_MAJOR ?= 1
-export COUNT_MINOR ?= 1
+export TRACE_COUNT_MAJOR ?= 1
+export TRACE_COUNT_MINOR ?= 1
 
-# Include the Docker configuration: we need to specifically do this here, as
-# it supports a) the Docker build context outright, plus b) any Docker-based
-# targets within the native build context.
+# -----------------------------------------------------------------------------
 
-include ${REPO_HOME}/src/sca3s/harness/board/${BOARD}/conf.mk_docker
+export DOCKER_REPO       ?= scarv/sca3s-harness.$(subst /,-,${BOARD})
+export DOCKER_TAG        ?= ${REPO_VERSION}
+export DOCKER_FLAGS      ?= 
 
-DOCKER_FLAGS += --env  DOCKER_GID="$(shell id --group)" 
-DOCKER_FLAGS += --env  DOCKER_UID="$(shell id --user)" 
+export DOCKER_FLAGS      += --env        DOCKER_GID="$(shell id --group)" 
+export DOCKER_FLAGS      += --env        DOCKER_UID="$(shell id --user)" 
 
-DOCKER_FLAGS += --env     CONTEXT="native" 
+export DOCKER_FLAGS      += --env           CONTEXT="native" 
 
-DOCKER_FLAGS += --env       BOARD="${BOARD}" 
-DOCKER_FLAGS += --env      KERNEL="${KERNEL}" 
-DOCKER_FLAGS += --env        CONF="${CONF}" 
+export DOCKER_FLAGS      += --env             BOARD="${BOARD}" 
+export DOCKER_FLAGS      += --env            KERNEL="${KERNEL}" 
+export DOCKER_FLAGS      += --env              CONF="${CONF}" 
 
-DOCKER_FLAGS += --env COUNT_MAJOR="${COUNT_MAJOR}" 
-DOCKER_FLAGS += --env COUNT_MINOR="${COUNT_MINOR}"
+export DOCKER_FLAGS      += --env TRACE_COUNT_MAJOR="${TRACE_COUNT_MAJOR}" 
+export DOCKER_FLAGS      += --env TRACE_COUNT_MINOR="${TRACE_COUNT_MINOR}"
 
 # =============================================================================
 

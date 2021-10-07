@@ -47,7 +47,10 @@ ${REPO_HOME}/build/${BOARD}/%.hex                                   : ${REPO_HOM
 
 report   : ${TARGETS}
 	@${GCC_PREFIX}readelf ${READELF_FLAGS} $(filter %.elf, ${^})
+
 io       : ${TARGETS}
 	@cat ${REPO_HOME}/build/${BOARD}/*.log | $(call parse) | sort | uniq > ${REPO_HOME}/build/${BOARD}/target.io
+
+simulate :
 
 # =============================================================================

@@ -20,7 +20,7 @@ OBJCOPY_FLAGS  += --gap-fill="0"
  TARGETS       += ${REPO_HOME}/build/${BOARD}/target.bin 
  TARGETS       += ${REPO_HOME}/build/${BOARD}/target.hex
 
-  TRACES        = $(foreach TRACE, $(shell seq 0 $$(( $${COUNT_MINOR} - 1 ))), ${REPO_HOME}/build/${BOARD}/target-$(shell printf '%08X' ${TRACE}).trs)
+  TRACES        = $(foreach TRACE, $(shell seq 0 $$(( $${TRACE_COUNT_MINOR} - 1 ))), ${REPO_HOME}/build/${BOARD}/target-$(shell printf '%08X' ${TRACE}).trs)
 
 define parse
   grep 'note:' | sed -e 's|.*note: \#pragma message: ||'
@@ -47,6 +47,7 @@ ${REPO_HOME}/build/${BOARD}/%.trs                                   : ${TARGETS}
 
 report   : ${TARGETS}
 	@${GCC_PREFIX}readelf ${READELF_FLAGS} $(filter %.elf, ${^})
+
 io       : ${TARGETS}
 	@cat ${REPO_HOME}/build/${BOARD}/*.log | $(call parse) | sort | uniq > ${REPO_HOME}/build/${BOARD}/target.io
 
