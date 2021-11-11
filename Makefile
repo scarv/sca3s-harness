@@ -13,7 +13,7 @@ endif
 
 # =============================================================================
 
-export CONTEXT           ?= docker
+export CONTEXT           ?= native
 
 export BOARD             ?= giles
 export KERNEL            ?= block
