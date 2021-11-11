@@ -74,9 +74,8 @@ ifeq "${CONTEXT}" "native"
 
 update   :
 	@-git remote add upstream https://github.com/scarv/sca3s-harness.git
-	@-git fetch --all
-	@-git merge --allow-unrelated-histories upstream/master
-	@-git push
+	@-git fetch --all --tags
+	@-git merge --allow-unrelated-histories upstream/sca3s
 
 doxygen  : ${REPO_HOME}/Doxyfile
 	@doxygen ${<}
