@@ -73,9 +73,7 @@ ifeq "${CONTEXT}" "native"
 	@make --directory="${REPO_HOME}/src/sca3s/harness" ${*}
 
 update   :
-	@-git remote add upstream https://github.com/scarv/sca3s-harness.git
-	@-git fetch --all --tags
-	@-git merge --allow-unrelated-histories upstream/sca3s
+	@git pull https://github.com/scarv/sca3s-harness.git sca3s
 
 doxygen  : ${REPO_HOME}/Doxyfile
 	@doxygen ${<}
