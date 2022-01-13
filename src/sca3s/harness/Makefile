@@ -34,6 +34,12 @@ INCLUDES       +=            ${REPO_HOME}/src/sca3s/harness/kernel/${KERNEL}
  HEADERS       += $(wildcard ${REPO_HOME}/src/sca3s/harness/kernel/*.h)
  HEADERS       += $(wildcard ${REPO_HOME}/src/sca3s/harness/kernel/${KERNEL}/*.h)
 
+INCLUDES       += $(addprefix ${REPO_HOME}/src/sca3s/harness/kernel/${KERNEL}/, $(sort $(dir $(filter %.h, $(shell cat ${REPO_HOME}/src/sca3s/harness/kernel/${KERNEL}/kernel_imp.manifest)))))
+ SOURCES       += $(addprefix ${REPO_HOME}/src/sca3s/harness/kernel/${KERNEL}/, $(sort       $(filter %.c, $(shell cat ${REPO_HOME}/src/sca3s/harness/kernel/${KERNEL}/kernel_imp.manifest)) ))
+ SOURCES       += $(addprefix ${REPO_HOME}/src/sca3s/harness/kernel/${KERNEL}/, $(sort       $(filter %.s, $(shell cat ${REPO_HOME}/src/sca3s/harness/kernel/${KERNEL}/kernel_imp.manifest)) ))
+ SOURCES       += $(addprefix ${REPO_HOME}/src/sca3s/harness/kernel/${KERNEL}/, $(sort       $(filter %.S, $(shell cat ${REPO_HOME}/src/sca3s/harness/kernel/${KERNEL}/kernel_imp.manifest)) ))
+ HEADERS       += $(addprefix ${REPO_HOME}/src/sca3s/harness/kernel/${KERNEL}/, $(sort       $(filter %.h, $(shell cat ${REPO_HOME}/src/sca3s/harness/kernel/${KERNEL}/kernel_imp.manifest)) ))
+
 INCLUDES       +=            ${REPO_HOME}/src/sca3s/harness/driver
  SOURCES       += $(wildcard ${REPO_HOME}/src/sca3s/harness/driver/*.c)
  HEADERS       += $(wildcard ${REPO_HOME}/src/sca3s/harness/driver/*.h)
