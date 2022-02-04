@@ -72,13 +72,15 @@ ifeq "${CONTEXT}" "native"
 %-harness  :
 	@make --directory="${REPO_HOME}/src/sca3s/harness" ${*}
 
-update   :
-	@git pull https://github.com/scarv/sca3s-harness.git sca3s
+update     :
+	@${REPO_HOME}/bin/update.sh --current
+update-all :
+	@${REPO_HOME}/bin/update.sh --all
 
-doxygen  : ${REPO_HOME}/Doxyfile
+doxygen    : ${REPO_HOME}/Doxyfile
 	@doxygen ${<}
 
-spotless :
+spotless   :
 	@rm --force --recursive ${REPO_HOME}/build/*
 endif
 
