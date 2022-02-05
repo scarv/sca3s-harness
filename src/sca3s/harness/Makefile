@@ -4,6 +4,13 @@
 # can be found at https://opensource.org/licenses/MIT (or should be included 
 # as LICENSE.txt within the associated archive or repository).
 
+ifndef REPO_HOME
+  $(error "execute 'source ./bin/conf.sh' to configure environment")
+endif
+ifndef REPO_VERSION
+  $(error "execute 'source ./bin/conf.sh' to configure environment")
+endif
+
 # =============================================================================
 
    EMPTY       :=
@@ -47,7 +54,7 @@ INCLUDES       +=            ${REPO_HOME}/src/sca3s/harness/driver
 include ${REPO_HOME}/src/sca3s/harness/board/${BOARD}/conf.mk_deps
 
     GCC_PATHS  +=
-    GCC_FLAGS  += -DBOARD='"${BOARD}"' -DKERNEL='"${KERNEL}"' ${CONF}
+    GCC_FLAGS  += -DVERSION="${REPO_VERSION}" -DBOARD='"${BOARD}"' -DKERNEL='"${KERNEL}"' ${CONF}
     GCC_LIBS   +=
 
  OBJECTS       += $(addprefix ${REPO_HOME}/build/${BOARD}/, $(notdir $(patsubst %.c, %.o, $(filter %.c, ${SOURCES}))))
