@@ -85,6 +85,6 @@ ${CLEAN_PATHS} :
 build : ${BUILD_PATHS} ${BUILD_FILES}
 
 clean :
-	@rm -rf ${REPO_HOME}/build/*
+	@rm --force --recursive ${REPO_HOME}/build/*
 
 # =============================================================================
