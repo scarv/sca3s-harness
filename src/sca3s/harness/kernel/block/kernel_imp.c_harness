@@ -24,7 +24,7 @@
 #define __KERNEL_MODEOF   "dec"
 #endif
 
-#define __KERNEL_ID       VERSION ":" KERNEL ":" __KERNEL_NAMEOF ":" __KERNEL_MODEOF
+#define __KERNEL_ID       STR(VERSION) ":" KERNEL ":" __KERNEL_NAMEOF ":" __KERNEL_MODEOF
 
 #if   ( KERNEL_MODEOF == KERNEL_MODEOF_DEFAULT   )
 #define __KERNEL_LISTOF_I "esr"     "," "k,m"

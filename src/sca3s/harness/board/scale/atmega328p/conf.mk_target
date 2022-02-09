@@ -24,7 +24,7 @@ endef
 
 # =============================================================================
 
-${REPO_HOME}/build/${BOARD}/%.o : %.c %.h
+${REPO_HOME}/build/${BOARD}/%.o : %.c
 	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${SCALE_CONF} -c -o ${@} ${<} 2>&1 | tee ${REPO_HOME}/build/${BOARD}/${*}.log
 ${REPO_HOME}/build/${BOARD}/%.o : %.s
 	@${GCC_PREFIX}gcc $(patsubst %, -I %, ${INCLUDES}) ${GCC_PATHS} ${GCC_FLAGS} ${SCALE_CONF} -c -o ${@} ${<} 2>&1 | tee ${REPO_HOME}/build/${BOARD}/${*}.log

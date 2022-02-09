@@ -17,12 +17,12 @@ while [[ ${#} -gt 0 ]] ; do
     -a|--all)
       for BRANCH in $(git -C ${REPO_HOME} branch --format '%(refname:short)') ; do
         git -C ${REPO_HOME} checkout ${BRANCH}
-        git -C ${REPO_HOME} pull https://github.com/scarv/sca3s-harness.git sca3s
+        git -C ${REPO_HOME} pull --allow-unrelated-histories https://github.com/scarv/sca3s-harness.git sca3s
       done
       shift
       ;;
     -c|--current)
-        git -C ${REPO_HOME} pull https://github.com/scarv/sca3s-harness.git sca3s
+        git -C ${REPO_HOME} pull --allow-unrelated-histories https://github.com/scarv/sca3s-harness.git sca3s
       shift
       ;;
   esac

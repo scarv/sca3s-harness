@@ -12,8 +12,9 @@
 #include  <stdint.h>
 #include  <stdlib.h>
 
-#include  <string.h>
 #include   <ctype.h>
+#include  <limits.h>
+#include  <string.h>
 
 // ============================================================================
 
@@ -22,12 +23,6 @@
 
 #define __STR(x)      #x
 #define   STR(x) __STR(x)
-
-#define VERSION_MAJOR 0
-#define VERSION_MINOR 1
-#define VERSION_PATCH 0
-
-#define VERSION       STR(VERSION_MAJOR) "." STR(VERSION_MINOR) "." STR(VERSION_PATCH)
 
 // ----------------------------------------------------------------------------
 

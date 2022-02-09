@@ -18,7 +18,7 @@
 #define __KERNEL_MODEOF   "default"
 #endif
 
-#define __KERNEL_ID       VERSION ":" KERNEL ":" __KERNEL_NAMEOF ":" __KERNEL_MODEOF
+#define __KERNEL_ID       STR(VERSION) ":" KERNEL ":" __KERNEL_NAMEOF ":" __KERNEL_MODEOF
 
 #define __KERNEL_NAMEOF_X(i) "x" # i
 #define __KERNEL_SIZEOF_X(i) KERNEL_SIZEOF_X
