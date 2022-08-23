@@ -89,32 +89,32 @@
 /** @brief      The register that contains the externally supplied randomness.
   */
 
-uint8_t esr[ KERNEL_SIZEOF_ESR ] = { KERNEL_INITOF_ESR };
+uint8_t      esr[ KERNEL_SIZEOF_ESR ] = { KERNEL_INITOF_ESR };
 
 /** @brief      The register that contains the function exit code.
   */
 
-kernel_fec_t fec = KERNEL_FEC_SUCCESS;
+kernel_fec_t fec                      = KERNEL_FEC_SUCCESS;
 
 /** @brief      The register that contains the function cycle count.
   */
 
-kernel_fcc_t fcc = 0;
+kernel_fcc_t fcc                      = 0;
 
 /** @brief      The register that contains the cipher key.
   */
 
-uint8_t   k[ KERNEL_SIZEOF_K   ] = { KERNEL_INITOF_K   };
+uint8_t        k[ KERNEL_SIZEOF_K   ] = { KERNEL_INITOF_K   };
 
 /** @brief      The register that contains the  plaintext data.
   */
 
-uint8_t   m[ KERNEL_SIZEOF_M   ] = { KERNEL_INITOF_M   };
+uint8_t        m[ KERNEL_SIZEOF_M   ] = { KERNEL_INITOF_M   };
 
 /** @brief      The register that contains the ciphertext data.
   */
 
-uint8_t   c[ KERNEL_SIZEOF_C   ] = { KERNEL_INITOF_C   };
+uint8_t        c[ KERNEL_SIZEOF_C   ] = { KERNEL_INITOF_C   };
 
 // ----------------------------------------------------------------------------
 
@@ -157,15 +157,15 @@ kernel_fec_t kernel_epilogue();
   */
 
 kernel_data_spec_t kernel_data_spec[] = {
-  { .id = "esr", .data = ( uint8_t* )(  esr ), .size = KERNEL_SIZEOF_ESR, .used = ( uint8_t* )( NULL ), .type =   KERNEL_DATA_TYPE_I },
-  { .id = "fec", .data = ( uint8_t* )( &fec ), .size =        SIZEOF_FEC, .used = ( uint8_t* )( NULL ), .type =   KERNEL_DATA_TYPE_O },
-  { .id = "fcc", .data = ( uint8_t* )( &fcc ), .size =        SIZEOF_FCC, .used = ( uint8_t* )( NULL ), .type =   KERNEL_DATA_TYPE_O },
+  { .id = "esr", .data = ( uint8_t* )(  esr ), .size = KERNEL_SIZEOF_ESR, .used = ( len_t* )( NULL ), .type =   KERNEL_DATA_TYPE_I },
+  { .id = "fec", .data = ( uint8_t* )( &fec ), .size =        SIZEOF_FEC, .used = ( len_t* )( NULL ), .type =   KERNEL_DATA_TYPE_O },
+  { .id = "fcc", .data = ( uint8_t* )( &fcc ), .size =        SIZEOF_FCC, .used = ( len_t* )( NULL ), .type =   KERNEL_DATA_TYPE_O },
 
-  { .id =   "k", .data = ( uint8_t* )(    k ), .size = KERNEL_SIZEOF_K,   .used = ( uint8_t* )( NULL ), .type = __KERNEL_TYPEOF_K    },
-  { .id =   "m", .data = ( uint8_t* )(    m ), .size = KERNEL_SIZEOF_M,   .used = ( uint8_t* )( NULL ), .type = __KERNEL_TYPEOF_M    },
-  { .id =   "c", .data = ( uint8_t* )(    c ), .size = KERNEL_SIZEOF_C,   .used = ( uint8_t* )( NULL ), .type = __KERNEL_TYPEOF_C    },
+  { .id =   "k", .data = ( uint8_t* )(    k ), .size = KERNEL_SIZEOF_K,   .used = ( len_t* )( NULL ), .type = __KERNEL_TYPEOF_K    },
+  { .id =   "m", .data = ( uint8_t* )(    m ), .size = KERNEL_SIZEOF_M,   .used = ( len_t* )( NULL ), .type = __KERNEL_TYPEOF_M    },
+  { .id =   "c", .data = ( uint8_t* )(    c ), .size = KERNEL_SIZEOF_C,   .used = ( len_t* )( NULL ), .type = __KERNEL_TYPEOF_C    },
 
-  { .id =  NULL, .data = ( uint8_t* )( NULL ), .size = 0,                 .used = ( uint8_t* )( NULL ), .type = 0                    }
+  { .id =  NULL, .data = ( uint8_t* )( NULL ), .size = 0,                 .used = ( len_t* )( NULL ), .type = 0                    }
 };
 
 /** @brief      A specification of the

@@ -32,7 +32,7 @@ typedef enum   {
 } kernel_data_type_t;
 
 typedef struct {
-  char* id; uint8_t* data; uint8_t size; uint8_t* used; kernel_data_type_t type;
+  char* id; uint8_t* data; len_t size; len_t* used; kernel_data_type_t type;
 } kernel_data_spec_t;
 
 typedef struct {

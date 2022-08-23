@@ -36,54 +36,72 @@ char itox( int  x ) {
 
 // ----------------------------------------------------------------------------
 
-int strtobytes( uint8_t* r, int n_r, const char* x ) {
-  int n_x  = ( ( xtoi( *x++ ) & 0xF ) << 4 );
-      n_x |= ( ( xtoi( *x++ ) & 0xF ) << 0 );
+len_t strtobytes( uint8_t* r, len_t n_r, const char* x ) {
+  uint8_t t; len_t n_t = sizeof( len_t ), n_x = 0; 
+
+  #define PARSE(c,s) {            \
+    if( !isxdigit( t = *x++ ) ) { \
+      if( t == c ) {              \
+        break;                    \
+      }                           \
+      else {                      \
+        return -1;                \
+      }                           \
+    }                             \
+    else {                        \
+      s;                          \
+    }                             \
+  }
+
+  for( int i = 0; i < n_t; i++ ) {
+    PARSE( '\x3A', n_x      |= ( uint8_t )( xtoi( t ) & 0xF ) << ( 4 + ( 8 * i ) ) );
+    PARSE( '\x3A', n_x      |= ( uint8_t )( xtoi( t ) & 0xF ) << ( 0 + ( 8 * i ) ) );
+  }
 
   if( n_x > n_r ) {
     return -1;
   }
 
-  if( *x++ != ':' ) {
-    return -1;
-  }
-
-  uint8_t t;
-
   for( int i = 0; i < n_x; i++ ) {
     r[ i ] = 0;
 
-    if( ( t = *x++ ) != '\x00' ) {
-      if( !isxdigit( t ) ) {
-	break;
-      }
-
-      r[ i ] |= ( uint8_t )( xtoi( t ) & 0xF ) << 4;
-    }
-    if( ( t = *x++ ) != '\x00' ) {
-      if( !isxdigit( t ) ) {
-	break;
-      }
-
-      r[ i ] |= ( uint8_t )( xtoi( t ) & 0xF ) << 0;
-    }
+    PARSE( '\x00',   r[ i ] |= ( uint8_t )( xtoi( t ) & 0xF ) << ( 4             ) );
+    PARSE( '\x00',   r[ i ] |= ( uint8_t )( xtoi( t ) & 0xF ) << ( 0             ) );
   }
+
+  if( *x != '\x00' ) {
+    return -1;
+  }
+
+  #undef  PARSE
 
   return n_x;
 }
 
-int bytestostr( char* r, const uint8_t* x, int n_x ) {
-             *r++ = itox( ( n_x      >> 4 ) & 0xF );
-             *r++ = itox( ( n_x      >> 0 ) & 0xF );
+len_t bytestostr( char* r, const uint8_t* x, len_t n_x ) {
+  uint8_t t; len_t n_t = sizeof( len_t );
 
-             *r++ = ':';
+  while( n_t > 0 ) {
+    if( n_x & ( 0xFF << ( 8 * ( n_t - 1 ) ) ) ) {
+      break;
+    }
 
-  for( int i = 0; i < n_x; i++ ) {
-             *r++ = itox( (   x[ i ] >> 4 ) & 0xF );
-             *r++ = itox( (   x[ i ] >> 0 ) & 0xF );
+    n_t--;
   }
 
-             *r++ = '\x00';
+  for( int i = 0; i < n_t; i++ ) {
+    *r++ = itox( ( n_x      >> ( 4 + ( 8 * i ) ) ) & 0xF );
+    *r++ = itox( ( n_x      >> ( 0 + ( 8 * i ) ) ) & 0xF );
+  }
+
+    *r++ = '\x3A';
+
+  for( int i = 0; i < n_x; i++ ) {
+    *r++ = itox( (   x[ i ] >> ( 4             ) ) & 0xF );
+    *r++ = itox( (   x[ i ] >> ( 0             ) ) & 0xF );
+  }
+
+    *r++ = '\x00';
 
   return n_x;
 }

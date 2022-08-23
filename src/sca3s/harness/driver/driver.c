@@ -103,7 +103,7 @@ DRIVER_COMMAND(driver_data_sizeof   ) {
 
   for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
     if( 0 == strcmp( spec->id, req[ 0 ] ) ) {
-      uint8_t t =                                                         ( spec->size );
+      len_t t =                                                         ( spec->size );
 
       return bytestostr( ack, ( uint8_t* )( &t ), SIZEOF( t ) ) == SIZEOF( t );
     }
@@ -135,7 +135,7 @@ DRIVER_COMMAND(driver_data_usedof   ) {
 
   for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
     if( 0 == strcmp( spec->id, req[ 0 ] ) ) {
-      uint8_t t = ( spec->type & KERNEL_DATA_TYPE_V ) ? ( *spec->used ) : ( spec->size );
+      len_t t = ( spec->type & KERNEL_DATA_TYPE_V ) ? ( *spec->used ) : ( spec->size );
 
       return bytestostr( ack, ( uint8_t* )( &t ), SIZEOF( t ) ) == SIZEOF( t );
     }
@@ -167,7 +167,7 @@ DRIVER_COMMAND(driver_data_wr       ) {
 
   for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
     if( 0 == strcmp( spec->id, req[ 0 ] ) ) {
-      int t = strtobytes( spec->data,  spec->size, req[ 1 ] );
+      len_t t = strtobytes( spec->data,  spec->size, req[ 1 ] );
 
       if( ( t >= 0 ) && ( t <= spec->size ) ) {
         if( spec->type & KERNEL_DATA_TYPE_V ) {
@@ -212,7 +212,7 @@ DRIVER_COMMAND(driver_data_rd       ) {
 
   for( kernel_data_spec_t* spec = kernel_data_spec; spec->id != NULL; spec++ ) {    
     if( 0 == strcmp( spec->id, req[ 0 ] ) ) {
-      int t = 0;
+      len_t t = 0;
 
       if( spec->type & KERNEL_DATA_TYPE_V ) {
         t = bytestostr( ack, spec->data, *spec->used );

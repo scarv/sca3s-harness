@@ -39,13 +39,15 @@
 #define BITSOF_UINT32 32
 #define BITSOF_UINT64 64
 
+typedef uint32_t len_t;
+
 // ----------------------------------------------------------------------------
 
 extern int  xtoi( char x );
 extern char itox( int  x );
 
-extern int strtobytes( uint8_t* r, int n_r, const char* x );
-extern int bytestostr( char* r, const uint8_t* x, int n_x );
+extern len_t strtobytes( uint8_t* r, len_t n_r, const char* x );
+extern len_t bytestostr( char* r, const uint8_t* x, len_t n_x );
 
 // ============================================================================
 
